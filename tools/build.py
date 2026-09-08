@@ -177,6 +177,8 @@ def rendered_html(d:dict,r:dict|None=None,output_path='index.html')->str:
     template=re.sub(r'@@([A-Z_]+)@@',lambda m:tokens[m[1]],template)
     return template
 
+README_INLINE_LIMIT=8000
+
 def readme(d:dict)->str:
     L=['<a name="languages"></a>','',f'<img src="assets/icons/handbook.svg" width="48" height="48" alt="{d["site"]["title"]}">','',f'# {d["site"]["title"]}','','**Useful prompts, within reach. / 常用的提示词，随手可用。**','',
     'A multilingual handbook for **personal preferences**, **project workflows**, and **chat-level tasks and games**. Browse by scope, combine, and copy.  ', '按**用户级偏好**、**项目级工作流程**与**对话级任务和游戏**整理。选择条目，按需组合，直接复制。','',
@@ -186,7 +188,7 @@ def readme(d:dict)->str:
     for p in d['prompts']:
         a=text_for(p,'en');b=text_for(p,'zh-CN');level=p['level']
         L.append(f'| {d["locales"]["en"][level]} / {d["locales"]["zh-CN"][level]} | [{a["title"]}]({link(d,"en",level,p["id"])}) / [{b["title"]}]({link(d,"zh-CN",level,p["id"])}) | {a["description"]} |')
-    L+=['','Choose a language and expand an entry. Copy only its prompt code block; setup guidance and complete texts are available below.  ','选择语言，再展开条目。只复制提示词代码框；README 中保留全部正文和使用说明。','']
+    L+=['','Choose a language and expand an entry. Copy its prompt code block, or open the complete Markdown for long prompts.','','选择语言，再展开条目。复制提示词代码框；长篇提示词通过完整 Markdown 链接阅读和下载。','']
     locs=list(d['locales'].items())
     for i in range(0,len(locs),4):L+=[' · '.join(f'[{t["name"]}](#lang-{code.lower()})' for code,t in locs[i:i+4])+'  ']
     L+=['','> Scope describes intended usage, not API roles or elevated permissions. / 分类表示使用范围，不代表 API 角色或更高权限。','']
@@ -197,6 +199,10 @@ def readme(d:dict)->str:
             L+=[f'<a name="prompt-{p["id"]}-{code.lower()}"></a>','','<details>',f'<summary><strong>{E(t[level])} · {E(loc["title"])}</strong></summary>','',f'### {loc["title"]}','',loc['description'],'',f'[{t["open"]}]({link(d,code,level,p["id"])}) · `v{p["version"]}`','']
             if code not in p['locales']:
                 L +=[status_text(d,p,code),'',f'[{t["promptTitle"]} · {d["locales"][p["sourceLanguage"]]["name"]}](#prompt-{p["id"]}-{p["sourceLanguage"].lower()})','']
+            elif len(loc['body'])>README_INLINE_LIMIT:
+                # Keep the README below GitHub's 500 KiB rendering limit.
+                export=d['site']['url'].rstrip('/')+f'/prompts/{p["id"]}.{code}.md'
+                L +=[f'**{t["promptTitle"]}**','',f'[{t["download"]} · Markdown]({export})','']
             else:L +=[f'**{t["promptTitle"]}**','',fenced(loc['body']),'']
             for other in p.get('recommendedWith',[]):
                 q=next(x for x in d['prompts'] if x['id']==other)
@@ -208,7 +214,7 @@ def readme(d:dict)->str:
             L +=[f'**{t["commonTitle"]}**','',t['common'],'',f'**{t["reviewTitle"]}**','',f'{t["sourceLabel"]}: {d["locales"][p["sourceLanguage"]]["name"]} · {t["versionLabel"]}: {p["version"]} · {t["updatedLabel"]}: {p["updated"]}','',status_text(d,p,code),'',t['evaluationNote'],'','</details>','']
         L +=[t['notes'],'',t['lengthNote'],'',t['quality'],'',f'[{t["library"]} ↑](#languages)','','</details>','']
     L+=['---','','## Contribute / 参与维护','','[Contributing](CONTRIBUTING.md) · [中文维护指南](docs/MAINTAIN.zh-CN.md) · [Deployment / 部署](docs/PUBLISH.zh-CN.md) · [Testing](docs/TESTING.md) · [Evaluation protocol](docs/EVALUATION.md)','',
-    'Content lives in `content/library.json` (site, UI, service guides) and `content/prompts/*.json` (one file per prompt). Names are localized; IDs remain stable. The generator creates this complete README, the offline-capable root page, Markdown exports, and indexable static routes.','',
+    'Content lives in `content/library.json` (site, UI, service guides) and `content/prompts/*.json` (one file per prompt). Names are localized; IDs remain stable. The generator creates this README, the offline-capable root page, complete Markdown exports, and indexable static routes. Long prompts link to their full exports so the README stays within GitHub rendering limits.','',
     '```bash','python tools/build.py','python tools/build.py --check','python tools/test_unit.py','```','',
     'The supplied workflow validates and builds, runs browser regression checks, synchronizes generated repository files, then deploys `_site/`. Set GitHub Pages to **GitHub Actions**. Changes made through the GitHub editor can therefore update both the website and README after a successful run. See the deployment guide for permissions and protected-branch alternatives.','',
     'All translations are AI-assisted unless explicitly marked reviewed. No systematic model-effectiveness evaluation is claimed. The browser tests do not constitute native-language review or real-device certification.','',

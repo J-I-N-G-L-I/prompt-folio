@@ -11,10 +11,12 @@ class ContentTests(unittest.TestCase):
             self.assertEqual(D['site']['repository'].split('/')[-1],build.urlparse(D['site']['url']).path.strip('/'))
         self.assertNotIn('AI-direct-first/',build.readme(D)+build.rendered_html(D))
     def test_all_prompt_texts_survive(self):
-        readme=build.readme(D)
+        readme=build.readme(D);exports=build.site_outputs(D)
         for p in D['prompts']:
             for code,l in p['locales'].items():
-                self.assertIn(build.fenced(l['body']),readme)
+                if len(l['body'])<=build.README_INLINE_LIMIT:self.assertIn(build.fenced(l['body']),readme)
+                else:self.assertIn(f'/prompts/{p["id"]}.{code}.md',readme)
+                self.assertEqual(exports[f'prompts/{p["id"]}.{code}.md'],l['body']+'\n')
                 self.assertIn(build.E(l['body']),build.static_main(D,{'lang':code,'view':'prompt','level':p['level'],'prompt':p['id']},'./'))
     def test_translations_tied_to_source(self):
         for p in D['prompts']:
@@ -72,7 +74,8 @@ class ContentTests(unittest.TestCase):
         self.assertIn(f'prompts/{p["id"]}.zh-CN.md',doc)
         self.assertIn(build.E(build.status_text(d,p,'ar')),doc)
         readme=build.readme(d)
-        self.assertEqual(readme.count(build.fenced(p['locales']['zh-CN']['body'])),1)
+        self.assertIn(f'/prompts/{p["id"]}.zh-CN.md',readme)
+        self.assertNotIn(f'/prompts/{p["id"]}.ar.md',readme)
         self.assertIn(f'(#prompt-{p["id"]}-zh-cn)',readme)
     def test_custom_domain_at_root(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -104,5 +107,19 @@ class ContentTests(unittest.TestCase):
         doc=build.rendered_html(D,r,build.route_path(code,p['level'],p['id'])+'index.html')
         self.assertIn('href="../../../favicon.svg',doc)
         self.assertIn(f'{code}/{p["level"]}/{p["id"]}/',doc)
+    def test_dnd_complete_locale_coverage(self):
+        p=next(p for p in D['prompts'] if p['id']=='dnd-dungeon-master')
+        self.assertEqual(set(p['locales']),set(D['locales']))
+        self.assertEqual(hashlib.sha256(p['locales']['zh-CN']['body'].encode()).hexdigest(),'b1a42f89dd0c81fb0b1b4aae5dbe52320c8d28bf30fa27462fb1fa297e0fd76f')
+        for code,loc in p['locales'].items():
+            body=loc['body']
+            self.assertEqual(re.findall(r'^## (\d+)\.',body,re.M),[str(i) for i in range(11)],code)
+            self.assertNotIn('\ufffd',body,code)
+            for key in ('schema_version','campaign_id','save_id','state_version','last_event_id','last_roll_id','config','world','scene','characters','inventory','quests','knowledge','npcs_and_relationships','combat','pending_resolution','recent_log','rulings','recovery_limits'):
+                self.assertIn(key,body.replace('\\_','_'),code)
+            if code!='zh-CN':
+                self.assertNotEqual(body,p['locales']['zh-CN']['body'],code)
+                self.assertEqual(loc['translation']['effectiveStatus'],'ai-assisted',code)
+    def test_readme_within_github_limit(self):self.assertLess(len(build.readme(D).encode()),500*1024)
     def test_current_links(self):self.assertGreater(build.validate_internal_links(D,build.site_outputs(D)),100)
 if __name__=='__main__':unittest.main(verbosity=2)

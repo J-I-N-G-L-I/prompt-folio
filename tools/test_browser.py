@@ -73,6 +73,9 @@ def main():
                 if code not in p['locales']:
                     assert page.locator('.fallback-notice').is_visible()
                     assert page.locator('#canonical').get_attribute('href')==build.link(D,content_lang,p['level'],p['id'])
+                else:
+                    assert page.locator('.fallback-notice').count()==0
+                    assert page.locator('#canonical').get_attribute('href')==build.link(D,code,p['level'],p['id'])
                 layouts(page,code+'/'+p['id']);mock(page);copy(page,loc['body'],'#copy-prompt')
                 page.locator('#usage-panel>summary').click();assert page.locator('.usage-grid').is_visible()
                 if loc.get('starter'):copy(page,loc['starter'],'#copy-starter')
@@ -103,7 +106,16 @@ def main():
         assert page.locator('#prompt-text').text_content()==next(p for p in D['prompts'] if p['id']=='dnd-dungeon-master')['locales']['zh-CN']['body']
         page.locator('#sidebar .nav-link').filter(has_text=D['locales']['zh-CN']['chat']).click()
         assert page.locator('.entry').count()==1;assert page.locator('h1').inner_text()==D['locales']['zh-CN']['chat'];page.close()
-        report['checks']+=['DND search and chat-scope navigation','fallback content language and source-language downloads']
+        dnd=next(p for p in D['prompts'] if p['id']=='dnd-dungeon-master')
+        page=mount('zh-CN',dnd)
+        for code in D['locales']:
+            page.select_option('#language',code)
+            assert page.locator('#prompt-text').text_content()==dnd['locales'][code]['body']
+            assert page.locator('#prompt-text').get_attribute('lang')==code
+            assert page.locator('.fallback-notice').count()==0
+            assert page.locator('#canonical').get_attribute('href')==build.link(D,code,'chat',dnd['id'])
+        page.close()
+        report['checks']+=['DND search and chat-scope navigation','DND language switching across all 16 full translations','localized content, canonical URLs and download filenames']
         for code in ('en','zh-CN','ar'):
             page=mount(hash_route='lang='+code);assert page.locator('html').get_attribute('lang')==code;assert page.locator('.entry').count()==len(D['prompts']);page.close()
         page=mount('en',hash_route='prompt=paper-mentor&lang=zh-CN&with=direct-first');assert page.locator('.combine-toggle').first.is_checked();page.close()
@@ -125,8 +137,8 @@ def main():
         print('Checking dark mode and keyboard navigation',flush=True)
         # Generated HTML remains useful without JavaScript; no copy/composer claims.
         nojs=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844})
-        for code in ('en','zh-CN','ar'):
-            for prompt in D['prompts']:
+        for code in D['locales']:
+            for prompt in D['prompts'] if code in ('en','zh-CN','ar') else [dnd]:
                 print('No-JS',code,prompt['id'],flush=True)
                 pg=nojs.new_page();rp=build.route_path(code,prompt['level'],prompt['id'])+'index.html'
                 if args.memory:pg.set_content((ROOT/'_site'/rp).read_text(encoding='utf-8'),wait_until='domcontentloaded',timeout=15000)
@@ -148,7 +160,7 @@ def main():
         if args.screenshots:
             args.screenshots.mkdir(parents=True,exist_ok=True)
             dnd=next(p for p in D['prompts'] if p['id']=='dnd-dungeon-master')
-            for name,code,p,width in [('home-zh-desktop','zh-CN',None,1440),('home-zh-tablet','zh-CN',None,1024),('home-zh-mobile','zh-CN',None,390),('home-en-mobile','en',None,390),('paper-zh-desktop','zh-CN',D['prompts'][1],1440),('paper-zh-mobile','zh-CN',D['prompts'][1],390),('direct-zh-mobile','zh-CN',D['prompts'][0],390),('dnd-zh-desktop','zh-CN',dnd,1440),('dnd-zh-mobile','zh-CN',dnd,390),('dnd-ar-fallback','ar',dnd,390)]:
+            for name,code,p,width in [('home-zh-desktop','zh-CN',None,1440),('home-zh-tablet','zh-CN',None,1024),('home-zh-mobile','zh-CN',None,390),('home-en-mobile','en',None,390),('paper-zh-desktop','zh-CN',D['prompts'][1],1440),('paper-zh-mobile','zh-CN',D['prompts'][1],390),('direct-zh-mobile','zh-CN',D['prompts'][0],390),('dnd-zh-desktop','zh-CN',dnd,1440),('dnd-zh-mobile','zh-CN',dnd,390),('dnd-ar-mobile','ar',dnd,390),('dnd-en-mobile','en',dnd,390),('dnd-ja-mobile','ja',dnd,390),('dnd-hi-mobile','hi',dnd,390)]:
                 pg=mount(code,p);pg.set_viewport_size({'width':width,'height':1000 if width==1440 else 844});pg.screenshot(path=str(args.screenshots/(name+'.png')));pg.close()
         browser.close()
       assert not report['errors'],report['errors'];report['status']='passed'

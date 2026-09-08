@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.1.1 — 2026-09-08
+
+- Completed all 15 D&D translations alongside the unchanged Simplified Chinese source, covering all 16 interface locales without Chinese fallback. Narration defaults and commands are localized; rules, numerical examples and save fields are preserved.
+- Linked long prompts to complete Markdown exports in the README to stay below GitHub's 500 KiB rendering limit. Website reading, copying and downloads retain full text.
+- Added full-locale and chapter coverage, source-integrity and README-size checks; expanded browser checks to all D&D language switches and all 16 static no-JavaScript versions.
+- Translation status remains AI-assisted; no Google Translate, independent native-speaker review or gameplay-effectiveness evaluation is claimed.
+
 ## 3.1.0 — 2026-09-08
 
 - Added chat-level tasks and games (对话级), with labels and usage guidance in all 16 interface locales, dedicated routes and matching icons.

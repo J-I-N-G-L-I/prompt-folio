@@ -30,7 +30,7 @@ t=run('https://example.test/prompt-folio/#view=library&level=chat&lang=zh-CN','.
 assert.equal(t.state.level,'chat');
 t=run('https://example.test/prompt-folio/ar/chat/dnd-dungeon-master/');
 assert.equal(t.state.prompt,'dnd-dungeon-master');
-assert(t.promptText().includes('## 10. 初始化与第一条回应'));
+assert.equal(t.promptText(),d.prompts.find(p=>p.id==='dnd-dungeon-master').locales.ar.body);
 t=run('https://prompts.example.com/zh-CN/chat/dnd-dungeon-master/','../../../',false,'https://prompts.example.com/');
 assert.equal(t.state.prompt,'dnd-dungeon-master');
 assert.equal(t.target({view:'library',prompt:null,level:'chat'}),'/zh-CN/chat/');

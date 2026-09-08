@@ -1,12 +1,12 @@
 {
-  "release": "3.1.0",
+  "release": "3.1.1",
   "checked_at": "2026-09-08",
-  "baseline_commit": "329885c293f2e17d978e67308a7b4c6df06ac758",
+  "baseline_commit": "1d31678f1dc571fb3d4d52f51af48c1b87f4c6be",
   "source_build": "passed",
   "generated_html_documents": 130,
-  "markdown_exports": 33,
-  "internal_link_checks": 4090,
-  "unit_tests": 14,
+  "markdown_exports": 48,
+  "internal_link_checks": 4330,
+  "unit_tests": 16,
   "unit_status": "passed",
   "node_syntax": "passed",
   "routing_vm": "passed",
@@ -16,16 +16,16 @@
     "characters": 10521,
     "sha256": "b1a42f89dd0c81fb0b1b4aae5dbe52320c8d28bf30fa27462fb1fa297e0fd76f",
     "user_text_preserved": "exact after CRLF-to-LF normalization",
-    "translated_versions": 0
+    "translated_versions": 15
   },
   "browser": {
     "mode": "local HTTP Chromium",
     "locales": 16,
     "prompts": 3,
-    "viewport_checks": 552,
+    "viewport_checks": 604,
     "copy_checks": 80,
     "download_checks": 48,
-    "nojs_checks": 9,
+    "nojs_checks": 22,
     "checks": [
       "all available titles and bodies",
       "all scopes",
@@ -34,7 +34,8 @@
       "same-origin share URLs",
       "no horizontal overflow at four widths",
       "DND search and chat-scope navigation",
-      "fallback content language and source-language downloads",
+      "DND language switching across all 16 full translations",
+      "localized content, canonical URLs and download filenames",
       "cross-language aliases",
       "clear search on language change",
       "back returns full handbook",
@@ -43,7 +44,7 @@
       "asynchronous clipboard race",
       "actual Clipboard API round-trip in headless Chromium (native CRLF normalized)",
       "real static deep-link HTTP reload",
-      "9 JavaScript-disabled static documents",
+      "22 JavaScript-disabled static documents",
       "dark RTL",
       "keyboard skip link"
     ],
@@ -58,12 +59,129 @@
   },
   "custom_domain_root": "generator, canonical metadata, local links and routing VM passed",
   "visual_review": [
-    "home-zh-desktop",
-    "home-zh-tablet",
-    "dnd-zh-mobile",
-    "dnd-ar-fallback"
+    "dnd-ar-mobile",
+    "dnd-ja-mobile",
+    "dnd-hi-mobile",
+    "dnd-en-mobile"
   ],
   "github_workflow_execution": "not run remotely for this release",
   "deployment": "not deployed in this session",
-  "prompt_rules_or_effectiveness_evaluation": "not performed; user-supplied content preserved"
+  "prompt_rules_or_effectiveness_evaluation": "not performed; user-supplied content preserved",
+  "dnd_translation_audit": {
+    "method": "Direct AI translation with user-authorized parallel agents; no Google Translate or external translation service",
+    "locales": {
+      "zh-CN": {
+        "characters": 10521,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "b1a42f89dd0c81fb0b1b4aae5dbe52320c8d28bf30fa27462fb1fa297e0fd76f"
+      },
+      "en": {
+        "characters": 31875,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "fce968a5c20367aec630da81d743d056f453a862e3ce79e23ad2d16ab25240be"
+      },
+      "zh-TW": {
+        "characters": 10523,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "f9fd14f3e679feba7d0dc083e95f9b51f9e8971f102261720285ff29a43461d7"
+      },
+      "fr": {
+        "characters": 33084,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "bb9fce6d35ed3c63e43021e0382cbe2a3256be3e666f81ffc9719c1e1285044f"
+      },
+      "es": {
+        "characters": 33955,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "a6e8e01e8f52bad3b4427504435c5432675e02bee81bdd0b612e917f443e6e9d"
+      },
+      "de": {
+        "characters": 33354,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "97161c7bda5bdd280cddffdaebd87a7ab47b4ccfe0cd5f4c3bdfba3ff01727fa"
+      },
+      "pt-BR": {
+        "characters": 32229,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "e44ed276f0ae4e786b4e3edfb03a0cbb7452259d0a0ef76cdaff6fdcb12bc826"
+      },
+      "it": {
+        "characters": 37190,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "3bbac0a8812cf2aa6d0cb23d4ac566413614df6a33fd15ba50008c5be44dbfa7"
+      },
+      "ja": {
+        "characters": 14445,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "807f47068e2b0e493cdf83728e2fad6d52c6bf75a3aba8c84b70b1601f3dff2e"
+      },
+      "ko": {
+        "characters": 17037,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "d0d20aba6050b973a007dc91f52e07adc64579c7b3e390b86f05a1e72e05ac11"
+      },
+      "ar": {
+        "characters": 26875,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "206e88a34177f92dfa4a57cce87b669bf9ac5bf41844fe23785b8ecd35db12d3"
+      },
+      "hi": {
+        "characters": 29132,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "727fb4082b84a882802c60a84098c16ce6c43e0b6daa2e2ee53a0342434fec75"
+      },
+      "ru": {
+        "characters": 34262,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "f738eb6ff592a27300e206e5205b2e8fa83c359fba42181a6a326bc3d7982c0c"
+      },
+      "id": {
+        "characters": 37804,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "064db76ec823045821b78e63e0d90392d917858f1263ad2fe10aac7476c56eb4"
+      },
+      "tr": {
+        "characters": 34187,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "7a54fa4cd0f75b21aa3ca3738f892d244e173b8e63c08de9a3f48a9801f37874"
+      },
+      "az": {
+        "characters": 34442,
+        "chapters": 11,
+        "subsections": 18,
+        "sha256": "7854dfdaa21abded98c54dcdbfa8993840a5c6221b4bbba5baadf56553c0de4f"
+      }
+    },
+    "checks": [
+      "All 16 locale versions present",
+      "11 numbered chapters and 18 subsections per version",
+      "Required save fields retained",
+      "Key numerical references retained",
+      "No replacement characters or unexpected Chinese-language residue",
+      "Source Simplified Chinese SHA-256 unchanged",
+      "Target narration language and command consistency reviewed",
+      "Critical rules and private-state recovery clauses reviewed; identified terminology ambiguities corrected"
+    ]
+  },
+  "readme": {
+    "bytes": 242995,
+    "github_limit_bytes": 512000,
+    "long_prompt_inline_limit_characters": 8000,
+    "full_text_location": "Localized website reader and complete static Markdown exports"
+  }
 }

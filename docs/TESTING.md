@@ -1,44 +1,24 @@
-# Verification scope — Prompt Folio 3.1.0
+# Verification scope — Prompt Folio 3.1.1
 
-Date: 2026-09-08. Baseline repository revision: `329885c293f2e17d978e67308a7b4c6df06ac758`. This update was built and tested locally; it has not been committed, pushed or deployed by the assistant.
+Checked locally on 2026-09-08 against commit `1d31678f1dc571fb3d4d52f51af48c1b87f4c6be`. These checks do not certify the hosted GitHub Pages deployment.
 
-## Content and generated outputs
+The library contains three scopes and three prompts. Direct First and Paper Mentor retain their existing 16 versions each, unchanged. D&D Dungeon Master now includes all 16 locale versions: the unchanged Simplified Chinese original and 15 complete AI translations. No Google Translate or external translation service was used. Translations have not received independent native-speaker review.
 
-The library contains three scopes and three prompts. Direct First and Paper Mentor retain their existing 16 versions each, unchanged. D&D Dungeon Master contains the complete user-supplied Chinese original: 10,521 characters, with CRLF normalized to LF. Its game instructions are stored as content; they were not executed or independently evaluated as D&D rules.
+Each D&D version contains all 11 numbered chapters, 18 subsections and required save fields. The review covered edition boundaries, natural-roll exceptions, death saves, rest recovery, concentration, player intervention windows and private-state recovery. Identified terminology ambiguities were corrected. The Chinese source remains 10,521 characters, with SHA-256 `b1a42f89dd0c81fb0b1b4aae5dbe52320c8d28bf30fa27462fb1fa297e0fd76f`. Game instructions remain stored content; gameplay effectiveness was not evaluated.
 
-All 16 interface locales include chat-level labels and usage guidance. Missing D&D translations display a notice and the Chinese source, including the source language and direction on the text. Canonical metadata points to the Chinese entry, and Markdown filenames identify the actual content language. The README includes the complete original once and links to it from missing-language sections.
+The generator produces **130 HTML documents and 48 complete Markdown exports**, checking **4,330 local links**. All **16 unit tests**, JavaScript syntax checks and Node routing tests passed. Coverage includes full locale availability, source integrity, text preservation, export bytes, missing-translation fixtures, source escaping, scope routes, content extension and custom-domain roots.
 
-The generator produces **130 HTML documents and 33 static Markdown exports**, checking **4,090 local links**. The 14 unit tests and Node routing checks passed, covering source escaping, complete texts, scope routes, partial translations, content extension, service mappings and legacy links. A custom-domain fixture verifies generation and canonical links at an origin root; routing tests also cover root-level custom domains and the existing `/prompt-folio/` prefix. No real domain or DNS configuration was changed.
+Long prompts over 8,000 characters link to complete localized Markdown exports from the README. The README is checked against GitHub's [500 KiB display limit](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes). Website readers, copying and downloads retain full text; the root HTML also embeds all translations for offline use.
 
-## Browser and visual checks
+Real local HTTP testing used headless Chromium with the existing project URL prefix:
 
-Playwright 1.57.0 ran against installed headless Chrome on Windows over a real local HTTP server with the project path prefix. It passed:
+- **604 viewport checks** at 1440, 820, 390 and 320 pixels, including dark RTL and static pages.
+- **80 clipboard checks** for exact content, starters and combinations; denial and asynchronous-race handling were also checked. These use a controlled Clipboard API mock, plus one separate actual Clipboard API round-trip with native Windows CRLF normalization.
+- **48 browser-generated Markdown downloads**, checked for exact text and localized filenames.
+- All **16 D&D language switches**, with matching text, language attributes, canonical URLs and no fallback notices.
+- **22 JavaScript-disabled documents**, including every D&D locale, with complete text, correct direction and static downloads.
+- Search, navigation, legacy links, deep-link reloads, sharing and keyboard skip links.
 
-- 552 viewport inspections at widths of 1440, 820, 390 and 320 pixels;
-- 80 deterministic copy-content checks, plus actual Clipboard API read/write, denial and asynchronous-race cases;
-- 48 browser-generated Markdown downloads across the 16 interface locales, including source-text fallback downloads;
-- nine JavaScript-disabled documents with source-language text and download links;
-- scope navigation, cross-language search, old hashes, deep-link reload, missing-translation metadata, dark Arabic RTL and keyboard skip links.
+English, Japanese, Hindi and Arabic D&D mobile screenshots were visually inspected. Local images are in `.test-output/dnd-translation-screenshots/` and are not committed. The machine-readable [release report](test-report.json) records locale lengths, hashes and the browser run.
 
-The actual Windows Clipboard API check normalizes native CRLF line endings before comparison. All other copied content must match the source. Static export counts and browser download checks count different things: a missing translation downloads the existing source version.
-
-Chinese desktop and tablet homepages, the Chinese mobile D&D page, and the Arabic-interface D&D fallback page were visually inspected. Local screenshots are in `.test-output/chat-screenshots/` (not committed). The machine-readable [release report](test-report.json) records this run.
-
-## Reproduce
-
-```bash
-python tools/build.py
-python tools/build.py --check --repository J-I-N-G-L-I/prompt-folio
-python tools/test_unit.py
-node --check templates/app.js
-node tools/test_routes.cjs
-python -m pip install -r requirements-dev.txt
-python -m playwright install chromium
-python tools/test_browser.py --report .test-output/browser.json
-```
-
-To use an already-installed compatible browser, pass `--browser` with its executable path. To capture screenshots, add `--screenshots .test-output/screenshots`. The workflow installs Chromium and its Linux dependencies, then runs the default HTTP mode. `--memory` is available for restricted environments; record that mode explicitly if used.
-
-## Limits
-
-Hosted GitHub Pages, actual GitHub README rendering, DNS and certificate provisioning, physical devices, and screen-reader certification were not tested. This update does not claim native-speaker translation review or systematic model-effectiveness testing. See [EVALUATION.md](EVALUATION.md). Platform setup references retain their existing source dates; no claim is made that every AI service was signed into during this update.
+No remote GitHub workflow, production deployment, DNS change, physical-device certification, screen-reader certification or systematic model-effectiveness evaluation was performed in this session.
