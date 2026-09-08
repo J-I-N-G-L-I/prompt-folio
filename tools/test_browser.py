@@ -18,7 +18,7 @@ class Quiet(SimpleHTTPRequestHandler):
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--memory',action='store_true');ap.add_argument('--browser');ap.add_argument('--report',type=Path,default=ROOT/'.test-output/browser.json');ap.add_argument('--screenshots',type=Path);args=ap.parse_args()
-    report={'mode':'in-memory Chromium' if args.memory else 'local HTTP Chromium','locales':len(D['locales']),'prompts':len(D['prompts']),'viewport_checks':0,'copy_checks':0,'checks':[],'errors':[],
+    report={'mode':'in-memory Chromium' if args.memory else 'local HTTP Chromium','locales':len(D['locales']),'prompts':len(D['prompts']),'viewport_checks':0,'copy_checks':0,'download_checks':0,'nojs_checks':0,'checks':[],'errors':[],
         'limitations':['Hosted GitHub Pages and GitHub README rendering are not tested','Physical devices and screen readers are not certified','Translations have not received independent native-speaker review','AI prompt effectiveness is not measured']}
     if args.memory:report['limitations']+=['Local HTTP navigation is blocked by this environment; in-memory mode used','OS clipboard and storage adapters are simulated']
     class Handler(Quiet):
@@ -67,6 +67,12 @@ def main():
             for p in D['prompts']:
                 page=mount(code,p);loc=build.text_for(p,code)
                 assert page.locator('h1').inner_text()==loc['title'];assert page.locator('#prompt-text').text_content()==loc['body']
+                content_lang=code if code in p['locales'] else p['sourceLanguage']
+                assert page.locator('#prompt-text').get_attribute('lang')==content_lang
+                assert page.locator('#prompt-text').get_attribute('dir')==D['locales'][content_lang]['dir']
+                if code not in p['locales']:
+                    assert page.locator('.fallback-notice').is_visible()
+                    assert page.locator('#canonical').get_attribute('href')==build.link(D,content_lang,p['level'],p['id'])
                 layouts(page,code+'/'+p['id']);mock(page);copy(page,loc['body'],'#copy-prompt')
                 page.locator('#usage-panel>summary').click();assert page.locator('.usage-grid').is_visible()
                 if loc.get('starter'):copy(page,loc['starter'],'#copy-starter')
@@ -78,6 +84,7 @@ def main():
                     copy(page,actual,'#copy-prompt')
                 with page.expect_download(timeout=10000) as di:page.locator('#download').click()
                 down=di.value;assert Path(down.path()).read_text(encoding='utf-8')==page.locator('#prompt-text').text_content()+'\n'
+                assert down.suggested_filename.endswith('.'+content_lang+'.md');report['download_checks']+=1
                 page.locator('#share').dispatch_event('click');page.wait_for_timeout(20);shared=page.evaluate('window.__clipboard')
                 assert p['id'] in shared and code in shared and 'AI-direct-first/' not in shared
                 if not args.memory:assert urlparse(shared).netloc==urlparse(base).netloc
@@ -91,6 +98,12 @@ def main():
         page.fill('#search','unlikely-search-no-match');assert page.locator('.entry').count()==0
         page.select_option('#language','en');assert page.locator('#search').input_value()=='';assert page.locator('.entry').count()==len(D['prompts'])
         page.fill('#search','paper mentor');page.locator('.entry').first.click();page.wait_for_selector('#prompt-text');page.locator('.back-link').click();page.wait_for_selector('.entry');assert page.locator('.entry').count()==len(D['prompts']);page.close()
+        page=mount('zh-CN');page.fill('#search','DND');assert page.locator('.entry').count()==1
+        page.locator('.entry').click();page.wait_for_selector('#prompt-text')
+        assert page.locator('#prompt-text').text_content()==next(p for p in D['prompts'] if p['id']=='dnd-dungeon-master')['locales']['zh-CN']['body']
+        page.locator('#sidebar .nav-link').filter(has_text=D['locales']['zh-CN']['chat']).click()
+        assert page.locator('.entry').count()==1;assert page.locator('h1').inner_text()==D['locales']['zh-CN']['chat'];page.close()
+        report['checks']+=['DND search and chat-scope navigation','fallback content language and source-language downloads']
         for code in ('en','zh-CN','ar'):
             page=mount(hash_route='lang='+code);assert page.locator('html').get_attribute('lang')==code;assert page.locator('.entry').count()==len(D['prompts']);page.close()
         page=mount('en',hash_route='prompt=paper-mentor&lang=zh-CN&with=direct-first');assert page.locator('.combine-toggle').first.is_checked();page.close()
@@ -120,8 +133,13 @@ def main():
                 else:assert pg.goto(base+rp.removesuffix('index.html')).status==200
                 assert pg.locator('h1').inner_text()==build.text_for(prompt,code)['title']
                 assert pg.locator('pre.prompt').text_content()==build.text_for(prompt,code)['body']
+                content_lang=code if code in prompt['locales'] else prompt['sourceLanguage']
+                assert pg.locator('pre.prompt').get_attribute('lang')==content_lang
+                assert pg.locator('pre.prompt').get_attribute('dir')==D['locales'][content_lang]['dir']
+                assert pg.locator('a[download]').get_attribute('href').endswith(f'{prompt["id"]}.{content_lang}.md')
+                report['nojs_checks']+=1
                 layouts(pg,'no-JS/'+code+'/'+prompt['id']);pg.close()
-        nojs.close();report['checks']+=['six JavaScript-disabled static documents']
+        nojs.close();report['checks']+=[f'{report["nojs_checks"]} JavaScript-disabled static documents']
         print('Checking final dark-mode and skip-link cases',flush=True)
         # Dark mode and keyboard-only access.
         page=mount('ar',D['prompts'][1]);page.emulate_media(color_scheme='dark');layouts(page,'dark-ar');page.close()
@@ -129,7 +147,8 @@ def main():
         report['checks']+=['dark RTL','keyboard skip link']
         if args.screenshots:
             args.screenshots.mkdir(parents=True,exist_ok=True)
-            for name,code,p,width in [('home-zh-desktop','zh-CN',None,1440),('home-zh-mobile','zh-CN',None,390),('home-en-mobile','en',None,390),('paper-zh-desktop','zh-CN',D['prompts'][1],1440),('paper-zh-mobile','zh-CN',D['prompts'][1],390),('direct-zh-mobile','zh-CN',D['prompts'][0],390)]:
+            dnd=next(p for p in D['prompts'] if p['id']=='dnd-dungeon-master')
+            for name,code,p,width in [('home-zh-desktop','zh-CN',None,1440),('home-zh-tablet','zh-CN',None,1024),('home-zh-mobile','zh-CN',None,390),('home-en-mobile','en',None,390),('paper-zh-desktop','zh-CN',D['prompts'][1],1440),('paper-zh-mobile','zh-CN',D['prompts'][1],390),('direct-zh-mobile','zh-CN',D['prompts'][0],390),('dnd-zh-desktop','zh-CN',dnd,1440),('dnd-zh-mobile','zh-CN',dnd,390),('dnd-ar-fallback','ar',dnd,390)]:
                 pg=mount(code,p);pg.set_viewport_size({'width':width,'height':1000 if width==1440 else 844});pg.screenshot(path=str(args.screenshots/(name+'.png')));pg.close()
         browser.close()
       assert not report['errors'],report['errors'];report['status']='passed'

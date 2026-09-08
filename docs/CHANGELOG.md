@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.1.0 — 2026-09-08
+
+- Added chat-level tasks and games (对话级), with labels and usage guidance in all 16 interface locales, dedicated routes and matching icons.
+- Added D&D Dungeon Master 1.0.0 with the complete user-supplied Chinese prompt. Only line endings are normalized; other interface languages explicitly fall back to Chinese.
+- Updated desktop scope cards and mobile filters for three scopes. Source-language labels, direction, canonical links and Markdown filenames remain accurate when translations are absent.
+- Kept a single complete original in the README for entries without translations, with links from missing-language sections. Existing translated prompt bodies are unchanged.
+- Added chat-route, fallback-content and custom-domain-root regression checks, and documented Pages publishing-source and domain configuration.
+
 ## 3.0.0 — 2026-09-08
 
 - Completed the Prompt Folio brand and repository/Pages-address migration.

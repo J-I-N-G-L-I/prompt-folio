@@ -2,6 +2,7 @@ MINI = {
 'grid':'<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/>',
 'user':'<path d="M4 7h16M4 17h16"/><rect x="8" y="4" width="4" height="6" rx="2" fill="var(--bg)"/><rect x="14" y="14" width="4" height="6" rx="2" fill="var(--bg)"/>',
 'project':'<path d="M3 8V6a2 2 0 0 1 2-2h5l3 3h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8ZM3 10h18"/>',
+'chat':'<path d="M5 4h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-8l-6 3v-3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM7 9h10M7 14h7"/>',
 'book':'<path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1ZM12 6v14"/>',
 'copy':'<rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/>',
 'download':'<path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/>',

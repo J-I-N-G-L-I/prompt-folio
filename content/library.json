@@ -4,7 +4,7 @@
     "title": "Prompt Folio",
     "repository": "https://github.com/J-I-N-G-L-I/prompt-folio",
     "url": "https://j-i-n-g-l-i.github.io/prompt-folio/",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "checked": "2026-09-08",
     "branch": "main"
   },
@@ -16,6 +16,10 @@
     {
       "id": "project",
       "icon": "project"
+    },
+    {
+      "id": "chat",
+      "icon": "chat"
     }
   ],
   "locales": {
@@ -64,7 +68,7 @@
       "starter": "Start a conversation",
       "starterCopy": "Copy starter",
       "quickTitle": "Choose. Copy. Use.",
-      "quickText": "Save personal defaults in account instructions and focused workflows in a project or custom assistant. Without that feature, paste the prompt at the start of a new chat. This site never changes your AI settings.",
+      "quickText": "Save personal defaults in account instructions and recurring workflows in a project. Start chat-level tasks or games by pasting their prompt into a new conversation. This site never changes your AI settings.",
       "countText": "{prompts} prompts · {levels} scopes · {languages} languages",
       "readmeGuide": "Expand the prompts and guide",
       "combinedUser": "Writing preference · Direct First",
@@ -102,7 +106,10 @@
         "claude-project": "Open a project, choose Set project instructions, paste the prompt, and save.",
         "gemini-project": "On the web, open Gems, create a New Gem, enter its name and instructions, and save.",
         "perplexity-project": "Open the project and edit its instructions under Settings → Context."
-      }
+      },
+      "chat": "Chat-level",
+      "chatDesc": "Ready-to-use tasks and games for the current conversation.",
+      "chatUse": "Paste the full prompt into the first message of a new chat, then add your goal or context. Continue in that chat; paste it again when starting another. Bring relevant notes or a save file when resuming."
     },
     "zh-CN": {
       "name": "简体中文",
@@ -149,7 +156,7 @@
       "starter": "开始一次研读",
       "starterCopy": "复制开场提问",
       "quickTitle": "选择、复制，放到合适的位置。",
-      "quickText": "将长期偏好放入账号指令，将专用工作流程放入项目或自定义助手。没有对应功能时，可在新对话开头粘贴。本网站不会修改你的 AI 设置。",
+      "quickText": "将长期偏好放入账号指令，将持续工作流程放入项目；对话级任务与游戏直接在新聊天开头粘贴。本网站不会修改你的 AI 设置。",
       "countText": "{prompts} 条提示词 · {levels} 个级别 · {languages} 种语言",
       "readmeGuide": "展开提示词与指南",
       "combinedUser": "写作偏好 · 先说重点",
@@ -187,7 +194,10 @@
         "claude-project": "打开项目 → 设置项目指令 → 粘贴提示词 → 保存指令。",
         "gemini-project": "在网页版打开 Gems → 新建 Gem → 填写名称和指令 → 保存。",
         "perplexity-project": "打开项目 → 设置 → 上下文，在指令中粘贴并保存。"
-      }
+      },
+      "chat": "对话级",
+      "chatDesc": "即贴即用的任务与游戏，在当前对话中展开。",
+      "chatUse": "在新聊天的第一条消息中粘贴完整提示词，再补充目标或背景。可以在当前聊天中持续互动；开启新聊天时重新粘贴，续聊时带上必要记录或存档。"
     },
     "zh-TW": {
       "name": "繁體中文",
@@ -234,7 +244,7 @@
       "starter": "開始一次研讀",
       "starterCopy": "複製開場提問",
       "quickTitle": "選擇、複製，放到合適的位置。",
-      "quickText": "將長期偏好放入帳號指令，專用工作流程放入專案或自訂助手。沒有對應功能時，可在新對話開頭貼上。本網站不會修改你的 AI 設定。",
+      "quickText": "將長期偏好放入帳號指令，將持續工作流程放入專案；對話級任務與遊戲直接在新聊天開頭貼上。本網站不會修改你的 AI 設定。",
       "countText": "{prompts} 條提示詞 · {levels} 個層級 · {languages} 種語言",
       "readmeGuide": "展開提示詞與指南",
       "combinedUser": "寫作偏好 · 先說重點",
@@ -272,7 +282,10 @@
         "claude-project": "開啟專案 → 設定專案指令 → 貼上提示詞 → 儲存指令。",
         "gemini-project": "在網頁版開啟 Gems → 新增 Gem → 填寫名稱與指令 → 儲存。",
         "perplexity-project": "開啟專案 → 設定 → 上下文，在指令中貼上並儲存。"
-      }
+      },
+      "chat": "對話級",
+      "chatDesc": "即貼即用的任務與遊戲，在目前對話中展開。",
+      "chatUse": "在新聊天的第一則訊息中貼上完整提示詞，再補充目標或背景。可在目前聊天中持續互動；開啟新聊天時重新貼上，續聊時附上必要紀錄或存檔。"
     },
     "es": {
       "name": "Español",
@@ -319,7 +332,7 @@
       "starter": "Iniciar una lectura",
       "starterCopy": "Copiar pregunta inicial",
       "quickTitle": "Elige. Copia. Usa.",
-      "quickText": "Guarda preferencias generales en la cuenta y flujos específicos en un proyecto o asistente personalizado. Sin esa función, pega el prompt al inicio de un chat nuevo. Este sitio no modifica tus ajustes de IA.",
+      "quickText": "Guarda tus preferencias en las instrucciones de la cuenta y los flujos recurrentes en un proyecto. Para tareas o juegos de conversación, pega el prompt al iniciar un chat. Este sitio no cambia tus ajustes de IA.",
       "countText": "{prompts} prompts · {levels} ámbitos · {languages} idiomas",
       "readmeGuide": "Desplegar prompts y guía",
       "combinedUser": "Preferencia de escritura · Primero lo esencial",
@@ -357,7 +370,10 @@
         "claude-project": "Abre el proyecto → establecer instrucciones → pega el prompt → guarda.",
         "gemini-project": "En la web: Gems → nuevo Gem → nombre e instrucciones → guardar.",
         "perplexity-project": "Abre el proyecto → ajustes → contexto y edita las instrucciones."
-      }
+      },
+      "chat": "Por conversación",
+      "chatDesc": "Tareas y juegos listos para usar en la conversación actual.",
+      "chatUse": "Pega el prompt completo en el primer mensaje de un chat nuevo y añade tu objetivo o contexto. Continúa en ese chat; vuelve a pegarlo al abrir otro. Para retomar, incluye las notas o la partida guardada necesarias."
     },
     "fr": {
       "name": "Français",
@@ -404,7 +420,7 @@
       "starter": "Commencer une lecture",
       "starterCopy": "Copier la question initiale",
       "quickTitle": "Choisir. Copier. Utiliser.",
-      "quickText": "Placez les préférences générales dans le compte et les workflows dédiés dans un projet ou assistant personnalisé. À défaut, collez le prompt au début d’une nouvelle conversation. Ce site ne modifie pas vos réglages d’IA.",
+      "quickText": "Enregistrez vos préférences dans les instructions du compte et vos processus récurrents dans un projet. Lancez les tâches ou jeux de conversation en collant le prompt dans un nouveau chat. Ce site ne modifie pas vos paramètres d’IA.",
       "countText": "{prompts} prompts · {levels} périmètres · {languages} langues",
       "readmeGuide": "Déplier les prompts et le guide",
       "combinedUser": "Préférence rédactionnelle · L’essentiel d’abord",
@@ -442,7 +458,10 @@
         "claude-project": "Ouvrez le projet → définir les consignes → collez le prompt → enregistrez.",
         "gemini-project": "Sur le Web : Gems → nouveau Gem → nom et consignes → enregistrer.",
         "perplexity-project": "Ouvrez le projet → paramètres → contexte et modifiez les consignes."
-      }
+      },
+      "chat": "Conversation",
+      "chatDesc": "Des tâches et des jeux à lancer dans la conversation en cours.",
+      "chatUse": "Collez le prompt complet dans le premier message d’une nouvelle conversation, puis ajoutez votre objectif ou contexte. Continuez dans cette conversation ; recollez-le pour en ouvrir une autre. Pour reprendre, joignez les notes ou la sauvegarde nécessaires."
     },
     "de": {
       "name": "Deutsch",
@@ -489,7 +508,7 @@
       "starter": "Eine Lektüre beginnen",
       "starterCopy": "Einstiegsfrage kopieren",
       "quickTitle": "Wählen. Kopieren. Nutzen.",
-      "quickText": "Allgemeine Präferenzen ins Konto, spezialisierte Abläufe in ein Projekt oder einen eigenen Assistenten eintragen. Fehlt diese Funktion, den Prompt zu Beginn eines neuen Chats einfügen. Diese Website ändert keine KI-Einstellungen.",
+      "quickText": "Speichere persönliche Vorgaben in den Kontoeinstellungen und wiederkehrende Abläufe in einem Projekt. Starte Aufgaben oder Spiele auf Chat-Ebene mit dem Prompt in einem neuen Gespräch. Diese Website ändert keine KI-Einstellungen.",
       "countText": "{prompts} Prompts · {levels} Bereiche · {languages} Sprachen",
       "readmeGuide": "Prompts und Anleitung aufklappen",
       "combinedUser": "Schreibpräferenz · Das Wesentliche zuerst",
@@ -527,7 +546,10 @@
         "claude-project": "Projekt öffnen → Projektanweisungen festlegen → Prompt einfügen → speichern.",
         "gemini-project": "Im Web: Gems → neuer Gem → Name und Anweisungen → speichern.",
         "perplexity-project": "Projekt öffnen → Einstellungen → Kontext; dort die Anweisungen bearbeiten."
-      }
+      },
+      "chat": "Chat-Ebene",
+      "chatDesc": "Aufgaben und Spiele für das aktuelle Gespräch, direkt einsatzbereit.",
+      "chatUse": "Füge den vollständigen Prompt in die erste Nachricht eines neuen Chats ein und ergänze dein Ziel oder den Kontext. Setze das Gespräch dort fort; füge den Prompt in einem neuen Chat erneut ein. Bringe zum Fortsetzen relevante Notizen oder einen Spielstand mit."
     },
     "pt-BR": {
       "name": "Português (Brasil)",
@@ -574,7 +596,7 @@
       "starter": "Começar uma leitura",
       "starterCopy": "Copiar pergunta inicial",
       "quickTitle": "Escolha. Copie. Use.",
-      "quickText": "Salve preferências gerais na conta e fluxos específicos em um projeto ou assistente personalizado. Sem esse recurso, cole o prompt no início de uma conversa nova. Este site não modifica suas configurações de IA.",
+      "quickText": "Salve preferências nas instruções da conta e fluxos recorrentes em um projeto. Para tarefas ou jogos por conversa, cole o prompt no início de um novo chat. Este site não altera suas configurações de IA.",
       "countText": "{prompts} prompts · {levels} escopos · {languages} idiomas",
       "readmeGuide": "Expandir prompts e guia",
       "combinedUser": "Preferência de escrita · O essencial primeiro",
@@ -612,7 +634,10 @@
         "claude-project": "Abra o projeto → definir instruções → cole o prompt → salve.",
         "gemini-project": "Na web: Gems → novo Gem → nome e instruções → salvar.",
         "perplexity-project": "Abra o projeto → configurações → contexto e edite as instruções."
-      }
+      },
+      "chat": "Por conversa",
+      "chatDesc": "Tarefas e jogos prontos para usar na conversa atual.",
+      "chatUse": "Cole o prompt completo na primeira mensagem de uma nova conversa e acrescente seu objetivo ou contexto. Continue nessa conversa; cole novamente ao iniciar outra. Para retomar, inclua as anotações ou o jogo salvo necessários."
     },
     "it": {
       "name": "Italiano",
@@ -659,7 +684,7 @@
       "starter": "Inizia una lettura",
       "starterCopy": "Copia domanda iniziale",
       "quickTitle": "Scegli. Copia. Usa.",
-      "quickText": "Salva preferenze generali nell’account e flussi specifici in un progetto o assistente personalizzato. In assenza della funzione, incolla il prompt all’inizio di una nuova chat. Questo sito non modifica le impostazioni della tua IA.",
+      "quickText": "Salva le preferenze nelle istruzioni dell’account e i flussi ricorrenti in un progetto. Avvia attività o giochi per conversazione incollando il prompt in una nuova chat. Questo sito non modifica le impostazioni della tua IA.",
       "countText": "{prompts} prompt · {levels} ambiti · {languages} lingue",
       "readmeGuide": "Espandi prompt e guida",
       "combinedUser": "Preferenza di scrittura · Prima il punto centrale",
@@ -697,7 +722,10 @@
         "claude-project": "Apri il progetto → imposta istruzioni → incolla il prompt → salva.",
         "gemini-project": "Sul Web: Gems → nuovo Gem → nome e istruzioni → salva.",
         "perplexity-project": "Apri il progetto → impostazioni → contesto e modifica le istruzioni."
-      }
+      },
+      "chat": "Conversazione",
+      "chatDesc": "Attività e giochi pronti all’uso nella conversazione attuale.",
+      "chatUse": "Incolla il prompt completo nel primo messaggio di una nuova chat e aggiungi il tuo obiettivo o contesto. Continua in quella chat; incollalo di nuovo quando ne apri un’altra. Per riprendere, includi le note o il salvataggio necessari."
     },
     "ja": {
       "name": "日本語",
@@ -744,7 +772,7 @@
       "starter": "論文読解を始める",
       "starterCopy": "最初の質問をコピー",
       "quickTitle": "選んで、コピーして、使う。",
-      "quickText": "長期的な好みはアカウント設定、専用の作業手順はプロジェクトやカスタムアシスタントに保存します。機能がない場合は新しい会話の冒頭に貼り付けてください。このサイトが AI の設定を変更することはありません。",
+      "quickText": "長期的な好みはアカウントの指示に、継続的な作業はプロジェクトに保存します。会話単位のタスクやゲームは新しいチャットにプロンプトを貼って開始します。このサイトがAIの設定を変更することはありません。",
       "countText": "{prompts} 件のプロンプト · {levels} つの範囲 · {languages} 言語",
       "readmeGuide": "プロンプトとガイドを開く",
       "combinedUser": "文章の好み · 要点から伝える",
@@ -782,7 +810,10 @@
         "claude-project": "プロジェクトを開く → プロジェクト指示を設定 → 貼り付け → 保存。",
         "gemini-project": "ウェブ版で Gems → 新しい Gem → 名前と指示を入力 → 保存。",
         "perplexity-project": "プロジェクトを開く → 設定 → コンテキストで指示を編集します。"
-      }
+      },
+      "chat": "会話単位",
+      "chatDesc": "今の会話で始められる、そのまま使えるタスクやゲーム。",
+      "chatUse": "新しいチャットの最初のメッセージにプロンプト全文を貼り、目的や背景を加えてください。同じチャットでやり取りを続けられます。別のチャットでは貼り直し、再開時には必要な記録やセーブデータを添えてください。"
     },
     "ko": {
       "name": "한국어",
@@ -829,7 +860,7 @@
       "starter": "논문 읽기 시작",
       "starterCopy": "시작 질문 복사",
       "quickTitle": "선택하고, 복사하고, 사용하세요.",
-      "quickText": "일반 선호는 계정 지침에, 전용 작업은 프로젝트나 맞춤형 도우미에 저장하세요. 기능이 없으면 새 대화 첫 부분에 붙여 넣으세요. 이 사이트는 AI 설정을 변경하지 않습니다.",
+      "quickText": "장기적인 선호는 계정 지침에, 반복 작업은 프로젝트에 저장하세요. 대화 수준의 작업이나 게임은 새 채팅에 프롬프트를 붙여넣어 시작합니다. 이 사이트는 AI 설정을 변경하지 않습니다.",
       "countText": "프롬프트 {prompts}개 · 적용 범위 {levels}개 · {languages}개 언어",
       "readmeGuide": "프롬프트와 안내 펼치기",
       "combinedUser": "글쓰기 선호 · 핵심부터 말하기",
@@ -867,7 +898,10 @@
         "claude-project": "프로젝트 열기 → 프로젝트 지침 설정 → 붙여 넣기 → 저장.",
         "gemini-project": "웹에서 Gems → 새 Gem → 이름과 지침 입력 → 저장.",
         "perplexity-project": "프로젝트 열기 → 설정 → 컨텍스트에서 지침을 편집하세요."
-      }
+      },
+      "chat": "대화 수준",
+      "chatDesc": "현재 대화에서 바로 시작하는 작업과 게임.",
+      "chatUse": "새 채팅의 첫 메시지에 프롬프트 전체를 붙여넣고 목표나 배경을 추가하세요. 같은 채팅에서 계속 대화할 수 있습니다. 새 채팅에서는 다시 붙여넣고, 재개할 때는 필요한 기록이나 저장 파일을 함께 제공하세요."
     },
     "ar": {
       "name": "العربية",
@@ -914,7 +948,7 @@
       "starter": "بدء قراءة بحث",
       "starterCopy": "نسخ السؤال الافتتاحي",
       "quickTitle": "اختر. انسخ. استخدم.",
-      "quickText": "احفظ التفضيلات العامة في تعليمات الحساب والعمل المتخصص في مشروع أو مساعد مخصص. عند غياب الميزة، الصق التعليمات في بداية محادثة جديدة. هذا الموقع لا يغيّر إعدادات الذكاء الاصطناعي لديك.",
+      "quickText": "احفظ تفضيلاتك في تعليمات الحساب وسير العمل المتكرر في مشروع. ابدأ مهام المحادثة أو ألعابها بلصق الموجّه في محادثة جديدة. لا يغيّر هذا الموقع إعدادات الذكاء الاصطناعي لديك.",
       "countText": "{prompts} تعليمات · {levels} نطاقات · {languages} لغة",
       "readmeGuide": "عرض التعليمات والدليل",
       "combinedUser": "تفضيل الكتابة · الفكرة الأساسية أولًا",
@@ -952,7 +986,10 @@
         "claude-project": "افتح المشروع ← تعيين تعليمات المشروع ← الصق النص ← احفظ.",
         "gemini-project": "على الويب: Gems ← إنشاء Gem ← الاسم والتعليمات ← حفظ.",
         "perplexity-project": "افتح المشروع ← الإعدادات ← السياق، ثم عدّل التعليمات."
-      }
+      },
+      "chat": "مستوى المحادثة",
+      "chatDesc": "مهام وألعاب جاهزة للاستخدام في المحادثة الحالية.",
+      "chatUse": "الصق الموجّه كاملًا في أول رسالة بمحادثة جديدة، ثم أضف هدفك أو السياق. تابع في المحادثة نفسها؛ وأعد لصقه عند بدء محادثة أخرى. عند الاستئناف، أرفق الملاحظات اللازمة أو ملف الحفظ."
     },
     "hi": {
       "name": "हिन्दी",
@@ -999,7 +1036,7 @@
       "starter": "शोधपत्र पढ़ना शुरू करें",
       "starterCopy": "शुरुआती प्रश्न कॉपी करें",
       "quickTitle": "चुनें। कॉपी करें। उपयोग करें।",
-      "quickText": "सामान्य प्राथमिकताएँ खाते में और विशेष कार्यप्रवाह परियोजना या कस्टम सहायक में सहेजें। सुविधा न हो तो नए चैट की शुरुआत में प्रॉम्प्ट चिपकाएँ। यह साइट आपकी AI सेटिंग नहीं बदलती।",
+      "quickText": "स्थायी पसंद खाते के निर्देशों में और बार-बार होने वाले काम प्रोजेक्ट में रखें। वार्तालाप स्तर के काम या खेल नई चैट में प्रॉम्प्ट पेस्ट करके शुरू करें। यह साइट आपकी AI सेटिंग नहीं बदलती।",
       "countText": "{prompts} प्रॉम्प्ट · {levels} दायरे · {languages} भाषाएँ",
       "readmeGuide": "प्रॉम्प्ट और मार्गदर्शिका खोलें",
       "combinedUser": "लेखन प्राथमिकता · पहले मुख्य बात",
@@ -1037,7 +1074,10 @@
         "claude-project": "परियोजना खोलें → परियोजना निर्देश सेट करें → चिपकाएँ → सहेजें।",
         "gemini-project": "वेब पर: Gems → नया Gem → नाम और निर्देश → सहेजें।",
         "perplexity-project": "परियोजना खोलें → सेटिंग → संदर्भ में निर्देश संपादित करें।"
-      }
+      },
+      "chat": "वार्तालाप स्तर",
+      "chatDesc": "मौजूदा बातचीत में तुरंत शुरू किए जा सकने वाले काम और खेल।",
+      "chatUse": "नई चैट के पहले संदेश में पूरा प्रॉम्प्ट पेस्ट करें, फिर अपना लक्ष्य या संदर्भ जोड़ें। उसी चैट में बातचीत जारी रखें; दूसरी चैट शुरू करते समय इसे फिर पेस्ट करें। दोबारा शुरू करने के लिए ज़रूरी नोट्स या सेव फ़ाइल साथ दें।"
     },
     "ru": {
       "name": "Русский",
@@ -1084,7 +1124,7 @@
       "starter": "Начать чтение статьи",
       "starterCopy": "Копировать первый вопрос",
       "quickTitle": "Выбрать. Скопировать. Применить.",
-      "quickText": "Сохраняйте общие предпочтения в аккаунте, специальные сценарии — в проекте или собственном помощнике. Если функции нет, вставьте промпт в начало нового чата. Сайт не меняет настройки вашего ИИ.",
+      "quickText": "Сохраните постоянные предпочтения в инструкциях аккаунта, а повторяющиеся процессы — в проекте. Задания и игры уровня беседы начинайте с промпта в новом чате. Этот сайт не меняет настройки вашего ИИ.",
       "countText": "{prompts} промпта · {levels} уровня · {languages} языков",
       "readmeGuide": "Развернуть промпты и руководство",
       "combinedUser": "Предпочтение стиля · Сначала главное",
@@ -1122,7 +1162,10 @@
         "claude-project": "Откройте проект → задать инструкции проекта → вставьте текст → сохраните.",
         "gemini-project": "В веб-версии: Gems → новый Gem → имя и инструкции → сохранить.",
         "perplexity-project": "Откройте проект → настройки → контекст и измените инструкции."
-      }
+      },
+      "chat": "Уровень беседы",
+      "chatDesc": "Готовые задания и игры для текущей беседы.",
+      "chatUse": "Вставьте полный промпт в первое сообщение нового чата и добавьте цель или контекст. Продолжайте в этом чате; при открытии другого вставьте промпт снова. Для продолжения приложите нужные записи или сохранение."
     },
     "id": {
       "name": "Bahasa Indonesia",
@@ -1169,7 +1212,7 @@
       "starter": "Mulai membaca makalah",
       "starterCopy": "Salin pertanyaan awal",
       "quickTitle": "Pilih. Salin. Gunakan.",
-      "quickText": "Simpan preferensi umum di akun dan alur khusus di proyek atau asisten kustom. Tanpa fitur tersebut, tempel prompt di awal percakapan baru. Situs ini tidak mengubah pengaturan AI Anda.",
+      "quickText": "Simpan preferensi dalam instruksi akun dan alur kerja berulang dalam proyek. Mulai tugas atau permainan tingkat percakapan dengan menempelkan prompt di obrolan baru. Situs ini tidak mengubah pengaturan AI Anda.",
       "countText": "{prompts} prompt · {levels} cakupan · {languages} bahasa",
       "readmeGuide": "Buka prompt dan panduan",
       "combinedUser": "Preferensi penulisan · Inti lebih dahulu",
@@ -1207,7 +1250,10 @@
         "claude-project": "Buka proyek → tetapkan instruksi proyek → tempel prompt → simpan.",
         "gemini-project": "Di web: Gems → Gem baru → nama dan instruksi → simpan.",
         "perplexity-project": "Buka proyek → pengaturan → konteks, lalu edit instruksi."
-      }
+      },
+      "chat": "Tingkat percakapan",
+      "chatDesc": "Tugas dan permainan siap pakai dalam percakapan saat ini.",
+      "chatUse": "Tempelkan prompt lengkap pada pesan pertama obrolan baru, lalu tambahkan tujuan atau konteks. Lanjutkan di obrolan tersebut; tempelkan kembali saat memulai obrolan lain. Untuk melanjutkan, sertakan catatan atau berkas simpanan yang diperlukan."
     },
     "tr": {
       "name": "Türkçe",
@@ -1254,7 +1300,7 @@
       "starter": "Makale okumaya başla",
       "starterCopy": "Başlangıç sorusunu kopyala",
       "quickTitle": "Seçin. Kopyalayın. Kullanın.",
-      "quickText": "Genel tercihleri hesapta, özel iş akışlarını proje veya özel asistanda saklayın. Özellik yoksa promptu yeni sohbetin başına yapıştırın. Bu site AI ayarlarınızı değiştirmez.",
+      "quickText": "Kalıcı tercihlerinizi hesap talimatlarına, tekrarlanan iş akışlarını bir projeye kaydedin. Sohbet düzeyindeki görev veya oyunları yeni bir sohbete istemi yapıştırarak başlatın. Bu site yapay zekâ ayarlarınızı değiştirmez.",
       "countText": "{prompts} prompt · {levels} kapsam · {languages} dil",
       "readmeGuide": "Promptları ve rehberi aç",
       "combinedUser": "Yazım tercihi · Önce ana fikir",
@@ -1292,7 +1338,10 @@
         "claude-project": "Projeyi açın → proje talimatlarını ayarla → promptu yapıştır → kaydet.",
         "gemini-project": "Web üzerinde: Gems → yeni Gem → ad ve talimatlar → kaydet.",
         "perplexity-project": "Projeyi açın → ayarlar → bağlam; talimatları düzenleyin."
-      }
+      },
+      "chat": "Sohbet düzeyi",
+      "chatDesc": "Mevcut sohbette hemen kullanılabilecek görevler ve oyunlar.",
+      "chatUse": "Yeni bir sohbetin ilk mesajına istemin tamamını yapıştırın, ardından amacınızı veya bağlamı ekleyin. Aynı sohbette devam edin; başka bir sohbet açarken yeniden yapıştırın. Devam etmek için gerekli notları veya kayıt dosyasını ekleyin."
     },
     "az": {
       "name": "Azərbaycanca",
@@ -1339,7 +1388,7 @@
       "starter": "Məqalə oxumağa başla",
       "starterCopy": "Başlanğıc sualını kopyala",
       "quickTitle": "Seçin. Kopyalayın. İstifadə edin.",
-      "quickText": "Ümumi seçimləri hesabda, xüsusi iş proseslərini layihə və ya fərdi köməkçidə saxlayın. Funksiya yoxdursa, promptu yeni söhbətin əvvəlinə yapışdırın. Bu sayt AI parametrlərinizi dəyişmir.",
+      "quickText": "Daimi üstünlükləri hesab təlimatlarında, təkrarlanan iş axınlarını layihədə saxlayın. Söhbət səviyyəsindəki tapşırıq və ya oyunları yeni söhbətə promptu yapışdıraraq başladın. Bu sayt süni intellekt ayarlarınızı dəyişmir.",
       "countText": "{prompts} prompt · {levels} səviyyə · {languages} dil",
       "readmeGuide": "Promptları və təlimatı aç",
       "combinedUser": "Yazı seçimi · Əvvəl əsas fikir",
@@ -1377,7 +1426,10 @@
         "claude-project": "Layihəni açın → layihə təlimatlarını təyin et → promptu yapışdır → saxla.",
         "gemini-project": "Vebdə: Gems → yeni Gem → ad və təlimatlar → saxla.",
         "perplexity-project": "Layihəni açın → parametrlər → kontekst; təlimatları redaktə edin."
-      }
+      },
+      "chat": "Söhbət səviyyəsi",
+      "chatDesc": "Cari söhbətdə dərhal istifadə edilə bilən tapşırıqlar və oyunlar.",
+      "chatUse": "Yeni söhbətin ilk mesajına promptun tam mətnini yapışdırın, sonra məqsədinizi və ya konteksti əlavə edin. Eyni söhbətdə davam edin; başqa söhbət açarkən yenidən yapışdırın. Davam etmək üçün lazımi qeydləri və ya yaddaş faylını əlavə edin."
     }
   },
   "guides": {
@@ -1393,7 +1445,8 @@
       "claude-project",
       "gemini-project",
       "perplexity-project"
-    ]
+    ],
+    "chat": []
   },
   "services": {
     "chatgpt-user": {
@@ -1462,6 +1515,7 @@
   },
   "promptFiles": [
     "prompts/direct-first.json",
-    "prompts/paper-mentor.json"
+    "prompts/paper-mentor.json",
+    "prompts/dnd-dungeon-master.json"
   ]
 }

@@ -1,4 +1,4 @@
-# Prompt Folio 3.0 更新与部署指南
+# Prompt Folio 更新与部署指南
 
 适用仓库：`J-I-N-G-L-I/prompt-folio`。本更新包以原提交 `bb8ec49acf454a207cb63085b1deffa6f88c6f8b` 为基础制作；没有直接修改远程仓库。
 
@@ -135,6 +135,31 @@ About 的 Description 和 Website 可继续保留目前的内容。无需再改�
 ### 受保护分支的同步替代方式
 
 坚持人工审查时，在本地先运行 `python tools/build.py`，把内容源和三个生成文件一起提交到 PR。此时 Sync generated files 会检测到没有差异，不会推送；可以把同步 job 的 contents 权限改为 read。后续必须继续把生成文件一并提交。若内容源和生成文件不同，该只读方案会阻止发布，避免网站与 README 不一致。
+
+## 11. 同一次提交出现两个发布工作流
+
+`Validate, sync and publish` 是本项目的自定义工作流；`pages build and deployment` 是 GitHub 的 Pages 工作流。这两个名称分别出现，通常表示推送时旧的分支发布仍生效，或旧任务已经在切换发布源之前触发。仅凭运行列表截图，不能确认当前 Pages 设置。
+
+打开 `Settings → Pages → Build and deployment → Source`，选择 **GitHub Actions**，使用仓库现有的 `.github/workflows/publish.yml`。若需要重新发布，在 Actions 中打开 `Validate, sync and publish`，选择 `Run workflow`，分支选 main。之前的运行记录会保留。
+
+本项目需要发布生成的 `_site/`，其中包含语言和条目的真实目录。旧的 `main / (root)` 分支发布只使用仓库根目录，无法发布这些生成目录。
+
+`Sync generated files` 是自定义工作流内的一个任务。官方文档说明，使用 `GITHUB_TOKEN` 推送的提交不会触发新的 Pages 构建，因此不应仅凭两条记录判断发生了机器人递归发布。参见 [Pages 发布源说明](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)。
+
+## 12. 修改网站地址与绑定自定义域名
+
+当前地址的组成是 `https://j-i-n-g-l-i.github.io/prompt-folio/`：域名部分由 GitHub 账号决定，`prompt-folio` 是项目仓库名。Custom domain 用于绑定自己拥有或获授权使用的域名，不是任意修改这两个字段的入口。[GitHub Pages 地址规则](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)。
+
+如果只想修改 `/prompt-folio/`，需要更改仓库名，再同步 `content/library.json` 的 `site.repository`、`site.url` 以及本地 Git 的 origin 地址，重新构建并推送。仓库名未确定时，保留当前配置。
+
+若拥有 `example.com`，并希望本仓库使用 `https://prompts.example.com/`，按以下步骤配置（example.com 是示例，请替换为自己的域名）：
+
+1. 在 GitHub 的 `Settings → Pages → Custom domain` 填入 `prompts.example.com` 并保存。这里只填写域名。
+2. 在域名的 DNS 管理中添加 CNAME：名称为 `prompts`，目标为 `j-i-n-g-l-i.github.io`。目标不带 `https://`，也不带 `/prompt-folio/`。
+3. 将 `content/library.json` 中的 `site.url` 改为 `https://prompts.example.com/`，保留末尾斜杠；`site.repository` 仍指向实际 GitHub 仓库。这样 README、canonical、sitemap 和分享元数据才会使用新地址。
+4. 运行 `python tools/build.py` 与 `python tools/build.py --check --repository J-I-N-G-L-I/prompt-folio`，提交生成文件和配置并推送。DNS 检查和证书就绪后，在 Pages 中启用 `Enforce HTTPS`。
+
+以 Actions 发布时，自定义域名由 Pages 设置管理，不需要 CNAME 文件。DNS 生效和 HTTPS 选项可用可能需要最多 24 小时。这里的步骤使用子域名；若使用裸域名（如 example.com），需按 [GitHub 官方域名指南](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) 配置对应的 A 或 ALIAS/ANAME 记录。
 
 ## 官方参考（2026-09-08 查阅）
 

@@ -7,7 +7,8 @@ D=build.load()
 class ContentTests(unittest.TestCase):
     def test_brand_and_addresses(self):
         self.assertEqual(D['site']['title'],'Prompt Folio')
-        self.assertEqual(D['site']['repository'].split('/')[-1],build.urlparse(D['site']['url']).path.strip('/'))
+        if build.urlparse(D['site']['url']).hostname.endswith('.github.io'):
+            self.assertEqual(D['site']['repository'].split('/')[-1],build.urlparse(D['site']['url']).path.strip('/'))
         self.assertNotIn('AI-direct-first/',build.readme(D)+build.rendered_html(D))
     def test_all_prompt_texts_survive(self):
         readme=build.readme(D)
@@ -47,7 +48,46 @@ class ContentTests(unittest.TestCase):
         page=out['en/user/third-example/index.html']
         self.assertIn(d['locales']['en']['statusMissing'].split(';')[0],build.html.unescape(page))
         build.validate_internal_links(d,out)
-        self.assertIn('3 prompts',build.readme(d))
+        self.assertIn(f'{len(d["prompts"])} prompts',build.readme(d))
+    def test_chat_scope_routes_and_usage(self):
+        p=next(p for p in D['prompts'] if p['id']=='dnd-dungeon-master')
+        self.assertEqual(p['level'],'chat')
+        out=build.site_outputs(D)
+        for code,t in D['locales'].items():
+            self.assertIn(f'{code}/chat/index.html',out)
+            self.assertIn(f'{code}/chat/{p["id"]}/index.html',out)
+            guide=build.guide_html(D,code,'chat')
+            self.assertIn(build.E(t['chatUse']),guide)
+            self.assertNotIn('Project settings',guide)
+            self.assertNotIn(t['projectNote'],guide)
+    def test_missing_translation_uses_source_language(self):
+        d=copy.deepcopy(D)
+        p=next(p for p in d['prompts'] if p['id']=='dnd-dungeon-master')
+        p['locales']={p['sourceLanguage']:p['locales'][p['sourceLanguage']]}
+        route={'lang':'ar','view':'prompt','level':'chat','prompt':p['id']}
+        doc=build.rendered_html(d,route,f'ar/chat/{p["id"]}/index.html')
+        parser=build.References();parser.feed(doc)
+        self.assertEqual(parser.canonical,build.link(d,'zh-CN','chat',p['id']))
+        self.assertIn('class="prompt" lang="zh-CN" dir="ltr"',doc)
+        self.assertIn(f'prompts/{p["id"]}.zh-CN.md',doc)
+        self.assertIn(build.E(build.status_text(d,p,'ar')),doc)
+        readme=build.readme(d)
+        self.assertEqual(readme.count(build.fenced(p['locales']['zh-CN']['body'])),1)
+        self.assertIn(f'(#prompt-{p["id"]}-zh-cn)',readme)
+    def test_custom_domain_at_root(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            shutil.copytree(build.ROOT/'content',root/'content')
+            shutil.copytree(build.ROOT/'assets/icons',root/'assets/icons')
+            f=root/'content/library.json';src=json.loads(f.read_text(encoding='utf-8'))
+            src['site']['url']='https://prompts.example.com/'
+            f.write_text(json.dumps(src,ensure_ascii=False),encoding='utf-8')
+            d=build.load(root)
+            out=build.site_outputs(d)
+            build.validate_internal_links(d,out)
+            parser=build.References();parser.feed(out['zh-CN/chat/dnd-dungeon-master/index.html'])
+            self.assertEqual(parser.canonical,'https://prompts.example.com/zh-CN/chat/dnd-dungeon-master/')
+            self.assertIn('https://prompts.example.com/zh-CN/',build.readme(d))
     def test_service_order_independent(self):
         d=copy.deepcopy(D);d['guides']['user'].reverse()
         html=build.guide_html(d,'zh-CN','user')

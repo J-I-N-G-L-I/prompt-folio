@@ -1,4 +1,4 @@
-# Prompt Folio 3.0：维护与扩展
+# Prompt Folio 3.1：维护与扩展
 
 ## 1. 内容源与生成文件
 
@@ -23,13 +23,17 @@
 
 名称本地化和稳定标识分开。例如 `id: direct-first` 保持不变，中文 `title` 为“先说重点”，英文为“Direct First”。修改 title 会同步显示在目录、详情、组合开关、README 和浏览器标签。旧的显式 `#prompt=direct-first` 链接继续有效。
 
-## 3. 新增第三条提示词
+## 3. 新增提示词与使用级别
+
+目前有三个级别：用户级（`user`）用于长期偏好，项目级（`project`）用于持续工作流程，对话级（`chat`）用于直接在当前聊天中启用的任务和游戏。对话级可以在同一聊天中连续互动；新聊天需重新提供提示词和必要记录。
+
+对话级首个条目为 `dnd-dungeon-master`（D&D 地下城主）。正文保存用户提供的完整中文运行提示词，只统一文本换行，不精简或改写游戏规则。它目前只有中文原文，其他语言界面显示缺译提示和中文内容。两个既有条目的 16 种正文保持不变。
 
 复制一份现有条目 JSON，另存为 `content/prompts/new-id.json`。ID 使用小写英文、数字与连字符，并保持唯一。修改：
 
 ```text
 id                 稳定标识，发布后尽量不改
-level              user 或 project
+level              user、project 或 chat
 icon               assets/icons 中已有 SVG 的文件名，不含 .svg
 version            例如 1.0.0
 sourceLanguage     例如 zh-CN
@@ -39,7 +43,7 @@ recommendedWith    可选的用户级条目 ID 数组
 locales            实际已经完成的文本与翻译状态
 ```
 
-每个实际存在的语言至少需要 title、description、body、translation。starter 和 starterTitle 是可选项。项目级可配置 `recommendedWith: ["direct-first"]`；不需要组合时使用空数组。用户级条目不组合项目级条目。
+每个实际存在的语言至少需要 title、description、body、translation。starter 和 starterTitle 是可选项。项目级可配置 `recommendedWith: ["direct-first"]`；不需要组合时使用空数组。对话级条目使用空数组，直接复制全文到当前聊天；用户级条目不组合项目级条目。
 
 然后在 `content/library.json` 的 `promptFiles` 中增加：
 
@@ -47,9 +51,9 @@ locales            实际已经完成的文本与翻译状态
 "prompts/new-id.json"
 ```
 
-新条目允许只有源语言。其他界面语言访问时，会明确显示“当前无该语言版本”并展示源文；不会伪装为已翻译。当前两条条目仍保留完整 16 个版本。默认目录和测试的计数由内容计算，不需要手动把“2”改成“3”。某些针对已公开条目的专门回归用例会继续保留其 ID，这是验证兼容性的需要。
+新条目允许只有源语言。其他界面语言访问时，会明确显示“当前无该语言版本”并展示源文；不会伪装为已翻译。默认目录和测试的计数由内容计算，无需修改固定条目数量。某些针对已公开条目的专门回归用例会继续保留其 ID，这是验证兼容性的需要。
 
-网站生成器会创建每条条目、各语言的独立 HTML 入口。缺少译文的页面会标注回退，canonical 指向实际源语言。独立 Markdown 导出只为确实存在的版本生成。
+网站生成器会创建每条条目、各语言的独立 HTML 入口。缺少译文的页面会标注回退，canonical 指向实际源语言，正文的 lang/dir 和下载文件名也使用实际语言。独立 Markdown 导出只为确实存在的版本生成。README 的缺译条目链接到原文段落，避免在每种界面语言下重复长篇原文；展开对应的原文语言和条目即可复制全文。
 
 ## 4. 翻译版本与审校
 
@@ -73,7 +77,7 @@ python tools/translation.py paper-mentor --locales fr --status reviewed --review
 
 ## 5. 平台指南的更新
 
-`services` 使用稳定 ID，包含名称、英文路径、官方文档链接、checked 日期。`guides.user` 和 `guides.project` 指定显示顺序。每种语言的 `routes` 使用相同服务 ID 对应说明。
+`services` 使用稳定 ID，包含名称、英文路径、官方文档链接、checked 日期。`guides.user` 和 `guides.project` 指定显示顺序。每种语言的 `routes` 使用相同服务 ID 对应说明。`guides.chat` 为空数组，对话级使用各语言的 `chatUse` 说明，不要求用户配置账号或项目。
 
 调整显示顺序只需调整 guides 中的 ID 列表，译文不会随数组位置错配。新增服务要同时补充所有 UI 语言的 route 文本；实际未核查的入口使用对话内粘贴方法，并注明未核查，不填写虚假的实测结果。
 

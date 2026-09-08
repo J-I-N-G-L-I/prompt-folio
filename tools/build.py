@@ -17,6 +17,7 @@ from xml.etree import ElementTree as ET
 from icons import MINI
 ROOT=Path(__file__).resolve().parents[1]
 GENERATED=('index.html','README.md','docs/PAPER-MENTOR.zh-CN.md')
+SCOPES=('user','project','chat')
 E=lambda x: html.escape(str(x),quote=True)
 
 def require(test:bool,message:str)->None:
@@ -42,7 +43,10 @@ def load(root:Path=ROOT)->dict:
         require(all(isinstance(v,(str,dict)) and bool(v) for v in t.values()),f'Invalid UI text: {code}')
         require(set(t['routes'])==set(d['services']),f'{code}: routes must be keyed by every service ID')
     levels=[x['id'] for x in d['levels']]
-    require(len(set(levels))==len(levels) and set(levels)=={'user','project'},'This edition supports user and project scopes')
+    require(len(set(levels))==len(levels) and set(levels)==set(SCOPES),'Expected user, project and chat scopes')
+    require(set(d['guides'])==set(levels),'Every scope needs a guide list; use an empty list for chat instructions')
+    for code,t in d['locales'].items():
+        require(all(isinstance(t.get(k),str) and t[k].strip() for level in levels for k in (level,level+'Desc')),f'{code}: missing scope labels')
     for level,ids in d['guides'].items():
         require(level in levels and len(ids)==len(set(ids)) and all(i in d['services'] for i in ids),f'Invalid guide IDs: {level}')
     for sid,s in d['services'].items():
@@ -88,13 +92,15 @@ def text_for(p:dict,code:str)->dict:
     return p['locales'].get(code) or p['locales'][p['sourceLanguage']]
 
 def status_text(d:dict,p:dict,code:str)->str:
+    if code not in p['locales']:
+        return d['locales'][code]['statusMissing'].replace('{language}',d['locales'][p['sourceLanguage']]['name'])
     s=text_for(p,code)['translation']['effectiveStatus']
     return d['locales'][code][{'source':'statusSource','ai-assisted':'statusAI','reviewed':'statusReviewed','stale':'statusStale'}[s]]
 
 def route_path(code='en',level='all',prompt=None,view='library')->str:
     if prompt:return f'{code}/{level}/{prompt}/'
     if view=='guide':return f'{code}/guide/'
-    if level in ('user','project'):return f'{code}/{level}/'
+    if level in SCOPES:return f'{code}/{level}/'
     return f'{code}/'
 
 def link(d:dict,code:str,level='all',prompt=None,view='library',with_ids=None)->str:
@@ -119,19 +125,24 @@ def fenced(text:str)->str:
 
 def guide_html(d:dict,code:str,level:str)->str:
     t=d['locales'][code];out=f'<section class="aside-card"><h2>{E(t[level])}</h2>'
-    out+=f'<p>{E(t["intro"] if level=="user" else t["projectDesc"])}</p>'
+    out+=f'<p>{E(t["intro"] if level=="user" else t[level+"Desc"])}</p>'
     for sid in d['guides'][level]:
         s=d['services'][sid]
         out+=f'<details class="service"><summary>{E(s["name"])}</summary><p>{E(t["routes"][sid])}</p><code class="path" lang="en" dir="ltr">{E(s["path"])}</code><a class="source-link" href="{E(s["url"])}">{E(t["sources"])}</a></details>'
-    return out+f'<p>{E(t["common"])}</p></section>'
+    return out+f'<p>{E(t["chatUse"] if level=="chat" else t["common"])}</p></section>'
+
+def usage_note(t:dict,level:str)->str:
+    return t[{'user':'hint','project':'projectNote','chat':'chatUse'}[level]]
 
 def static_main(d:dict,r:dict,root:str)->str:
     c=r['lang'];t=d['locales'][c]
     if r.get('prompt'):
         p=next(p for p in d['prompts'] if p['id']==r['prompt']);loc=text_for(p,c)
-        body=f'<a class="back-link" href="{root}{c}/">{E(t["backLibrary"])}</a><section class="detail-hero"><h1>{E(loc["title"])}</h1><p>{E(loc["description"])}</p></section>'
+        content_lang=c if c in p['locales'] else p['sourceLanguage']
+        lang_attrs=f'lang="{content_lang}" dir="{d["locales"][content_lang]["dir"]}"'
+        body=f'<a class="back-link" href="{root}{c}/">{E(t["backLibrary"])}</a><section class="detail-hero"><h1 {lang_attrs}>{E(loc["title"])}</h1><p {lang_attrs}>{E(loc["description"])}</p></section>'
         body+=f'<details class="usage-panel"><summary>{E(t["usageToggle"])} · {E(t[p["level"]])}</summary>{guide_html(d,c,p["level"])}</details>'
-        body+=f'<p><a class="button" href="{root}prompts/{p["id"]}.{c if c in p["locales"] else p["sourceLanguage"]}.md" download>{E(t["download"])}</a></p><section class="reader"><div class="reader-content"><pre class="prompt">{E(loc["body"])}</pre></div></section>'
+        body+=f'<p><a class="button" href="{root}prompts/{p["id"]}.{content_lang}.md" download>{E(t["download"])}</a></p><section class="reader"><div class="reader-content"><pre class="prompt" {lang_attrs}>{E(loc["body"])}</pre></div></section>'
         if loc.get('starter'):body+=f'<h2>{E(t["starter"])}</h2><pre class="starter-body">{E(loc["starter"])}</pre>'
         if c not in p['locales']:body='<p class="fallback-notice">'+E(t['statusMissing'].replace('{language}',d['locales'][p['sourceLanguage']]['name']))+'</p>'+body
         return body+f'<p>{E(t["evaluationNote"])}</p><p>{E(status_text(d,p,c))}</p>'
@@ -140,7 +151,9 @@ def static_main(d:dict,r:dict,root:str)->str:
     for p in d['prompts']:
         if r['level'] not in ('all',p['level']):continue
         loc=text_for(p,c)
-        body+=f'<a class="entry" href="{root}{route_path(c,p["level"],p["id"])}"><img src="{root}assets/icons/{p["icon"]}.svg" width="48" height="48" alt=""><div><h2>{E(loc["title"])}</h2><p>{E(loc["description"])}</p></div></a>'
+        content_lang=c if c in p['locales'] else p['sourceLanguage']
+        missing=f'<span class="locale-count">{E(status_text(d,p,c))}</span>' if c not in p['locales'] else ''
+        body+=f'<a class="entry" href="{root}{route_path(c,p["level"],p["id"])}"><img src="{root}assets/icons/{p["icon"]}.svg" width="48" height="48" alt=""><div><h2 lang="{content_lang}" dir="auto">{E(loc["title"])}</h2><p lang="{content_lang}" dir="auto">{E(loc["description"])}</p>{missing}</div></a>'
     return body+'</div>'
 
 def rendered_html(d:dict,r:dict|None=None,output_path='index.html')->str:
@@ -166,7 +179,7 @@ def rendered_html(d:dict,r:dict|None=None,output_path='index.html')->str:
 
 def readme(d:dict)->str:
     L=['<a name="languages"></a>','',f'<img src="assets/icons/handbook.svg" width="48" height="48" alt="{d["site"]["title"]}">','',f'# {d["site"]["title"]}','','**Useful prompts, within reach. / 常用的提示词，随手可用。**','',
-    'A multilingual handbook for **personal preferences** and **project workflows**. Browse by scope, combine, and copy.  ', '按**用户级偏好**与**项目级工作流程**整理。选择条目，按需组合，直接复制。','',
+    'A multilingual handbook for **personal preferences**, **project workflows**, and **chat-level tasks and games**. Browse by scope, combine, and copy.  ', '按**用户级偏好**、**项目级工作流程**与**对话级任务和游戏**整理。选择条目，按需组合，直接复制。','',
     f'**[Open in English]({link(d,"en")}) · [打开中文手册]({link(d,"zh-CN")}) · [How to use / 使用指南]({link(d,"en",view="guide")})**','',
     f'**{len(d["prompts"])} prompts · {len(d["levels"])} scopes · {d["languageCount"]} languages / {len(d["locales"])} locale versions**','',
     '| Scope / 级别 | Entry / 条目 | Use / 用途 |','|---|---|---|']
@@ -181,14 +194,15 @@ def readme(d:dict)->str:
         L+=['---','',f'<a name="lang-{code.lower()}"></a>','','<details>',f'<summary><strong>{E(t["name"])}</strong> — {E(t["readmeGuide"])}</summary>','',f'## {t["heroTitle"]}','',f'[{t["library"]}]({link(d,code)})','',t['languageHelp'],'',t['quickText'],'']
         for p in d['prompts']:
             loc=text_for(p,code);level=p['level']
-            L+=['<details>',f'<summary><strong>{E(t[level])} · {E(loc["title"])}</strong></summary>','',f'### {loc["title"]}','',loc['description'],'',f'[{t["open"]}]({link(d,code,level,p["id"])}) · `v{p["version"]}`','']
-            if code not in p['locales']:L +=[t['statusMissing'].replace('{language}',d['locales'][p['sourceLanguage']]['name']),'']
-            L +=[f'**{t["promptTitle"]}**','',fenced(loc['body']),'']
+            L+=[f'<a name="prompt-{p["id"]}-{code.lower()}"></a>','','<details>',f'<summary><strong>{E(t[level])} · {E(loc["title"])}</strong></summary>','',f'### {loc["title"]}','',loc['description'],'',f'[{t["open"]}]({link(d,code,level,p["id"])}) · `v{p["version"]}`','']
+            if code not in p['locales']:
+                L +=[status_text(d,p,code),'',f'[{t["promptTitle"]} · {d["locales"][p["sourceLanguage"]]["name"]}](#prompt-{p["id"]}-{p["sourceLanguage"].lower()})','']
+            else:L +=[f'**{t["promptTitle"]}**','',fenced(loc['body']),'']
             for other in p.get('recommendedWith',[]):
                 q=next(x for x in d['prompts'] if x['id']==other)
                 L+=[f'[{t["include"].replace("{title}",text_for(q,code)["title"])}]({link(d,code,level,p["id"],with_ids=[other])})','']
             if loc.get('starter'):L +=[f'**{t["starter"]}**','',t['starterHelp'],'',fenced(loc['starter']),'']
-            L +=[f'### {t["usageToggle"]}','',t['hint'] if level=='user' else t['projectNote'],'']
+            L +=[f'### {t["usageToggle"]}','',usage_note(t,level),'']
             for sid in d['guides'][level]:
                 s=d['services'][sid];L +=[f'**{s["name"]}**','',t['routes'][sid],'',f'[{t["sources"]}]({s["url"]}) · {s["checked"]}','']
             L +=[f'**{t["commonTitle"]}**','',t['common'],'',f'**{t["reviewTitle"]}**','',f'{t["sourceLabel"]}: {d["locales"][p["sourceLanguage"]]["name"]} · {t["versionLabel"]}: {p["version"]} · {t["updatedLabel"]}: {p["updated"]}','',status_text(d,p,code),'',t['evaluationNote'],'','</details>','']
