@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+venv/
+test-report.json
+!docs/test-report.json

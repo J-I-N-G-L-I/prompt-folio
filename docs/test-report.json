@@ -1,0 +1,22 @@
+{
+  "mode": "in-memory HTML / Chromium",
+  "locales": 16,
+  "prompts": 2,
+  "viewport_checks": 192,
+  "copy_checks": 80,
+  "errors": [],
+  "limitations": [
+    "No real GitHub rendering or Pages deployment tested",
+    "Clipboard and storage adapters are simulated",
+    "HTTP/file resource loading is not validated by in-memory tests",
+    "Prompt effectiveness and native-language translation review are outside these tests"
+  ],
+  "navigation_search_persistence": "passed (storage adapter simulated)",
+  "routing_legacy_links": "passed",
+  "markdown_downloads": "passed (browser-generated Blob downloads)",
+  "clipboard_denial": "passed (simulated denial)",
+  "clipboard_race": "passed",
+  "dark_rtl": "passed",
+  "readme_sync": "all 32 prompt bodies present exactly once",
+  "status": "passed"
+}
