@@ -1,132 +1,142 @@
 #!/usr/bin/env python3
-"""Optional Chromium checks. Requires playwright and a Chromium executable.
-
-Loads the self-contained HTML into an in-memory browser document. Clipboard API
-and storage adapters are simulated: these tests do NOT validate OS clipboard,
-real GitHub Pages deployment, network resource loading, or AI prompt effectiveness.
-
-Example: python tools/test_browser.py --browser /usr/bin/chromium --report report.json
+"""Data-driven browser tests. Default: real local HTTP server. --memory: restricted sandboxes.
+Clipboard checks use a deterministic mock plus denial/race tests. In HTTP mode,
+a separate real Clipboard API round-trip is also tested in a permission-granted
+headless browser. This is not a real-device or hosted Pages certification.
 """
 from __future__ import annotations
-import argparse,json,re,shutil,sys
+import argparse,json,re,shutil,threading,sys
 from pathlib import Path
+from functools import partial
+from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
+from urllib.parse import urlparse,unquote
 from playwright.sync_api import sync_playwright
-ROOT=Path(__file__).resolve().parents[1]
-D=json.loads((ROOT/'content/library.json').read_text(encoding='utf-8'))
-HTML=(ROOT/'index.html').read_text(encoding='utf-8')
-
+import build
+ROOT=build.ROOT;D=build.load()
+class Quiet(SimpleHTTPRequestHandler):
+    def log_message(self,*args):pass
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--browser',default=shutil.which('chromium'))
-    parser.add_argument('--report',type=Path,default=None)
-    parser.add_argument('--locales',help='Comma-separated locale subset for a quick development check')
-    args=parser.parse_args()
-    selected=[code for code in D['locales'] if not args.locales or code in args.locales.split(',')]
-    results={'mode':'in-memory HTML / Chromium','locales':len(selected),'prompts':len(D['prompts']),'viewport_checks':0,'copy_checks':0,'errors':[],
-             'limitations':['No real GitHub rendering or Pages deployment tested','Clipboard and storage adapters are simulated','HTTP/file resource loading is not validated by in-memory tests','Prompt effectiveness and native-language translation review are outside these tests']}
-    with sync_playwright() as pw:
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--memory',action='store_true');ap.add_argument('--browser');ap.add_argument('--report',type=Path,default=ROOT/'.test-output/browser.json');ap.add_argument('--screenshots',type=Path);args=ap.parse_args()
+    report={'mode':'in-memory Chromium' if args.memory else 'local HTTP Chromium','locales':len(D['locales']),'prompts':len(D['prompts']),'viewport_checks':0,'copy_checks':0,'checks':[],'errors':[],
+        'limitations':['Hosted GitHub Pages and GitHub README rendering are not tested','Physical devices and screen readers are not certified','Translations have not received independent native-speaker review','AI prompt effectiveness is not measured']}
+    if args.memory:report['limitations']+=['Local HTTP navigation is blocked by this environment; in-memory mode used','OS clipboard and storage adapters are simulated']
+    class Handler(Quiet):
+        # Serve under the SAME project-prefix layout as Pages, rather than testing only /.
+        def translate_path(self,path):
+            path=unquote(urlparse(path).path);prefix=urlparse(D['site']['url']).path
+            if path.startswith(prefix):path=path[len(prefix):]
+            p=(ROOT/'_site'/path.lstrip('/')).resolve()
+            if not p.is_relative_to((ROOT/'_site').resolve()):return str(ROOT/'_site/404.html')
+            return str(p)
+    server=None
+    if not args.memory:
+        server=ThreadingHTTPServer(('127.0.0.1',0),Handler);threading.Thread(target=server.serve_forever,daemon=True).start()
+        origin=f'http://127.0.0.1:{server.server_port}';base=origin+urlparse(D['site']['url']).path
+    else:base=D['site']['url']
+    try:
+      with sync_playwright() as pw:
         launch={'headless':True,'args':['--no-sandbox']}
         if args.browser:launch['executable_path']=args.browser
-        browser=pw.chromium.launch(**launch)
-        context=browser.new_context(viewport={'width':1440,'height':960},accept_downloads=True)
-        def mount(route,storage=None):
-            p=context.new_page();p.on('pageerror',lambda err:results['errors'].append(str(err)))
-            p.goto('about:blank#'+route)
-            if storage is not None:p.evaluate('''value => {window.__store=value;Object.defineProperty(window,'localStorage',{value:{getItem:k=>window.__store[k]||null,setItem:(k,v)=>{window.__store[k]=v}},configurable:true})}''',storage)
-            p.set_content(HTML);p.wait_for_selector('#language');p.add_style_tag(content='html{scroll-behavior:auto!important}')
-            return p
-        def go(p,route,body=None):
-            p.evaluate('h=>{location.hash=h}',route)
-            if body is not None:p.wait_for_function('text=>document.getElementById("prompt-text")?.textContent===text',arg=body)
-            else:p.wait_for_timeout(35)
-        def overflow(p,label):
-            for width in (1440,390,320):
-                p.set_viewport_size({'width':width,'height':960})
-                assert not p.evaluate('document.documentElement.scrollWidth > innerWidth+1'),f'Horizontal overflow: {label}, {width}px'
-                ids=p.locator('[id]').evaluate_all('(els)=>els.map(e=>e.id)')
-                assert len(ids)==len(set(ids)),f'Duplicate DOM IDs: {label}'
-                results['viewport_checks']+=1
-        def mock_clipboard(p):
-            p.evaluate('''() => {window.__clipboard=null;Object.defineProperty(window,'isSecureContext',{value:true,configurable:true});Object.defineProperty(navigator,'clipboard',{value:{writeText:async text=>{window.__clipboard=text}},configurable:true})}''')
-        def copied(p,text,selector='#copy-prompt'):
-            p.locator(selector).dispatch_event('click');p.wait_for_function('s=>window.__clipboard===s',arg=text);results['copy_checks']+=1
-        for code,t in D['locales'].items():
-            if args.locales and code not in args.locales.split(','):continue
+        browser=pw.chromium.launch(**launch);context=browser.new_context(viewport={'width':1440,'height':960},accept_downloads=True)
+        def mount(code='en',p=None,level='all',view='library',hash_route=None):
+            r={'lang':code,'level':p['level'] if p else level,'view':'prompt' if p else view,'prompt':p['id'] if p else None}
+            path=build.route_path(code,r['level'],r['prompt'],r['view'])+'index.html'
+            page=context.new_page();page.on('pageerror',lambda e:report['errors'].append(str(e)))
+            if args.memory:
+                page.goto('about:blank'+('#'+hash_route if hash_route else ''))
+                page.evaluate("() => {window.__store={};Object.defineProperty(window,'localStorage',{value:{getItem:k=>window.__store[k]||null,setItem:(k,v)=>window.__store[k]=v},configurable:true})}")
+                page.set_content((ROOT/'_site'/path).read_text(encoding='utf-8'),wait_until='domcontentloaded',timeout=15000)
+            else:
+                response=page.goto(base+(('#'+hash_route) if hash_route else path.removesuffix('index.html')));assert response.status==200
+            page.wait_for_selector('#language');page.add_style_tag(content='html{scroll-behavior:auto!important}')
+            return page
+        def layouts(page,label):
+            for w in (1440,820,390,320):
+                page.set_viewport_size({'width':w,'height':960})
+                assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'Overflow {label} @ {w}'
+                ids=page.locator('[id]').evaluate_all('(es)=>es.map(e=>e.id)');assert len(ids)==len(set(ids)),label
+                report['viewport_checks']+=1
+        def mock(page):page.evaluate("() => {window.__clipboard=null;Object.defineProperty(window,'isSecureContext',{value:true,configurable:true});Object.defineProperty(navigator,'clipboard',{value:{writeText:async text=>{window.__clipboard=text}},configurable:true})}")
+        def copy(page,text,selector):
+            page.locator(selector).dispatch_event('click');page.wait_for_function('s=>window.__clipboard===s',arg=text);report['copy_checks']+=1
+        for code,tr in D['locales'].items():
             print('Checking',code,flush=True)
-            p=mount('view=library&lang='+code)
-            assert p.locator('.entry').count()==2,code
-            assert p.locator('html').get_attribute('dir')==t['dir'],code
-            overflow(p,code+'/library');mock_clipboard(p)
+            for level in ['all']+[l['id'] for l in D['levels']]:
+                page=mount(code,level=level);assert page.locator('.entry').count()==sum(level in ('all',p['level']) for p in D['prompts']);layouts(page,code+'/'+level);page.close()
+            for p in D['prompts']:
+                page=mount(code,p);loc=build.text_for(p,code)
+                assert page.locator('h1').inner_text()==loc['title'];assert page.locator('#prompt-text').text_content()==loc['body']
+                layouts(page,code+'/'+p['id']);mock(page);copy(page,loc['body'],'#copy-prompt')
+                page.locator('#usage-panel>summary').click();assert page.locator('.usage-grid').is_visible()
+                if loc.get('starter'):copy(page,loc['starter'],'#copy-starter')
+                for qid in p.get('recommendedWith',[]):page.locator(f'.combine-toggle[value="{qid}"]').check()
+                if p.get('recommendedWith'):
+                    actual=page.locator('#prompt-text').text_content();assert actual.endswith(loc['body']);
+                    for qid in p['recommendedWith']:
+                        q=next(x for x in D['prompts'] if x['id']==qid);assert build.text_for(q,code)['body'] in actual
+                    copy(page,actual,'#copy-prompt')
+                with page.expect_download(timeout=10000) as di:page.locator('#download').click()
+                down=di.value;assert Path(down.path()).read_text(encoding='utf-8')==page.locator('#prompt-text').text_content()+'\n'
+                page.locator('#share').dispatch_event('click');page.wait_for_timeout(20);shared=page.evaluate('window.__clipboard')
+                assert p['id'] in shared and code in shared and 'AI-direct-first/' not in shared
+                if not args.memory:assert urlparse(shared).netloc==urlparse(base).netloc
+                page.close()
+            page=mount(code,view='guide');layouts(page,code+'/guide');assert page.locator('.service').count()==sum(len(v) for v in D['guides'].values())+len(D['levels']);page.close()
+        report['checks']+=['all available titles and bodies','all scopes','composition and localized names','browser-generated Markdown bytes','configured offline share URLs' if args.memory else 'same-origin share URLs','no horizontal overflow at four widths']
+        print('Checking search, routes and clipboard edge cases',flush=True)
+        # Cross-language search, history, clear-on-language-change, and label-only legacy links.
+        page=mount('zh-CN');page.fill('#search','Paper Mentor');assert page.locator('.entry').count()==1
+        page.fill('#search','文献');assert page.locator('.entry').count()==1
+        page.fill('#search','unlikely-search-no-match');assert page.locator('.entry').count()==0
+        page.select_option('#language','en');assert page.locator('#search').input_value()=='';assert page.locator('.entry').count()==len(D['prompts'])
+        page.fill('#search','paper mentor');page.locator('.entry').first.click();page.wait_for_selector('#prompt-text');page.locator('.back-link').click();page.wait_for_selector('.entry');assert page.locator('.entry').count()==len(D['prompts']);page.close()
+        for code in ('en','zh-CN','ar'):
+            page=mount(hash_route='lang='+code);assert page.locator('html').get_attribute('lang')==code;assert page.locator('.entry').count()==len(D['prompts']);page.close()
+        page=mount('en',hash_route='prompt=paper-mentor&lang=zh-CN&with=direct-first');assert page.locator('.combine-toggle').first.is_checked();page.close()
+        report['checks']+=['cross-language aliases','clear search on language change','back returns full handbook','legacy hash prompt links and language-only home links']
+        # Denied clipboard produces exact, selected, visible fallback.
+        p=D['prompts'][0];page=mount('en',p);mock(page);page.evaluate("() => { navigator.clipboard.writeText=async()=>{throw Error('denied')};document.execCommand=()=>false; }")
+        page.locator('#copy-prompt').click();page.wait_for_selector('.copy-fallback textarea');assert page.locator('.copy-fallback textarea').input_value()==build.text_for(p,'en')['body'];page.close()
+        page=mount('en',p);mock(page);page.evaluate('() => { navigator.clipboard.writeText=()=>new Promise(r=>window.__resolve=r); }');page.locator('#copy-prompt').click();page.select_option('#language','zh-CN');page.evaluate('window.__resolve()');page.wait_for_timeout(30);assert page.locator('#toast').is_hidden();page.close()
+        report['checks']+=['clipboard denial fallback','asynchronous clipboard race']
+        if not args.memory:
+            context.grant_permissions(['clipboard-read','clipboard-write'],origin=origin)
+            page=mount('en',D['prompts'][0]);page.locator('#copy-prompt').click();page.wait_for_timeout(100)
+            # Windows exposes native CRLF line endings through the Clipboard API.
+            copied=page.evaluate('navigator.clipboard.readText()').replace('\r\n','\n')
+            assert copied==build.text_for(D['prompts'][0],'en')['body'];page.close()
+            report['checks']+=['actual Clipboard API round-trip in headless Chromium (native CRLF normalized)']
+            page=mount('zh-CN',D['prompts'][1]);page.reload();page.wait_for_selector('#prompt-text');assert page.locator('h1').inner_text()==build.text_for(D['prompts'][1],'zh-CN')['title'];page.close()
+            report['checks']+=['real static deep-link HTTP reload']
+        print('Checking dark mode and keyboard navigation',flush=True)
+        # Generated HTML remains useful without JavaScript; no copy/composer claims.
+        nojs=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844})
+        for code in ('en','zh-CN','ar'):
             for prompt in D['prompts']:
-                loc=prompt['locales'][code]
-                go(p,f'prompt={prompt["id"]}&lang={code}',loc['body'])
-                assert p.locator('h1').inner_text()==loc['title']
-                overflow(p,code+'/'+prompt['id']);copied(p,loc['body'])
-                if prompt['level']=='project':
-                    p.check('#combine');text=p.locator('#prompt-text').inner_text()
-                    assert text.count(D['prompts'][0]['locales'][code]['body'])==1
-                    assert text.count(loc['body'])==1
-                    copied(p,text);copied(p,loc['starter'],'#copy-starter')
-                    copied(p,D['site']['url']+f'#prompt=paper-mentor&with=direct-first&lang={code}','#share')
-                    assert p.locator('#character-count').inner_text().endswith(t['characters'])
-            go(p,'view=guide&lang='+code);p.wait_for_selector('.guide-grid');overflow(p,code+'/guide')
-            assert p.locator('.guide-grid .service').count()==11
-            p.close()
-        # Search, scoped navigation, language preservation, and old links.
-        print('Checking navigation',flush=True)
-        p=mount('view=library&lang=zh-CN',{})
-        p.fill('#search','unlikely_search_0');assert p.locator('.entry').count()==0
-        p.click('#clear-search');assert p.locator('.entry').count()==2
-        p.fill('#search','同义词');assert p.locator('.entry').count()==1
-        p.click('#clear-search');p.locator('.scope-card').first.click()
-        assert p.locator('.entry').count()==1 and p.locator('.categories').count()==0
-        p.locator('.entry').first.click();assert p.locator('h1').inner_text()=='Direct First'
-        p.evaluate('history.back()');p.wait_for_selector('.entry');assert p.locator('.entry').count()==1
-        p.select_option('#language','az');assert p.locator('html').get_attribute('lang')=='az'
-        assert p.evaluate('window.__store["prompt-handbook-language"]')=='az'
-        p.close();results['navigation_search_persistence']='passed (storage adapter simulated)'
-        for route,expected in [('lang=zh-CN','zh-CN'),('lang=en','en'),('lang=zh-HK','zh-TW')]:
-            p=mount(route);assert p.locator('#prompt-text').inner_text()==D['prompts'][0]['locales'][expected]['body'];p.close()
-        p=mount('',{'direct-first-language':'zh-CN'});assert p.locator('html').get_attribute('lang')=='zh-CN';assert p.locator('.entry').count()==2;p.close()
-        p=mount('view=library&lang=en',{'prompt-handbook-language':'ar'});assert p.locator('html').get_attribute('lang')=='en';p.close()
-        p=mount('prompt=unknown&lang=en');assert p.locator('.entry').count()==2;p.close();results['routing_legacy_links']='passed'
-        print('Checking downloads',flush=True)
-        # Check real browser-generated downloadable bytes (no mocked download function).
-        for code,combine in [('en',False),('zh-CN',True)]:
-            p=mount('prompt=paper-mentor&lang='+code+('&with=direct-first' if combine else ''))
-            body=p.locator('#prompt-text').inner_text()
-            with p.expect_download(timeout=5000) as download_info:p.click('#download')
-            download=download_info.value
-            assert Path(download.path()).read_text(encoding='utf-8')==body+'\n'
-            assert download.suggested_filename.endswith('.'+code+'.md');p.close()
-        results['markdown_downloads']='passed (browser-generated Blob downloads)'
-        print('Checking denial and race',flush=True)
-        # Clipboard denial selects a visible manual fallback with the actual full text.
-        p=mount('prompt=direct-first&lang=en');mock_clipboard(p)
-        p.evaluate("navigator.clipboard.writeText=async()=>{throw Error('denied')};document.execCommand=()=>false")
-        p.click('#copy-prompt');p.wait_for_selector('.copy-fallback textarea')
-        assert p.input_value('.copy-fallback textarea')==D['prompts'][0]['locales']['en']['body']
-        p.close();results['clipboard_denial']='passed (simulated denial)'
-        # A late permission result must not announce a different language as copied.
-        p=mount('prompt=direct-first&lang=en');mock_clipboard(p)
-        p.evaluate('() => {navigator.clipboard.writeText=text=>new Promise(resolve=>{window.__resolve=resolve});}')
-        p.click('#copy-prompt');p.select_option('#language','zh-CN');p.evaluate('window.__resolve()')
-        p.wait_for_timeout(30);assert p.locator('#toast').is_hidden();p.close();results['clipboard_race']='passed'
-        print('Checking dark theme',flush=True)
-        # Dark theme and RTL variants; both the page and native controls stay within viewport.
-        dark=browser.new_context(color_scheme='dark',viewport={'width':390,'height':844})
-        p=dark.new_page();p.goto('about:blank#prompt=paper-mentor&lang=ar');p.set_content(HTML)
-        assert p.locator('html').get_attribute('dir')=='rtl'
-        assert not p.evaluate('document.documentElement.scrollWidth > innerWidth+1')
-        results['dark_rtl']='passed';dark.close()
-        context.close();browser.close()
-    assert not results['errors'],results['errors']
-    for prompt in D['prompts']:
-        for loc in prompt['locales'].values():assert (ROOT/'README.md').read_text(encoding='utf-8').count(loc['body'])==1
-    results['readme_sync']='all 32 prompt bodies present exactly once'
-    results['status']='passed'
-    if args.report:args.report.parent.mkdir(parents=True,exist_ok=True);args.report.write_text(json.dumps(results,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(json.dumps(results,ensure_ascii=False,indent=2))
-
-if __name__=='__main__':main()
+                print('No-JS',code,prompt['id'],flush=True)
+                pg=nojs.new_page();rp=build.route_path(code,prompt['level'],prompt['id'])+'index.html'
+                if args.memory:pg.set_content((ROOT/'_site'/rp).read_text(encoding='utf-8'),wait_until='domcontentloaded',timeout=15000)
+                else:assert pg.goto(base+rp.removesuffix('index.html')).status==200
+                assert pg.locator('h1').inner_text()==build.text_for(prompt,code)['title']
+                assert pg.locator('pre.prompt').text_content()==build.text_for(prompt,code)['body']
+                layouts(pg,'no-JS/'+code+'/'+prompt['id']);pg.close()
+        nojs.close();report['checks']+=['six JavaScript-disabled static documents']
+        print('Checking final dark-mode and skip-link cases',flush=True)
+        # Dark mode and keyboard-only access.
+        page=mount('ar',D['prompts'][1]);page.emulate_media(color_scheme='dark');layouts(page,'dark-ar');page.close()
+        page=mount('en');page.keyboard.press('Tab');assert page.locator('#skip').evaluate('(e)=>e===document.activeElement');page.keyboard.press('Enter');assert page.locator('#main').evaluate('(e)=>e===document.activeElement');page.close()
+        report['checks']+=['dark RTL','keyboard skip link']
+        if args.screenshots:
+            args.screenshots.mkdir(parents=True,exist_ok=True)
+            for name,code,p,width in [('home-zh-desktop','zh-CN',None,1440),('home-zh-mobile','zh-CN',None,390),('home-en-mobile','en',None,390),('paper-zh-desktop','zh-CN',D['prompts'][1],1440),('paper-zh-mobile','zh-CN',D['prompts'][1],390),('direct-zh-mobile','zh-CN',D['prompts'][0],390)]:
+                pg=mount(code,p);pg.set_viewport_size({'width':width,'height':1000 if width==1440 else 844});pg.screenshot(path=str(args.screenshots/(name+'.png')));pg.close()
+        browser.close()
+      assert not report['errors'],report['errors'];report['status']='passed'
+    except Exception as e:
+        report['status']='failed';report['errors'].append(str(e));raise
+    finally:
+        if server:server.shutdown()
+        args.report.parent.mkdir(parents=True,exist_ok=True);args.report.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
+    print(json.dumps(report,ensure_ascii=False,indent=2));return 0
+if __name__=='__main__':raise SystemExit(main())

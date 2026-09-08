@@ -1,0 +1,28 @@
+name: Translation correction / 翻译修订
+description: Improve a localized title, prompt or setup guide.
+title: '[Translation] '
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Language, prompt and field / 语言、提示词与字段
+      placeholder: zh-CN · direct-first · title
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current wording / 当前文本
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed wording and reason / 建议文本与理由
+    validations:
+      required: true
+  - type: checkboxes
+    id: review
+    attributes:
+      label: Review scope / 校审范围
+      options:
+        - label: I checked the source text and its current version.
+        - label: I checked that necessary qualifications and logical contrasts remain intact.

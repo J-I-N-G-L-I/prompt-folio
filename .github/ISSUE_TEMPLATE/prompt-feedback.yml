@@ -1,0 +1,27 @@
+name: Prompt feedback / 提示词反馈
+description: Report a useful result, failure or suggested improvement.
+title: '[Prompt feedback] '
+body:
+  - type: input
+    id: prompt
+    attributes:
+      label: Prompt ID, version and language / 提示词、版本与语言
+      placeholder: direct-first · 1.1.0 · zh-CN
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Service, model and date / 服务、模型与日期
+      description: Report the model name shown by the service; do not infer one.
+  - type: textarea
+    id: example
+    attributes:
+      label: Reproducible example / 可复现例子
+      description: Include your input, relevant output and other active instructions. Remove private, patient and confidential information.
+    validations:
+      required: true
+  - type: textarea
+    id: expectation
+    attributes:
+      label: Expected behavior or proposed change / 预期行为或建议

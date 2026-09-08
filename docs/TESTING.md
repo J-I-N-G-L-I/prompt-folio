@@ -1,45 +1,42 @@
-# Verification scope / 核验范围
+# Verification scope — Prompt Folio 3.0.0
 
-Date: 2026-09-08 · Build: 2.0.0
+Date: 2026-09-08. Baseline repository revision: `bb8ec49acf454a207cb63085b1deffa6f88c6f8b`. The remote repository was read; this release was built locally and has **not** been pushed or deployed by the assistant.
 
-## Content and build
+## Completed locally
 
-The source and generated outputs pass `python tools/build.py --check`. Both entries contain complete bodies in all 16 locales; all 32 bodies occur exactly once in the generated README. Direct First was compared with the prior user-approved version; its bodies are unchanged. The Chinese Paper Mentor export is generated from the same content source.
+The dependency-free generator validates identity, repository/Pages consistency, all actual locale fields, stable service mappings, composition references, translation source versions and hashes, generated output consistency, and links among generated HTML pages and assets. The two entries retain 16 complete versions each. All 16 Direct First prompt bodies were compared with the prior release and preserved byte-for-byte; its visible names and composition labels were localized. Paper Mentor adds a focused-follow-up rule and optional starter fields in each locale.
 
-JavaScript syntax was checked with `node --check templates/app.js`. Node.js is only used for this optional syntax check; it is not a build or deployment requirement.
+The source produces 98 static HTML documents (including root and 404), 32 independent Markdown prompt exports, a sitemap and localized canonical/alternate metadata. Missing future translations are explicitly labeled and point to the source version; a third-entry fixture exercises this path. Counts describe generated artifacts, not the number of distinct prompts.
 
-## Browser tests
+Content/generator unit tests and Node routing-VM tests verify source escaping, exact text, new entry counts, service reordering, partial translations, prefix-relative links, old hashes and new routes. See the machine-readable [release report](test-report.json) for actual results.
 
-The optional Playwright suite completed in Chromium with the self-contained HTML loaded into an **in-memory document**. It checks 16 locales, 2 prompts and 192 combinations of page/viewport inspection at widths 1440, 390 and 320 pixels. It found no horizontal page overflow or duplicate IDs in those checks, and no uncaught JavaScript page errors.
+The release run passed **11 content/generator tests, Node routing checks, 412 viewport inspections, 64 copy-content checks, 32 browser-generated Markdown downloads and six JavaScript-disabled documents**. Counts are recorded in the release report.
 
-80 copy-content checks compare complete prompt bodies, optional combined text, project starter text and share URLs. **The clipboard transport is simulated**, and the content checks dispatch click events programmatically; selected navigation and fallback tests additionally use browser click actions. This does not verify a physical OS clipboard or all browser permission behaviours.
+The Playwright regression was run in Chromium with **in-memory HTML documents**. It checks all 16 locales at 1440, 820, 390 and 320 pixels, prompt text, localized composition, browser-generated Markdown downloads, search aliases, clearing search on language changes, returning to the full handbook, explicit old hash links, language-only homepage links, clipboard denial and asynchronous permission races, keyboard skip links and dark Arabic RTL. Text is copied through a deterministic mock; Blob downloads are produced by the browser. No generated AI replies are used as evidence of effectiveness.
 
-Search, scoped navigation, browser history, language retention, legacy links, invalid IDs, optional combination, clipboard-denial fallback and late asynchronous clipboard results were checked. **The language storage adapter is simulated** in persistence tests.
-
-Two browser-generated Blob downloads were verified byte-for-byte: an English Paper Mentor and a Chinese combination. Dark-mode Arabic RTL was checked at mobile width. Desktop and mobile screenshots are actual renders of the supplied HTML, not AI-generated interface mockups.
-
-See [machine-readable report](test-report.json) for the completed run. The screenshots delivered alongside the package are representative views, not an exhaustive visual audit of every translated screen.
+JavaScript-disabled static documents are also checked where reported. No-JS pages expose real text, guides and Markdown links; one-click copy and optional composition require JavaScript.
 
 ## Environment limits
 
-The environment blocked localhost HTTP navigation. Testing therefore used in-memory HTML rendering, without bypassing that restriction. No actual GitHub Pages deployment, GitHub README rendering, network resource loading, favicon display in a real browser tab, Apple home-screen behaviour or system clipboard was verified. Complete these checks after publishing.
+Local HTTP navigation is blocked by the execution environment's browser policy. The test harness therefore uses its explicit `--memory` mode locally, without disabling that policy. Actual local HTTP routing is additionally reasoned about in pure Node route tests, but that is not equivalent to network navigation. The supplied Actions workflow runs the harness in its default **real local HTTP mode** after upload; its result is still pending until the user runs the workflow.
 
-The interface has access-oriented features but has not undergone a formal accessibility audit or a comprehensive multi-browser / assistive-technology test. Translation text was AI-assisted and has not been independently reviewed by native speakers. No systematic benchmark of prompt effectiveness across models, tasks, disciplines or languages was conducted.
+Hosted GitHub Pages, actual GitHub README rendering, physical phones, OS-level clipboard integration across browsers, browser-tab favicon caching, Apple home-screen icons and screen-reader certification were not tested. The interface contains accessibility-oriented features but is not certified as WCAG conformant. Native-speaker review and systematic cross-model prompt effectiveness evaluation remain unperformed; see [EVALUATION.md](EVALUATION.md).
 
-中文要点：程序检查验证了网页逻辑和正文一致性，不能据此声称提示词已经在全部模型中有效，也不能替代上线后的实际设备检查。
+## Reproduce
 
-## Official setup sources
+```bash
+python tools/build.py
+python tools/build.py --check --repository J-I-N-G-L-I/prompt-folio
+python tools/test_unit.py
+node --check templates/app.js
+node tools/test_routes.cjs
+python -m pip install -r requirements-dev.txt
+python -m playwright install --with-deps chromium
+python tools/test_browser.py --report .test-output/browser.json
+```
 
-Routes were checked against the following documentation on the date above. Account eligibility, interface labels and available settings may change; each translated guide retains a primary source link and a general conversation-level fallback.
+In a restricted environment use `--memory` explicitly, and retain that limitation in any published report. A simulated clipboard result establishes what text would be sent to the clipboard API; it does not establish clipboard behavior on every device.
 
-- [ChatGPT custom instructions](https://help.openai.com/en/articles/8096356)
-- [ChatGPT Projects](https://help.openai.com/en/articles/10169521)
-- [Claude personalization](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
-- [Claude project instructions](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
-- [Gemini personal instructions](https://support.google.com/gemini/answer/16598625)
-- [Gemini Gems](https://support.google.com/gemini/answer/15146780)
-- [Microsoft 365 Copilot custom instructions](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
-- [Perplexity account settings](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
-- [Perplexity Projects](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+## Signed-in app testing versus documentation
 
-Important distinctions: ChatGPT project instructions override global custom instructions; Gemini personal instructions are not available in Gems. These are reflected in the optional combination guidance. Menu verification came from documentation, not hands-on testing of signed-in accounts on every service.
+Platform instructions reference official documentation and carry separate service check dates. Menu availability, account eligibility and rollout may differ. This release did not sign into every AI service. A general conversation-level method is included when settings are unavailable. Source links are listed in [SOURCES.md](SOURCES.md).

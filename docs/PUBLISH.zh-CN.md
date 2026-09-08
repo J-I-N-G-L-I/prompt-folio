@@ -1,115 +1,145 @@
-# 将 Direct First 升级为 Prompt Handbook
+# Prompt Folio 3.0 更新与部署指南
 
-版本：2.0.0 · 资料核查日期：2026-09-08
+适用仓库：`J-I-N-G-L-I/prompt-folio`。本更新包以原提交 `bb8ec49acf454a207cb63085b1deffa6f88c6f8b` 为基础制作；没有直接修改远程仓库。
 
-这份压缩包包含可直接部署的网站及其维护源文件。交付本身没有修改 GitHub 仓库；完成上传后，现有 Pages 流程才会发布新版。建议保留仓库名 `AI-direct-first` 和现有网址。
+## 这次最重要的区别
 
-## 1. 解压并确认目录
+网站现在由 GitHub Actions 构建：`内容 → 校验与测试 → 同步 README/根页面 → 发布 _site/`。**Pages 的 Source 需要从 Deploy from a branch 改成 GitHub Actions。** 全部真实静态详情路径由工作流生成，无需逐个上传各语言目录。不能仅上传根目录 index.html。
 
-进入解压后的 `prompt-handbook` 文件夹。下面这些内容应处于同一层：
-
-```text
-index.html                  已生成的完整网站
-README.md                   已生成的多语言手册
-favicon.svg / favicon.ico   浏览器标签页图标
-apple-touch-icon.png        网页快捷方式图标
-LICENSE                     保留原 MIT 版权声明
-.nojekyll                   保留静态站点配置
-assets/                     SVG 图标与分享图片
-content/                    唯一的多语言内容源
-templates/                 HTML / JavaScript 源模板
-tools/                     生成与可选测试脚本
-docs/                      发布、维护、设计与核验说明
-```
-
-首次部署不需要运行 Python、Node.js、npm 或任何构建命令。生成好的 `index.html` 已内置样式、逻辑和所有译文。
-
-## 2. 备份现有版本
-
-可以先通过仓库 Code 菜单下载旧版 ZIP，或记下当前提交。保留提交历史，出现问题时方便恢复上一版。不要为了升级删除整个仓库。
-
-## 3. 将文件上传到原仓库根目录
-
-目标仓库：
+包内保留可直接阅读的完整 README。更新后仍然使用原域名和仓库，中文首页为：
 
 ```text
-J-I-N-G-L-I/AI-direct-first
+https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/
 ```
 
-进入仓库主页，使用 `Add file → Upload files`，上传解压目录中的文件与子文件夹。把子文件夹整体拖入上传区可保留结构；上传列表应出现 `assets/icons/user.svg`、`content/library.json` 等路径。
+## 1. 备份
 
-提交说明建议：
+在当前仓库选择 `Code → Download ZIP`，保存为 `prompt-folio-backup-before-v3.zip`。需要可审查的回滚记录时，同时记录当前 main 的提交哈希。不要删除仓库或提交历史。
+
+## 2. 解压新版并检查层级
+
+解压 `prompt-folio-v3.0.0.zip`，进入其中的 `prompt-folio`，应直接看到 README.md、index.html、.github、content、templates、tools、assets、docs 等。
+
+上传这一层里面的内容。不要上传 ZIP 文件本身，也不要在仓库根目录额外创建一层 prompt-folio 文件夹。旧的 LICENSE 版权行已保留。完整覆盖这些同名文件即可；本次不需要清空仓库。
+
+Windows 可以在文件资源管理器的“查看 → 显示”中开启隐藏项目。重点确认 `.github/workflows/publish.yml`。通常以点开头的文件夹也可以拖入浏览器。
+
+## 3. 建一个升级分支（推荐）
+
+回到仓库的 Code 页面，打开显示 main 的分支下拉框，输入 `upgrade-folio-v3`，选择从 main 创建该分支。以后这个分支上的上传尚不会替换线上版本。
+
+确认分支已经切换到 upgrade-folio-v3，选择 `Add file → Upload files`。将新版文件夹内部的全部文件与子文件夹拖入上传区域。列表里的路径应是：
 
 ```text
-Refactor Direct First into a multilingual prompt handbook
+.github/workflows/publish.yml
+content/library.json
+content/prompts/direct-first.json
+content/prompts/paper-mentor.json
+templates/app.js
+templates/styles.css
+tools/build.py
+README.md
+index.html
 ```
 
-将提交放入当前 Pages 发布源分支，通常是 `main`。选择新分支时，合并进入发布源分支后才会更新网站。上传操作的官方说明：[Adding a file to a repository](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository)。
+错误示例为 `prompt-folio/index.html`。发现多套一层时，撤掉待上传内容，重新进入本地文件夹内部选择内容。
 
-本次是**完整目录更新**：替换已有 `index.html`、`README.md` 和图标，同时添加四个子目录。不要把 ZIP 文件本身当作网站上传，也不要把整个 `prompt-handbook/` 再套在仓库根目录下面。
+提交说明：`Upgrade Prompt Folio: localized titles, mobile UX and verified publishing`。将文件提交到当前升级分支。整个源码包低于 GitHub 网页一次 100 个文件的限制。
 
-隐藏文件 `.nojekyll` 上传不便时，保留仓库原有文件即可。`LICENSE` 保留了原文，内容相同无需重复修改。`.gitignore` 仅用于本地开发，可一并保留。
+若 `.github` 没有上传成功，可在该分支选择 `Add file → Create new file`，输入完整文件名 `.github/workflows/publish.yml`，把更新包中同名文件的全部文本粘贴进去并提交。其余 Issue 模板也可用相同方式补上。
 
-## 4. 保持 Pages 设置
+## 4. 创建 Pull Request 并查看检查
 
-现有站点已经正常运行，继续使用原配置。分支发布配置通常是：
+选择 `Compare & pull request`，确认 base 为 main、compare 为 upgrade-folio-v3，创建 PR。检查 `Validate, sync and publish` 中的 `Build and test`。该任务会生成网站、验证全部语言和链接，并在本地 HTTP 服务器上运行 Chromium 测试。PR 阶段不写回 main，也不部署。
+
+若页面提示需要批准工作流，在你确认这是自己上传的文件后批准运行。若根本没有检查，先确认 PR 中确实包含 `.github/workflows/publish.yml`，再检查 Settings → Actions → General 是否允许本仓库运行官方 Actions。
+
+等待检查通过再继续。首次安装浏览器依赖可能需要几分钟。失败时查看第一个红色 step 的日志；不要仅看旧的 Pages 任务是否成功。
+
+## 5. 更改 Pages 的发布源
+
+在仓库 `Settings → Pages → Build and deployment` 中：
 
 ```text
-Settings → Pages
-Source: Deploy from a branch
-Branch: main
-Folder: /(root)
+Source: GitHub Actions
 ```
 
-推送到发布源会触发更新，在 Actions 中检查 Pages 部署结果，再打开 Settings → Pages 提供的网址。官方说明：[Configuring a publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)。
+本版不选择 main / root 或 docs 目录。新的静态路由只存在于生成的 `_site/` 发布产物中，保持旧的分支发布方式会让详情页刷新或直达出现 404。
 
-公开站点地址保持：
+工作流已经声明所需权限：构建任务只有读取权限；同步任务需要 contents: write；发布任务需要 pages: write 和 id-token: write。无需创建个人访问令牌或粘贴密钥。
+
+个人无保护分支仓库通常可以直接使用这些声明。遇到同步时 403 或策略限制，再查看 `Settings → Actions → General → Workflow permissions`，确认允许所需写入。组织策略或受保护分支可能限制机器人推送；不要盲目关闭分支保护，参阅本指南的替代方式。
+
+## 6. 合并并等待发布
+
+回到 PR，合并到 main。主分支会运行相同工作流，依次完成：
 
 ```text
-https://j-i-n-g-l-i.github.io/AI-direct-first/
+Build and test
+Sync generated files
+Deploy Pages
 ```
 
-## 5. 发布后的验收
+首次更新时，包内生成文件已经匹配，同步任务可能显示“already current”。以后只编辑内容源时，机器人可能产生一次 `chore: synchronize generated handbook files` 提交，这是正常的同步步骤。它只更新 index.html、README.md、docs/PAPER-MENTOR.zh-CN.md，不修改你的提示词源文件。
 
-打开首页，应显示用户级、项目级两个分类和两条提示词。分别进入条目，切换语言，检查全文；点击复制并在文本编辑器中核对；下载 `.md`，确认内容一致；在 Paper Mentor 中勾选“同时附加 Direct First”，确认预览与复制内容都包含两部分。
+GITHUB_TOKEN 的自动推送不会再递归触发同类 push 工作流；当前工作流会继续发布已通过测试的产物。看到机器人提交没有第二次 Pages 运行，并不意味着部署缺失。
 
-在窄屏设备上检查导航与阅读，切换阿拉伯语检查从右向左排版。实际标签页图标、系统剪贴板权限和 Pages 资源路径必须在部署后核对，本地测试没有覆盖这些实际环境。
+全部任务成功后，在 Settings → Pages 查看实际发布地址。若第一次发布发生在你切换 Source 之前而失败，完成设置后到 Actions 打开工作流，选择 `Run workflow`（分支 main）重新运行。
 
-图标引用包含 `?v=handbook-2` 缓存版本。站点仍显示旧内容时，先确认部署完成，再刷新或重新打开标签页。
+## 7. 验收新版
 
-### 新旧链接
+分别打开这些地址并按 F5 刷新，确认静态详情路由可直达：
 
 ```text
-新版中文首页
-https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=zh-CN
-
-Direct First
-https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=zh-CN
-
-论文研读导师
-https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=zh-CN
-
-论文研读导师 + Direct First
-https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=zh-CN
+英文首页：https://j-i-n-g-l-i.github.io/prompt-folio/en/
+中文首页：https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/
+先说重点：https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/user/direct-first/
+论文研读：https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/project/paper-mentor/
+组合示例：https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/project/paper-mentor/?with=direct-first
 ```
 
-不带参数的站点根地址进入新版首页。旧的 `#lang=zh-CN` 继续打开 Direct First，兼容已分享的老链接。分享新版首页请使用明确的 `#view=library`。
+检查首页品牌为 Prompt Folio，中文条目显示“先说重点”。切换到其他语言后，条目标题、组合开关及复制内容一起改变。正文没有因为名称本地化被改写。
 
-## 6. 用户怎样使用两级提示词
+在中文界面搜索 `Paper Mentor`、`文献` 和 `Direct First`；切换语言后旧搜索词应清空。“返回手册目录”应显示全部条目。手机首屏可直接看到实际提示词，“如何使用”在详情页正文之前。
 
-分类表示使用范围，不赋予指令更高的权限。用户级适合帐号偏好；项目级适合专用项目、Gem 或对话工作流。具体继承方式由各平台决定。
+复制单条、复制组合、下载 .md、复制链接后，将正文粘贴到本地记事本检查。旧的 `#prompt=...&lang=...` 链接仍可用，只有 `#lang=zh-CN` 的链接现在进入中文目录。
 
-ChatGPT 官方说明，项目内指令会覆盖全局自定义指令；Gemini 的个人指令目前不适用于 Gems。项目中同时需要 Direct First 时，可勾选组合复制，再把两段一起保存到对应项目。站点不会自动写入任何 AI 帐号。
+再点击顶部 GitHub、页脚 README 和仓库 README 的链接，确认目标均为新仓库。实际系统剪贴板、手机触摸、屏幕阅读器和 GitHub 原生 README 折叠效果需要在你自己的设备上验收。
 
-参考：[ChatGPT Projects](https://help.openai.com/en/articles/10169521) · [Gemini personal instructions](https://support.google.com/gemini/answer/16598625)。
+## 8. 更新仓库分享图
 
-## 7. 后续更新
+`Settings → General → Social preview → Edit → Upload an image`，选择 `assets/social-preview.png`。这是仓库分享图的单独设置；提交图片文件本身不会替换此设置。网页的 Open Graph 图片地址已自动更新。
 
-只改 `content/library.json`，然后运行：
+About 的 Description 和 Website 可继续保留目前的内容。无需再改仓库名。
 
-```bash
-python tools/build.py
-python tools/build.py --check
-```
+## 9. 日后编辑
 
-把源文件和生成后的 `index.html`、`README.md`、必要的文档一起提交。详见 [维护指南](MAINTAIN.zh-CN.md)。
+只改名称、正文：编辑 `content/prompts/<id>.json`。网站品牌、服务指南、UI：编辑 `content/library.json`。修改模板：编辑 templates 下文件。成功的 main 工作流会重新构建并同步 README。
+
+直接改生成的 index.html 或 README.md 会在下次同步时被源文件生成的内容覆盖。详情见 MAINTAIN.zh-CN.md。
+
+## 10. 故障定位与回滚
+
+| 现象 | 先检查 |
+|---|---|
+| 首页变了，详情页刷新 404 | Pages Source 是否是 GitHub Actions，Deploy Pages 是否成功 |
+| 页面还是旧版 | 查看本次 main 的运行状态，重新打开 /zh-CN/；必要时无痕窗口 |
+| 构建报 repository mismatch | content/library.json 的 site.repository 与 site.url 是否对应本仓库 |
+| 同步步骤 403 | Actions 权限、组织策略、main 分支保护 |
+| 有新 main 提交，旧同步任务主动退出 | 这是防止覆盖较新提交的保护；查看最新那次运行 |
+| 文件上传后不触发工作流 | .github 是否在根目录，文件是否已合并到 main，Actions 是否被禁用 |
+| 文本修改没有显示 | 是否改了生成文件，或工作流测试失败尚未发布 |
+
+需要回滚时，在已合并的升级 PR 使用 Revert 创建回滚 PR，并确认生成文件也回到旧版。若回到 v2，再将 Pages Source 恢复为 `Deploy from a branch → main → /(root)`。也可从备份恢复原文件，但保留版本历史通常更清晰。暂时失败的升级发布不会自动抹掉已经部署成功的旧网站。
+
+### 受保护分支的同步替代方式
+
+坚持人工审查时，在本地先运行 `python tools/build.py`，把内容源和三个生成文件一起提交到 PR。此时 Sync generated files 会检测到没有差异，不会推送；可以把同步 job 的 contents 权限改为 read。后续必须继续把生成文件一并提交。若内容源和生成文件不同，该只读方案会阻止发布，避免网站与 README 不一致。
+
+## 官方参考（2026-09-08 查阅）
+
+- [GitHub 网页上传文件](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository)
+- [Pages 发布源](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+- [Pages 自定义 Actions 工作流](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
+- [GITHUB_TOKEN 与递归触发](https://docs.github.com/en/actions/concepts/security/github_token)
+- [仓库分享预览](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview)

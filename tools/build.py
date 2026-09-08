@@ -1,171 +1,274 @@
 #!/usr/bin/env python3
-"""Build the deployable HTML and multilingual README from one content source.
+"""Deterministic, dependency-free static generator (Python 3.10+).
 
-Python 3.10+, standard library only. Run from any working directory:
-    python tools/build.py
-    python tools/build.py --check
-No build process is required on GitHub Pages; commit the generated files.
+python tools/build.py             # update committed outputs AND _site/
+python tools/build.py --check     # verify source, outputs, links; no writes
+python tools/build.py --check --repository J-I-N-G-L-I/prompt-folio
+
+GitHub Actions builds _site and synchronizes the three committed generated files.
+Prompt bodies remain verbatim; presentation and stable routing IDs are separate.
 """
 from __future__ import annotations
-import argparse
-import html
-import json
+import argparse, hashlib, html, json, os, re, shutil, sys
 from pathlib import Path
-import re
-import sys
-from urllib.parse import urlencode, urlparse
+from urllib.parse import urlparse, urlencode, urljoin, unquote
+from html.parser import HTMLParser
+from xml.etree import ElementTree as ET
+from icons import MINI
+ROOT=Path(__file__).resolve().parents[1]
+GENERATED=('index.html','README.md','docs/PAPER-MENTOR.zh-CN.md')
+E=lambda x: html.escape(str(x),quote=True)
 
-ROOT = Path(__file__).resolve().parents[1]
-MINI = {
-'grid':'<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/>',
-'user':'<path d="M4 7h16M4 17h16"/><rect x="8" y="4" width="4" height="6" rx="2" fill="var(--bg)"/><rect x="14" y="14" width="4" height="6" rx="2" fill="var(--bg)"/>',
-'project':'<path d="M3 8V6a2 2 0 0 1 2-2h5l3 3h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8ZM3 10h18"/>',
-'book':'<path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1ZM12 6v14"/>',
-'copy':'<rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/>',
-'download':'<path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/>',
-'link':'<path d="m9 15 6-6M8 17l-1 1a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0M16 7l1-1a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0" transform="translate(1 0) scale(.91 1)"/>',
-'external':'<path d="M7 17 18 6M8 6h10v10"/>',
-'arrow':'<path d="M4 12h16m-6-6 6 6-6 6"/>',
-'back':'<path d="M20 12H4m6-6-6 6 6 6"/>',
-'search':'<circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6"/>',
-'close':'<path d="m6 6 12 12M6 18 18 6"/>',
-'github':'<path d="M8 21v-3c-4 1-4-2-5-2M16 21v-4c0-1-.4-1.6-1-2 3-.3 5-1.5 5-5 0-1.4-.5-2.4-1.5-3.3.1-.8.1-1.6-.3-2.7-1.4 0-2.6.7-3.3 1.3-2-.6-4-.6-6 0C8.2 4.7 7 4 5.6 4c-.4 1.1-.4 1.9-.3 2.7C4.5 7.6 4 8.6 4 10c0 3.5 2 4.7 5 5-.6.4-1 1-1 2"/>'
-}
+def require(test:bool,message:str)->None:
+    if not test: raise ValueError(message)
 
-def load() -> dict:
-    try:
-        data = json.loads((ROOT/'content/library.json').read_text(encoding='utf-8'))
-    except (OSError, json.JSONDecodeError) as exc:
-        raise ValueError(f'Cannot read content/library.json: {exc}') from exc
-    if data.get('schemaVersion') != 1:
-        raise ValueError('Unsupported schemaVersion')
-    locales = data.get('locales', {})
-    if not locales or 'en' not in locales or 'zh-CN' not in locales:
-        raise ValueError('English and Simplified Chinese source locales are required')
-    keys = set(locales['en'])
-    for code, loc in locales.items():
-        if not re.fullmatch(r'[a-z]{2}(?:-[A-Za-z]{2,4})?',code):
-            raise ValueError(f'Invalid locale code: {code}')
-        if set(loc) != keys:
-            raise ValueError(f'{code}: inconsistent UI keys: {set(loc)^keys}')
-        if loc['dir'] not in ('ltr','rtl'):
-            raise ValueError(f'{code}: invalid direction')
-        for key, value in loc.items():
-            if not value or not isinstance(value,(str,list)):
-                raise ValueError(f'{code}.{key}: empty or invalid value')
-        for level in ('user','project'):
-            if len(loc[level+'Routes'])!=len(data['guides'][level]):
-                raise ValueError(f'{code}.{level}: guide count mismatch')
-    levels = {v['id'] for v in data['levels']}
-    ids = set()
-    for prompt in data['prompts']:
-        if not re.fullmatch('[a-z0-9-]+',prompt['id']) or prompt['id'] in ids:
-            raise ValueError(f'Invalid or duplicate prompt id: {prompt["id"]}')
-        ids.add(prompt['id'])
-        if prompt['level'] not in levels or set(prompt['locales'])!=set(locales):
-            raise ValueError(f'{prompt["id"]}: missing level or translations')
-        for code, loc in prompt['locales'].items():
-            if not {'title','description','body'} <= set(loc) or set(loc)-{'title','description','body','starter','starterTitle'} or any(not isinstance(x,str) or not x.strip() for x in loc.values()):
-                raise ValueError(f'{prompt["id"]}/{code}: invalid text')
-            if '```' in loc['body']:
-                raise ValueError('Prompt bodies currently use plain text. Escape Markdown fences before adding fenced examples.')
-        if not (ROOT/'assets/icons'/f'{prompt["icon"]}.svg').is_file():
-            raise ValueError(f'{prompt["id"]}: missing SVG')
-    if 'direct-first' not in ids:
-        raise ValueError('direct-first is required by the optional project composer and legacy links')
-    for url in [data['site']['url'],data['site']['repository']]+[s['url'] for guides in data['guides'].values() for s in guides]:
-        if urlparse(url).scheme!='https':
-            raise ValueError(f'Expected an HTTPS URL: {url}')
-    if not data['site']['url'].endswith('/'):
-        raise ValueError('site.url must end with /')
-    return data
+def load(root:Path=ROOT)->dict:
+    d=json.loads((root/'content/library.json').read_text(encoding='utf-8'))
+    require(d.get('schemaVersion')==2,'Unsupported schemaVersion (expected 2)')
+    for key in ('title','repository','url','version','branch'):
+        require(isinstance(d['site'].get(key),str) and d['site'][key],f'site.{key} is required')
+    repo=urlparse(d['site']['repository']); site=urlparse(d['site']['url'])
+    require(repo.scheme=='https' and repo.netloc=='github.com' and len(repo.path.strip('/').split('/'))==2,'Invalid repository URL')
+    require(site.scheme=='https' and d['site']['url'].endswith('/') and not site.query and not site.fragment,'site.url must be HTTPS and end in /')
+    owner,name=repo.path.strip('/').split('/')
+    if site.netloc.endswith('.github.io'):
+        expected='/' if name.lower()==f'{owner.lower()}.github.io' else f'/{name}/'
+        require(site.netloc.lower()==f'{owner.lower()}.github.io' and site.path==expected,'Repository and GitHub Pages URL do not agree')
+    require(set(d['locales']) >= {'en','zh-CN'},'English and Simplified Chinese UI are required')
+    keys=set(d['locales']['en'])
+    for code,t in d['locales'].items():
+        require(bool(re.fullmatch(r'[a-z]{2}(?:-[A-Za-z]{2,4})?',code)),f'Invalid locale: {code}')
+        require(set(t)==keys and t['dir'] in ('ltr','rtl'),f'Inconsistent UI fields: {code}')
+        require(all(isinstance(v,(str,dict)) and bool(v) for v in t.values()),f'Invalid UI text: {code}')
+        require(set(t['routes'])==set(d['services']),f'{code}: routes must be keyed by every service ID')
+    levels=[x['id'] for x in d['levels']]
+    require(len(set(levels))==len(levels) and set(levels)=={'user','project'},'This edition supports user and project scopes')
+    for level,ids in d['guides'].items():
+        require(level in levels and len(ids)==len(set(ids)) and all(i in d['services'] for i in ids),f'Invalid guide IDs: {level}')
+    for sid,s in d['services'].items():
+        require(s['id']==sid and urlparse(s['url']).scheme=='https',f'Invalid service {sid}')
+        require(bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}',s['checked'])),f'Missing check date: {sid}')
+    d['prompts']=[]
+    for f in d['promptFiles']:
+        path=(root/'content'/f).resolve()
+        require(path.is_relative_to((root/'content/prompts').resolve()),'Prompt file must be inside content/prompts/')
+        p=json.loads(path.read_text(encoding='utf-8')); d['prompts'].append(p)
+    ids=[p['id'] for p in d['prompts']]
+    require(len(ids)==len(set(ids)) and bool(ids),'Empty library or duplicate IDs')
+    for p in d['prompts']:
+        require(bool(re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*',p['id'])),f'Invalid prompt ID: {p["id"]}')
+        require(p['level'] in levels and bool(p['locales']),f'Invalid scope/locales: {p["id"]}')
+        require(set(p['locales'])<=set(d['locales']) and p['sourceLanguage'] in p['locales'],f'Invalid source language: {p["id"]}')
+        require(bool(re.fullmatch(r'\d+\.\d+\.\d+',p['version'])),f'Use semantic version: {p["id"]}')
+        require(all(isinstance(a,str) and a.strip() for a in p['aliases']),f'Invalid aliases: {p["id"]}')
+        require((root/'assets/icons'/f'{p["icon"]}.svg').is_file(),f'Missing icon: {p["id"]}')
+        p['sourceHash']=hashlib.sha256(p['locales'][p['sourceLanguage']]['body'].encode('utf-8')).hexdigest()
+        for code,loc in p['locales'].items():
+            require(all(isinstance(loc.get(k),str) and loc[k].strip() for k in ('title','description','body')),f'Missing localized text: {p["id"]}/{code}')
+            m=loc['translation']
+            require(m['status'] in ('source','ai-assisted','reviewed'),f'Unknown review status: {p["id"]}/{code}')
+            if m['status']=='reviewed':require(bool(m.get('reviewer')) and bool(m.get('reviewedAt')),'Human-reviewed needs a reviewer and date')
+            if code==p['sourceLanguage']:m['effectiveStatus']='source'
+            elif m['sourceVersion']!=p['version'] or m['sourceHash']!=p['sourceHash']:m['effectiveStatus']='stale'
+            else:m['effectiveStatus']=m['status']
+        for other in p.get('recommendedWith',[]):
+            require(other in ids and other!=p['id'],f'Unknown composition reference: {other}')
+            q=next(x for x in d['prompts'] if x['id']==other)
+            require(q['level']=='user' and p['level']=='project','Compose project prompts with user-level preferences only')
+    # SVGs are local code assets. Disallow active content or network dependencies.
+    for icon in (root/'assets/icons').glob('*.svg'):
+        tree=ET.fromstring(icon.read_text(encoding='utf-8'))
+        for el in tree.iter():
+            require(el.tag.split('}')[-1] not in ('script','foreignObject'),'Active SVG content is not allowed')
+            require(not any(k.lower().startswith('on') for k in el.attrib),'SVG event handlers are not allowed')
+    d['languageCount']=len({c.split('-')[0] for c in d['locales']})
+    return d
 
-def sprite() -> str:
-    pieces = ['<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs>']
+def text_for(p:dict,code:str)->dict:
+    return p['locales'].get(code) or p['locales'][p['sourceLanguage']]
+
+def status_text(d:dict,p:dict,code:str)->str:
+    s=text_for(p,code)['translation']['effectiveStatus']
+    return d['locales'][code][{'source':'statusSource','ai-assisted':'statusAI','reviewed':'statusReviewed','stale':'statusStale'}[s]]
+
+def route_path(code='en',level='all',prompt=None,view='library')->str:
+    if prompt:return f'{code}/{level}/{prompt}/'
+    if view=='guide':return f'{code}/guide/'
+    if level in ('user','project'):return f'{code}/{level}/'
+    return f'{code}/'
+
+def link(d:dict,code:str,level='all',prompt=None,view='library',with_ids=None)->str:
+    out=d['site']['url']+route_path(code,level,prompt,view)
+    return out+('?' + urlencode({'with':','.join(with_ids)}) if with_ids else '')
+
+def sprite()->str:
+    result=['<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs>']
     for file in sorted((ROOT/'assets/icons').glob('*.svg')):
         inner=re.sub(r'^.*?<svg\b[^>]*>','',file.read_text(encoding='utf-8'),count=1,flags=re.S)
         inner=re.sub(r'</svg>\s*$','',inner)
-        pieces.append(f'<symbol id="tile-{file.stem}" viewBox="0 0 64 64" fill="none">{inner}</symbol>')
+        result.append(f'<symbol id="tile-{E(file.stem)}" viewBox="0 0 64 64" fill="none">{inner}</symbol>')
     for name,inner in MINI.items():
-        pieces.append(f'<symbol id="i-{name}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{inner}</symbol>')
-    return ''.join(pieces)+'</defs></svg>'
+        result.append(f'<symbol id="i-{name}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{inner}</symbol>')
+    return ''.join(result)+'</defs></svg>'
 
-def rendered_html(data:dict) -> str:
+def fenced(text:str)->str:
+    # Variable-length fences make literal Markdown examples safe to copy.
+    runs=[len(x) for x in re.findall(r'`+',text)]
+    f='`'*max(3,(max(runs)+1 if runs else 3))
+    return f+'text\n'+text+'\n'+f
+
+def guide_html(d:dict,code:str,level:str)->str:
+    t=d['locales'][code];out=f'<section class="aside-card"><h2>{E(t[level])}</h2>'
+    out+=f'<p>{E(t["intro"] if level=="user" else t["projectDesc"])}</p>'
+    for sid in d['guides'][level]:
+        s=d['services'][sid]
+        out+=f'<details class="service"><summary>{E(s["name"])}</summary><p>{E(t["routes"][sid])}</p><code class="path" lang="en" dir="ltr">{E(s["path"])}</code><a class="source-link" href="{E(s["url"])}">{E(t["sources"])}</a></details>'
+    return out+f'<p>{E(t["common"])}</p></section>'
+
+def static_main(d:dict,r:dict,root:str)->str:
+    c=r['lang'];t=d['locales'][c]
+    if r.get('prompt'):
+        p=next(p for p in d['prompts'] if p['id']==r['prompt']);loc=text_for(p,c)
+        body=f'<a class="back-link" href="{root}{c}/">{E(t["backLibrary"])}</a><section class="detail-hero"><h1>{E(loc["title"])}</h1><p>{E(loc["description"])}</p></section>'
+        body+=f'<details class="usage-panel"><summary>{E(t["usageToggle"])} · {E(t[p["level"]])}</summary>{guide_html(d,c,p["level"])}</details>'
+        body+=f'<p><a class="button" href="{root}prompts/{p["id"]}.{c if c in p["locales"] else p["sourceLanguage"]}.md" download>{E(t["download"])}</a></p><section class="reader"><div class="reader-content"><pre class="prompt">{E(loc["body"])}</pre></div></section>'
+        if loc.get('starter'):body+=f'<h2>{E(t["starter"])}</h2><pre class="starter-body">{E(loc["starter"])}</pre>'
+        if c not in p['locales']:body='<p class="fallback-notice">'+E(t['statusMissing'].replace('{language}',d['locales'][p['sourceLanguage']]['name']))+'</p>'+body
+        return body+f'<p>{E(t["evaluationNote"])}</p><p>{E(status_text(d,p,c))}</p>'
+    if r['view']=='guide':return f'<h1>{E(t["usageToggle"])}</h1><p>{E(t["scopeNote"])}</p><div class="guide-grid">'+''.join(guide_html(d,c,l['id']) for l in d['levels'])+'</div>'
+    body=f'<section class="hero"><h1>{E(t["heroTitle"] if r["level"]=="all" else t[r["level"]])}</h1><p>{E(t["heroDesc"])}</p></section><div class="entries">'
+    for p in d['prompts']:
+        if r['level'] not in ('all',p['level']):continue
+        loc=text_for(p,c)
+        body+=f'<a class="entry" href="{root}{route_path(c,p["level"],p["id"])}"><img src="{root}assets/icons/{p["icon"]}.svg" width="48" height="48" alt=""><div><h2>{E(loc["title"])}</h2><p>{E(loc["description"])}</p></div></a>'
+    return body+'</div>'
+
+def rendered_html(d:dict,r:dict|None=None,output_path='index.html')->str:
+    r=r or {'lang':'en','view':'library','level':'all','prompt':None}
+    c=r['lang'];t=d['locales'][c]
+    depth=len(Path(output_path).parts)-1;root='../'*depth or './'
+    p=next((p for p in d['prompts'] if p['id']==r.get('prompt')),None)
+    title=(text_for(p,c)['title']+' · '+d['site']['title']) if p else d['site']['title']+' — '+t['heroTitle']
+    desc=text_for(p,c)['description'] if p else t['heroDesc']
+    canonical=d['site']['url']+(output_path[:-10] if output_path.endswith('index.html') else '')
+    if p and c not in p['locales']:canonical=link(d,p['sourceLanguage'],p['level'],p['id'])
+    codes=list(p['locales']) if p else list(d['locales'])
+    alternatives=''.join(f'<link rel="alternate" hreflang="{code}" href="{E(link(d,code,r["level"],r.get("prompt"),r["view"]))}">\n' for code in codes)
+    alternatives+=f'<link rel="alternate" hreflang="x-default" href="{E(link(d,p["sourceLanguage"] if p else "en",r["level"],r.get("prompt"),r["view"]))}">'
+    nav=f'<nav class="static-nav"><a href="{root}{c}/">{E(t["all"])}</a>' + ''.join(f'<a href="{root}{c}/{l["id"]}/">{E(t[l["id"]])}</a>' for l in d['levels'])+f'<a href="{root}{c}/guide/">{E(t["how"])}</a></nav>'
+    def jsdata(v):return json.dumps(v,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c').replace('\u2028','\\u2028').replace('\u2029','\\u2029')
+    page={'root':root,'route':r,'indexRoot':output_path=='index.html','notFound':output_path=='404.html'}
+    tokens={'LANG_LABEL':E(t['language']),'PRIVACY':E(t['privacy']),'GUIDE_LABEL':E(t['usageToggle']),'LICENSE_LABEL':E(t['license']),'SITE_TITLE':E(d['site']['title']),'SITE_URL':E(d['site']['url']),'REPO_URL':E(d['site']['repository']),'PAGE_TITLE':E(title),'DESCRIPTION':E(desc),'CANONICAL':E(canonical),'ALTERNATES':alternatives,'LANG':c,'DIR':t['dir'],'BRAND_SUB':E(t['brandSub']),'ROOT':root,'HOME':root+c+'/','GUIDE':root+c+'/guide/','SKIP':E(t['skip']),'STATIC_NAV':nav,'STATIC_HOME':static_main(d,r,root),'NOJS':E(t['common'])+' <a href="'+E(d['site']['repository'])+'#readme">README</a>','CSS':(ROOT/'templates/styles.css').read_text(encoding='utf-8'),'SYMBOLS':sprite(),'DATA':jsdata(d),'PAGE_DATA':jsdata(page),'APP_JS':(ROOT/'templates/app.js').read_text(encoding='utf-8'),'LANG_OPTIONS':''.join(f'<option value="{c2}" lang="{c2}" dir="{loc["dir"]}" {"selected" if c==c2 else ""}>{E(loc["name"])}</option>' for c2,loc in d['locales'].items())}
     template=(ROOT/'templates/index.html').read_text(encoding='utf-8')
-    # Escape '<' so editable prompt text cannot terminate this JSON script element.
-    embedded=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c').replace('\u2028','\\u2028').replace('\u2029','\\u2029')
-    options=''.join(f'<option value="{html.escape(code)}" lang="{html.escape(code)}" dir="{loc["dir"]}">{html.escape(loc["name"])}</option>' for code,loc in data['locales'].items())
-    static=f'<section class="hero"><p class="eyebrow">{html.escape(data["site"]["title"])}</p><h1>Useful prompts, within reach.</h1><p>A multilingual handbook of user-level preferences and project-level workflows.</p></section>'
-    for prompt in data['prompts']:
-        static+=f'<h2>{html.escape(prompt["locales"]["en"]["title"])}</h2><p>{html.escape(prompt["locales"]["en"]["description"])}</p>'
-    static+=f'<p><a href="{html.escape(data["site"]["repository"])}#readme">Read the full handbook / 阅读完整手册</a></p>'
-    substitutions={'@@SITE_TITLE@@':html.escape(data['site']['title'],quote=True),'@@SITE_URL@@':html.escape(data['site']['url'],quote=True),'@@REPO_URL@@':html.escape(data['site']['repository'],quote=True),'@@SYMBOLS@@':sprite(),'@@LANG_OPTIONS@@':options,'@@STATIC_HOME@@':static,'@@DATA@@':embedded,'@@APP_JS@@':(ROOT/'templates/app.js').read_text(encoding='utf-8')}
-    for token,value in substitutions.items():template=template.replace(token,value)
-    if re.search(r'@@[A-Z_]+@@',template):raise ValueError('Unresolved template placeholder')
+    # Substitute tokens once, preventing prompt text that resembles tokens from being interpreted.
+    template=re.sub(r'@@([A-Z_]+)@@',lambda m:tokens[m[1]],template)
     return template
 
-def site_link(data:dict,code:str,**kwargs) -> str:
-    return data['site']['url']+'#'+urlencode({**kwargs,'lang':code})
+def readme(d:dict)->str:
+    L=['<a name="languages"></a>','',f'<img src="assets/icons/handbook.svg" width="48" height="48" alt="{d["site"]["title"]}">','',f'# {d["site"]["title"]}','','**Useful prompts, within reach. / 常用的提示词，随手可用。**','',
+    'A multilingual handbook for **personal preferences** and **project workflows**. Browse by scope, combine, and copy.  ', '按**用户级偏好**与**项目级工作流程**整理。选择条目，按需组合，直接复制。','',
+    f'**[Open in English]({link(d,"en")}) · [打开中文手册]({link(d,"zh-CN")}) · [How to use / 使用指南]({link(d,"en",view="guide")})**','',
+    f'**{len(d["prompts"])} prompts · {len(d["levels"])} scopes · {d["languageCount"]} languages / {len(d["locales"])} locale versions**','',
+    '| Scope / 级别 | Entry / 条目 | Use / 用途 |','|---|---|---|']
+    for p in d['prompts']:
+        a=text_for(p,'en');b=text_for(p,'zh-CN');level=p['level']
+        L.append(f'| {d["locales"]["en"][level]} / {d["locales"]["zh-CN"][level]} | [{a["title"]}]({link(d,"en",level,p["id"])}) / [{b["title"]}]({link(d,"zh-CN",level,p["id"])}) | {a["description"]} |')
+    L+=['','Choose a language and expand an entry. Copy only its prompt code block; setup guidance and complete texts are available below.  ','选择语言，再展开条目。只复制提示词代码框；README 中保留全部正文和使用说明。','']
+    locs=list(d['locales'].items())
+    for i in range(0,len(locs),4):L+=[' · '.join(f'[{t["name"]}](#lang-{code.lower()})' for code,t in locs[i:i+4])+'  ']
+    L+=['','> Scope describes intended usage, not API roles or elevated permissions. / 分类表示使用范围，不代表 API 角色或更高权限。','']
+    for code,t in locs:
+        L+=['---','',f'<a name="lang-{code.lower()}"></a>','','<details>',f'<summary><strong>{E(t["name"])}</strong> — {E(t["readmeGuide"])}</summary>','',f'## {t["heroTitle"]}','',f'[{t["library"]}]({link(d,code)})','',t['languageHelp'],'',t['quickText'],'']
+        for p in d['prompts']:
+            loc=text_for(p,code);level=p['level']
+            L+=['<details>',f'<summary><strong>{E(t[level])} · {E(loc["title"])}</strong></summary>','',f'### {loc["title"]}','',loc['description'],'',f'[{t["open"]}]({link(d,code,level,p["id"])}) · `v{p["version"]}`','']
+            if code not in p['locales']:L +=[t['statusMissing'].replace('{language}',d['locales'][p['sourceLanguage']]['name']),'']
+            L +=[f'**{t["promptTitle"]}**','',fenced(loc['body']),'']
+            for other in p.get('recommendedWith',[]):
+                q=next(x for x in d['prompts'] if x['id']==other)
+                L+=[f'[{t["include"].replace("{title}",text_for(q,code)["title"])}]({link(d,code,level,p["id"],with_ids=[other])})','']
+            if loc.get('starter'):L +=[f'**{t["starter"]}**','',t['starterHelp'],'',fenced(loc['starter']),'']
+            L +=[f'### {t["usageToggle"]}','',t['hint'] if level=='user' else t['projectNote'],'']
+            for sid in d['guides'][level]:
+                s=d['services'][sid];L +=[f'**{s["name"]}**','',t['routes'][sid],'',f'[{t["sources"]}]({s["url"]}) · {s["checked"]}','']
+            L +=[f'**{t["commonTitle"]}**','',t['common'],'',f'**{t["reviewTitle"]}**','',f'{t["sourceLabel"]}: {d["locales"][p["sourceLanguage"]]["name"]} · {t["versionLabel"]}: {p["version"]} · {t["updatedLabel"]}: {p["updated"]}','',status_text(d,p,code),'',t['evaluationNote'],'','</details>','']
+        L +=[t['notes'],'',t['lengthNote'],'',t['quality'],'',f'[{t["library"]} ↑](#languages)','','</details>','']
+    L+=['---','','## Contribute / 参与维护','','[Contributing](CONTRIBUTING.md) · [中文维护指南](docs/MAINTAIN.zh-CN.md) · [Deployment / 部署](docs/PUBLISH.zh-CN.md) · [Testing](docs/TESTING.md) · [Evaluation protocol](docs/EVALUATION.md)','',
+    'Content lives in `content/library.json` (site, UI, service guides) and `content/prompts/*.json` (one file per prompt). Names are localized; IDs remain stable. The generator creates this complete README, the offline-capable root page, Markdown exports, and indexable static routes.','',
+    '```bash','python tools/build.py','python tools/build.py --check','python tools/test_unit.py','```','',
+    'The supplied workflow validates and builds, runs browser regression checks, synchronizes generated repository files, then deploys `_site/`. Set GitHub Pages to **GitHub Actions**. Changes made through the GitHub editor can therefore update both the website and README after a successful run. See the deployment guide for permissions and protected-branch alternatives.','',
+    'All translations are AI-assisted unless explicitly marked reviewed. No systematic model-effectiveness evaluation is claimed. The browser tests do not constitute native-language review or real-device certification.','',
+    '## License / 许可','','MIT — see [LICENSE](LICENSE). The original copyright notice is preserved.','']
+    return '\n'.join(L)
 
-def scope_entries(data:dict,level:str) -> str:
-    return ' · '.join(f'[{p["locales"]["zh-CN"]["title"]}]({site_link(data,"zh-CN",prompt=p["id"])})' for p in data['prompts'] if p['level']==level)
+class References(HTMLParser):
+    def __init__(self):super().__init__();self.refs=[];self.ids=set();self.canonical=None
+    def handle_starttag(self,tag,attrs):
+        a=dict(attrs)
+        if 'id' in a:self.ids.add(a['id'])
+        if tag in ('a','link','script','img','use'):
+            for key in ('href','src'):
+                if a.get(key):self.refs.append(a[key])
+        if tag=='link' and a.get('rel')=='canonical':self.canonical=a['href']
 
-def readme(data:dict) -> str:
-    lines=['<a name="languages"></a>','', '<img src="assets/icons/handbook.svg" width="56" height="56" alt="Prompt Handbook">','', f'# {data["site"]["title"]}', '', '**Useful prompts, within reach. / 常用的提示词，随手可用。**','',
-        'A multilingual handbook of **user-level preferences** and **project-level workflows**. Direct First is now the first entry in this collection.  ',
-        '按**用户级**与**项目级**整理的多语言 Prompt 手册。Direct First 作为第一条用户级提示词保留。','',
-        f'**[Open the handbook / 打开交互手册]({data["site"]["url"]}#view=library)** · [中文部署与维护](docs/PUBLISH.zh-CN.md) · [Content & UI source](content/library.json)','',
-        f'**{len(data["prompts"])} prompts · {len(data["levels"])} scopes · 15 languages / 16 locale versions**  ',
-        f'**当前 {len(data["prompts"])} 条提示词均提供完整的 {len(data["locales"])} 个语言版本。** 复制一种语言即可；Paper Mentor 跟随用户明确指定的回复语言，未指定时跟随对话。','',
-        '| Scope / 级别 | Intended use / 用途 | Entry / 条目 |','|---|---|---|',
-        f'| <img src="assets/icons/user.svg" width="28" alt=""> User-level / 用户级 | Personal defaults across conversations / 长期沟通偏好 | {scope_entries(data,"user")} |',
-        f'| <img src="assets/icons/project.svg" width="28" alt=""> Project-level / 项目级 | A focused topic or workflow / 专用主题与流程 | {scope_entries(data,"project")} |','',
-        'Choose your language, expand its section, and then open an entry. Copy **only the prompt code block**. Full prompts and setup guidance are available here without visiting the website.  ',
-        '点击下方语言，展开该语言，再选择条目。只复制提示词代码框中的内容；无需进入网页也能取得完整提示词与使用说明。','']
-    all_locales=list(data['locales'].items())
-    for i in range(0,len(all_locales),4):lines.append(' · '.join(f'[{loc["name"]}](#lang-{code.lower()})' for code,loc in all_locales[i:i+4])+'  ')
-    lines+=['','> Scope labels describe intended usage, not API message roles. Projects may require preferences to be included explicitly; see official guides below.  ','> 分类表示使用范围，不等同于 API 系统角色。项目中需要保留的用户偏好可明确附加；网页支持可选组合复制。','', '---','']
-    for code,t in all_locales:
-        lines += [f'<a name="lang-{code.lower()}"></a>', '', '<details>',f'<summary><strong>{t["name"]}</strong> — {html.escape(t["readmeGuide"])}</summary>','',f'## {t["heroTitle"]}', '',t['heroDesc'],'',f'[{t["library"]} ↗]({site_link(data,code,view="library")})','',t['quickText'],'',t['scopeNote'],'']
-        for prompt in data['prompts']:
-            loc=prompt['locales'][code];level=prompt['level']
-            lines+=['<details>',f'<summary><strong>{html.escape(t[level])} · {html.escape(loc["title"])}</strong></summary>','',f'### {loc["title"]}','',loc['description'],'',f'[{t["open"]} ↗]({site_link(data,code,prompt=prompt["id"])}) · `v{prompt["version"]}`','',f'**{t["promptTitle"]}**','','```text',loc['body'],'```','']
-            if level=='project':
-                lines += [t['projectNote'],'',f'[{t["attach"]} ↗]({site_link(data,code,prompt=prompt["id"],**{"with":"direct-first"})})','']
-                if loc.get('starter'):
-                    lines += [f'**{loc.get("starterTitle",t["commonTitle"])}**','','```text',loc['starter'],'```','']
-            else:lines += [t['hint'],'']
-            lines += [f'### {t["how"]}','',t['intro'] if level=='user' else t['projectDesc'],'']
-            for i,source in enumerate(data['guides'][level]):
-                lines += [f'**{source["name"]}**', '', t[level+'Routes'][i], '', f'[{t["sources"]}]({source["url"]})','']
-            lines += [f'**{t["commonTitle"]}**','',t['common'],'','Grok · DeepSeek · Qwen · Kimi · Doubao','', '</details>', '']
-        lines += [f'### {t["notesTitle"]}','',t['notes'],'',t['lengthNote'],'',t['quality'],'',t['checked'],'',f'[{t["library"]} ↑](#languages)','', '</details>', '', '---','']
-    lines += ['## Maintainers / 维护者', '',
-        'The website and this README are generated from **one content source**: `content/library.json`. The deployable `index.html` is self-contained; it does not fetch JSON or load third-party scripts at runtime. All translations are AI-assisted and have not been independently reviewed by native speakers. Browser checks validate the site, not prompt effectiveness.', '',
-        '网站与 README 从同一个内容源生成，避免不同入口的提示词版本不一致。直接上传已经生成的文件即可部署。编辑内容后运行：','',
-        '```bash','python tools/build.py','python tools/build.py --check','```','',
-        'See [deployment and migration](docs/PUBLISH.zh-CN.md), [content maintenance](docs/MAINTAIN.zh-CN.md), [design system](docs/DESIGN.md), and [verification scope](docs/TESTING.md).','',
-        'Legacy `#lang=zh-CN` links open Direct First. New library links explicitly use `#view=library&lang=zh-CN`. The existing repository name and GitHub Pages URL can remain unchanged.','',
-        '## License / 许可','', 'MIT — see [LICENSE](LICENSE). The original copyright notice has been preserved.','']
-    return '\n'.join(lines)
+def site_outputs(d:dict)->dict[str,str|bytes]:
+    output={}; routes=[('index.html',{'lang':'en','view':'library','level':'all','prompt':None})]
+    for code in d['locales']:
+        for level in ['all']+[x['id'] for x in d['levels']]:routes.append((route_path(code,level)+'index.html',{'lang':code,'view':'library','level':level,'prompt':None}))
+        routes.append((route_path(code,view='guide')+'index.html',{'lang':code,'view':'guide','level':'all','prompt':None}))
+        for p in d['prompts']:
+            routes.append((route_path(code,p['level'],p['id'])+'index.html',{'lang':code,'view':'prompt','level':p['level'],'prompt':p['id']}))
+    for path,r in routes:output[path]=rendered_html(d,r,path)
+    output['404.html']=rendered_html(d,output_path='404.html').replace('<meta name="color-scheme"','<meta name="robots" content="noindex">\n<meta name="color-scheme"',1)
+    for p in d['prompts']:
+        for code,loc in p['locales'].items():output[f'prompts/{p["id"]}.{code}.md']=loc['body']+'\n'
+    urls=[d['site']['url']+path.removesuffix('index.html') for path,r in routes if not r.get('prompt') or r['lang'] in next(p for p in d['prompts'] if p['id']==r['prompt'])['locales']]
+    output['sitemap.xml']='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{E(u)}</loc></url>' for u in urls)+'</urlset>\n'
+    # A robots.txt under a GitHub project path is not origin-wide. Use a sitemap link in the README/docs instead.
+    output['.nojekyll']=''
+    for path in ['LICENSE','favicon.svg','favicon.ico','apple-touch-icon.png']:
+        output[path]=(ROOT/path).read_bytes()
+    for path in (ROOT/'assets').rglob('*'):
+        if path.is_file():output[path.relative_to(ROOT).as_posix()]=path.read_bytes()
+    return output
 
-def main() -> int:
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--check',action='store_true',help='Validate source and fail if generated files are stale; write nothing')
-    args=parser.parse_args()
+def validate_internal_links(d:dict,outputs:dict)->int:
+    checks=0;site=d['site']['url'];asset_prefix=urlparse(site).path
+    for path,body in outputs.items():
+        if not path.endswith('.html'):continue
+        parser=References();parser.feed(str(body));base=site+path
+        for ref in parser.refs:
+            if ref.startswith('#'):
+                # Client routes and inlined SVG symbol references.
+                if '=' in ref or ref in ('#main',):continue
+                require(unquote(ref[1:]) in parser.ids,f'{path}: missing anchor {ref}');checks+=1;continue
+            absolute=urljoin(base,ref)
+            if not absolute.startswith(site):continue
+            target=unquote(urlparse(absolute).path[len(asset_prefix):])
+            if target.endswith('/') or not target:target+='index.html'
+            require(target in outputs,f'{path}: broken local link {ref} -> {target}');checks+=1
+    return checks
+
+def main()->int:
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--check',action='store_true');ap.add_argument('--repository',default='');args=ap.parse_args()
     try:
-        data=load()
-        paper=next(p for p in data['prompts'] if p['id']=='paper-mentor')
-        outputs={ROOT/'index.html':rendered_html(data),ROOT/'README.md':readme(data),ROOT/'docs/PAPER-MENTOR.zh-CN.md':paper['locales']['zh-CN']['body']+'\n'}
-        stale=[]
-        for path,text in outputs.items():
-            if args.check:
-                if not path.is_file() or path.read_text(encoding='utf-8')!=text:stale.append(str(path.relative_to(ROOT)))
-            else:path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text,encoding='utf-8')
-        if stale:print('Generated files are stale: '+', '.join(stale),file=sys.stderr);return 1
-        print(f'{"Verified" if args.check else "Built"}: {len(data["prompts"])} prompts × {len(data["locales"])} locales; HTML, README, Chinese prompt export.')
+        d=load()
+        if args.repository:require(d['site']['repository'].removeprefix('https://github.com/').lower()==args.repository.lower(),'Configured repository does not match --repository; edit content/library.json')
+        generated={'index.html':rendered_html(d),'README.md':readme(d)}
+        paper=next((p for p in d['prompts'] if p['id']=='paper-mentor'),None)
+        generated['docs/PAPER-MENTOR.zh-CN.md']=(text_for(paper,'zh-CN')['body']+'\n') if paper else '# This entry is no longer in the library.\n'
+        for rel,body in generated.items():
+            if args.check:require((ROOT/rel).is_file() and (ROOT/rel).read_text(encoding='utf-8')==body,'Stale generated file: '+rel+'; run python tools/build.py')
+            else:(ROOT/rel).write_text(body,encoding='utf-8',newline='\n')
+        out=site_outputs(d);checks=validate_internal_links(d,out)
+        if not args.check:
+            site=ROOT/'_site'
+            if site.exists():shutil.rmtree(site)
+            for rel,body in out.items():
+                f=site/rel;f.parent.mkdir(parents=True,exist_ok=True)
+                f.write_bytes(body if isinstance(body,bytes) else body.encode('utf-8'))
+        require('AI-direct-first/' not in generated['index.html']+generated['README.md'],'Legacy repository URL leaked into generated files')
+        print(f'{"Verified" if args.check else "Built"}: {len(d["prompts"])} prompts, {len(d["locales"])} locales, {sum(k.endswith(".html") for k in out)} HTML pages; {checks} local links checked.')
         return 0
-    except (OSError,ValueError,KeyError,TypeError) as exc:
-        print(f'Build failed: {exc}',file=sys.stderr);return 1
-
+    except (OSError,ValueError,KeyError,TypeError,ET.ParseError) as e:print('Build failed: '+str(e),file=sys.stderr);return 1
 if __name__=='__main__':raise SystemExit(main())

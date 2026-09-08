@@ -1,34 +1,32 @@
 <a name="languages"></a>
 
-<img src="assets/icons/handbook.svg" width="56" height="56" alt="Prompt Handbook">
+<img src="assets/icons/handbook.svg" width="48" height="48" alt="Prompt Folio">
 
-# Prompt Handbook
+# Prompt Folio
 
 **Useful prompts, within reach. / 常用的提示词，随手可用。**
 
-A multilingual handbook of **user-level preferences** and **project-level workflows**. Direct First is now the first entry in this collection.  
-按**用户级**与**项目级**整理的多语言 Prompt 手册。Direct First 作为第一条用户级提示词保留。
+A multilingual handbook for **personal preferences** and **project workflows**. Browse by scope, combine, and copy.  
+按**用户级偏好**与**项目级工作流程**整理。选择条目，按需组合，直接复制。
 
-**[Open the handbook / 打开交互手册](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library)** · [中文部署与维护](docs/PUBLISH.zh-CN.md) · [Content & UI source](content/library.json)
+**[Open in English](https://j-i-n-g-l-i.github.io/prompt-folio/en/) · [打开中文手册](https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/) · [How to use / 使用指南](https://j-i-n-g-l-i.github.io/prompt-folio/en/guide/)**
 
-**2 prompts · 2 scopes · 15 languages / 16 locale versions**  
-**当前 2 条提示词均提供完整的 16 个语言版本。** 复制一种语言即可；Paper Mentor 跟随用户明确指定的回复语言，未指定时跟随对话。
+**2 prompts · 2 scopes · 15 languages / 16 locale versions**
 
-| Scope / 级别 | Intended use / 用途 | Entry / 条目 |
+| Scope / 级别 | Entry / 条目 | Use / 用途 |
 |---|---|---|
-| <img src="assets/icons/user.svg" width="28" alt=""> User-level / 用户级 | Personal defaults across conversations / 长期沟通偏好 | [Direct First](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=zh-CN) |
-| <img src="assets/icons/project.svg" width="28" alt=""> Project-level / 项目级 | A focused topic or workflow / 专用主题与流程 | [论文研读导师](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=zh-CN) |
+| User-level / 用户级 | [Direct First](https://j-i-n-g-l-i.github.io/prompt-folio/en/user/direct-first/) / [先说重点](https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/user/direct-first/) | A multilingual writing preference for fewer formulaic contrasts in AI replies. |
+| Project-level / 项目级 | [Paper Mentor](https://j-i-n-g-l-i.github.io/prompt-folio/en/project/paper-mentor/) / [论文研读导师](https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/project/paper-mentor/) | Read research across disciplines, connecting questions, methods, equations, figures, and the limits of evidence. |
 
-Choose your language, expand its section, and then open an entry. Copy **only the prompt code block**. Full prompts and setup guidance are available here without visiting the website.  
-点击下方语言，展开该语言，再选择条目。只复制提示词代码框中的内容；无需进入网页也能取得完整提示词与使用说明。
+Choose a language and expand an entry. Copy only its prompt code block; setup guidance and complete texts are available below.  
+选择语言，再展开条目。只复制提示词代码框；README 中保留全部正文和使用说明。
 
 [English](#lang-en) · [简体中文](#lang-zh-cn) · [繁體中文](#lang-zh-tw) · [Español](#lang-es)  
 [Français](#lang-fr) · [Deutsch](#lang-de) · [Português (Brasil)](#lang-pt-br) · [Italiano](#lang-it)  
 [日本語](#lang-ja) · [한국어](#lang-ko) · [العربية](#lang-ar) · [हिन्दी](#lang-hi)  
 [Русский](#lang-ru) · [Bahasa Indonesia](#lang-id) · [Türkçe](#lang-tr) · [Azərbaycanca](#lang-az)  
 
-> Scope labels describe intended usage, not API message roles. Projects may require preferences to be included explicitly; see official guides below.  
-> 分类表示使用范围，不等同于 API 系统角色。项目中需要保留的用户偏好可明确附加；网页支持可选组合复制。
+> Scope describes intended usage, not API roles or elevated permissions. / 分类表示使用范围，不代表 API 角色或更高权限。
 
 ---
 
@@ -39,13 +37,11 @@ Choose your language, expand its section, and then open an entry. Copy **only th
 
 ## Useful prompts, within reach.
 
-A small handbook for the way you work. Choose a scope, find a prompt, make it your own.
+[Handbook](https://j-i-n-g-l-i.github.io/prompt-folio/en/)
 
-[Handbook ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=en)
+Changes the interface and prompt text. Your conversation determines the AI’s reply language.
 
 Save personal defaults in account instructions and focused workflows in a project or custom assistant. Without that feature, paste the prompt at the start of a new chat. This site never changes your AI settings.
-
-These categories describe intended scope, not API message roles or elevated system permissions. Actual behavior depends on the service.
 
 <details>
 <summary><strong>User-level · Direct First</strong></summary>
@@ -54,7 +50,7 @@ These categories describe intended scope, not API message roles or elevated syst
 
 A multilingual writing preference for fewer formulaic contrasts in AI replies.
 
-[Read prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=en) · `v1.1.0`
+[Read prompt](https://j-i-n-g-l-i.github.io/prompt-folio/en/user/direct-first/) · `v1.1.0`
 
 **The prompt**
 
@@ -68,47 +64,51 @@ State the main point directly, then explain the reasoning, evidence, or implicat
 These preferences concern expression only. Preserve the completeness, analytical depth, and necessary detail of your answers. Let the writing reflect these preferences without announcing that you are following them.
 ```
 
+### How to use
+
 Copy one version. The preference applies across reply languages; your usual language requests still apply.
-
-### Where to use it
-
-Paste the prompt into the field below. Keep useful existing preferences, then save or submit and enable the setting where available.
 
 **ChatGPT**
 
 Settings → Personalization → Custom Instructions. Turn customization on. On mobile, look for Customize ChatGPT in Settings.
 
-[Official setup references](https://help.openai.com/en/articles/8096356)
+[Official setup references](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Settings → Instructions for Claude. Add it to your account-wide instructions.
 
-[Official setup references](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Official setup references](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Settings & help → Personal Intelligence → Instructions for Gemini → Add → Submit. Personal accounts; Gems need separate instructions. Labels can vary.
 
-[Official setup references](https://support.google.com/gemini/answer/16598625)
+[Official setup references](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Settings and more (…) → Chat settings → Personalization → Custom instructions → Edit instructions → Save instructions. This route is for the Microsoft 365 experience.
 
-[Official setup references](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Official setup references](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Profile icon → Personalize → Introduce yourself. Add the text as a response preference.
 
-[Official setup references](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Official setup references](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **Use in a conversation**
 
 In any chat app, paste the prompt before your task. Repeat it in each new chat unless you have saved it as a persistent instruction.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Version & quality**
+
+Source language: 简体中文 · Content version: 1.1.0 · Updated: 2026-09-08
+
+AI-assisted · unreviewed
+
+Prompt effectiveness has not been systematically evaluated. Website tests check functionality only.
 
 </details>
 
@@ -119,7 +119,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Read research across disciplines, connecting questions, methods, equations, figures, and the limits of evidence.
 
-[Read prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=en) · `v1.0.0`
+[Read prompt](https://j-i-n-g-l-i.github.io/prompt-folio/en/project/paper-mentor/) · `v1.1.0`
 
 **The prompt**
 
@@ -149,63 +149,75 @@ Explain scholarly and practical value. Propose a few specific, feasible studies,
 
 8. Organization and synthesis
 Allocate space according to importance, using clear headings and helpful examples. Be professional, clear, and measured; avoid repetition and empty judgments. Do not impose an arbitrary word limit, while respecting actual output constraints. End with a synthesis of question, method, evidence, and scope, followed by a few questions that test understanding. When splitting the explanation, clearly identify covered and remaining material; do not claim unfinished coverage is complete.
+
+9. Focused follow-up questions
+When the user asks about a particular equation, figure, term, or local issue, address it in depth and add only the context needed. Use the full framework for whole-paper requests; avoid repeating all sections for every follow-up.
 ```
 
-Project settings do not universally inherit account preferences. ChatGPT project instructions override global instructions; Gemini's personal instructions do not apply to Gems. Include desired preferences explicitly in the project.
-
-[Include Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=en)
+[Include Direct First](https://j-i-n-g-l-i.github.io/prompt-folio/en/project/paper-mentor/?with=direct-first)
 
 **Start a conversation**
 
+Optional context; remove unused fields. Paste after saving the project instructions and attaching your paper.
+
 ```text
 Please explain the paper I have supplied in depth, including its question, approach, key equations and figures, supporting evidence, limitations, and feasible next steps. Introduce necessary background before technical detail.
+
+My background: [beginner / some familiarity / researcher]
+My goal: [understand / reproduce / present / plan research]
+Focus: [equations / figures / study design / arguments]
+Reply language: [language]
+
+For blank fields, use the paper and our conversation to decide.
 ```
 
-### Where to use it
+### How to use
 
-Focused instructions for a particular subject, project, or recurring workflow.
+Project settings do not universally inherit account preferences. ChatGPT project instructions override global instructions; Gemini's personal instructions do not apply to Gems. Include desired preferences explicitly in the project.
 
 **ChatGPT · Projects**
 
 Open a project, use its three-dot menu, and add the prompt under Project settings.
 
-[Official setup references](https://help.openai.com/en/articles/10169521)
+[Official setup references](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Open a project, choose Set project instructions, paste the prompt, and save.
 
-[Official setup references](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Official setup references](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 On the web, open Gems, create a New Gem, enter its name and instructions, and save.
 
-[Official setup references](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Official setup references](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Open the project and edit its instructions under Settings → Context.
 
-[Official setup references](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Official setup references](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **Use in a conversation**
 
 In any chat app, paste the prompt before your task. Repeat it in each new chat unless you have saved it as a persistent instruction.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Version & quality**
+
+Source language: 简体中文 · Content version: 1.1.0 · Updated: 2026-09-08
+
+AI-assisted · unreviewed
+
+Prompt effectiveness has not been systematically evaluated. Website tests check functionality only.
 
 </details>
-
-### A few notes
 
 Menus and availability vary by device, account, region, and rollout. English menu labels below are reference labels, not a promise of an identical interface. When a setting is missing, use the conversation method. Test in a fresh chat.
 
 Check the destination's length limit, especially when combining prompts. This handbook copies the full text without truncating it. Shorten deliberately if needed, preserving key constraints.
 
 The Chinese original is the source text. Translations are AI-assisted and have not received independent native-speaker review. Effectiveness has not been systematically evaluated across services and languages; suggestions and corrections are welcome.
-
-Official documentation checked: 2026-09-08. Settings were not tested in every app.
 
 [Handbook ↑](#languages)
 
@@ -220,22 +232,20 @@ Official documentation checked: 2026-09-08. Settings were not tested in every ap
 
 ## 常用的提示词，随手可用。
 
-一份按使用范围整理的 Prompt 手册。选好级别，找到适合你的工作方式。
+[手册目录](https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/)
 
-[手册目录 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=zh-CN)
+同时切换界面与提示词文本；AI 的回复语言由你的对话要求决定。
 
 将长期偏好放入账号指令，将专用工作流程放入项目或自定义助手。没有对应功能时，可在新对话开头粘贴。本网站不会修改你的 AI 设置。
 
-这里的分类表示预期使用范围，不代表 API 消息角色或更高的系统权限。实际生效方式取决于所用服务。
-
 <details>
-<summary><strong>用户级 · Direct First</strong></summary>
+<summary><strong>用户级 · 先说重点</strong></summary>
 
-### Direct First
+### 先说重点
 
 一份多语言写作偏好，帮助减少 AI 回复中反复出现的对照句式。
 
-[阅读提示词 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=zh-CN) · `v1.1.0`
+[阅读提示词](https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/user/direct-first/) · `v1.1.0`
 
 **提示词**
 
@@ -249,47 +259,51 @@ Official documentation checked: 2026-09-08. Settings were not tested in every ap
 这一偏好只针对表达方式，请保留回答应有的完整性、分析深度和必要细节。直接体现这种风格，无需在回复中说明你正在遵守这些要求。
 ```
 
+### 如何使用
+
 复制一个版本即可。偏好适用于各种回复语言；你原有的语言要求仍然适用。
-
-### 添加到哪里
-
-把提示词粘贴到下方对应入口，保留已有的有用偏好，再保存或提交，并在提供开关时启用。
 
 **ChatGPT**
 
 设置 → 个性化 → 自定义指令，启用自定义。手机端在设置中查找“自定义 ChatGPT”。
 
-[官方设置参考](https://help.openai.com/en/articles/8096356)
+[官方设置参考](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 设置 → Claude 指令，添加到帐号级指令中。
 
-[官方设置参考](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[官方设置参考](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 设置与帮助 → 个人智能 → Gemini 指令 → 添加 → 提交。适用于个人账号；Gems 需单独设置。菜单名称可能不同。
 
-[官方设置参考](https://support.google.com/gemini/answer/16598625)
+[官方设置参考](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 设置及更多（…）→ 聊天设置 → 个性化 → 自定义指令 → 编辑指令 → 保存指令。此路径适用于 Microsoft 365 中的 Copilot。
 
-[官方设置参考](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[官方设置参考](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 头像 → 个性化 → 自我介绍，添加为回复偏好。
 
-[官方设置参考](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[官方设置参考](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **直接在对话中使用**
 
 在任意聊天应用中，先粘贴提示词，再提出问题。每次开启新对话时重新粘贴，已保存为长期指令的情况除外。
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**版本与质量**
+
+原文语言: 简体中文 · 内容版本: 1.1.0 · 更新日期: 2026-09-08
+
+原文
+
+提示词效果尚未进行系统评测；网站测试仅验证功能。
 
 </details>
 
@@ -300,7 +314,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 跨学科研读论文，贯通研究问题、方法、公式、图表与证据边界。
 
-[阅读提示词 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=zh-CN) · `v1.0.0`
+[阅读提示词](https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/project/paper-mentor/) · `v1.1.0`
 
 **提示词**
 
@@ -330,63 +344,75 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 8. 组织与总结
 围绕论文的重要内容分配篇幅，用清晰的小标题与适量例子串联各部分。保持专业、清楚、沉稳，避免重复和空泛评价；不设置人为字数上限，同时尊重实际输出限制。最后总结“研究问题—方法—证据—适用边界”，并提出几个有助于检验理解的关键问题。需要分次讲解时，清楚标明已覆盖与待继续的部分，不将未覆盖内容称为已完成。
+
+9. 局部追问
+当用户只询问某个公式、图表、术语或局部问题时，围绕该问题深入回答，仅补充必要的上下文。完整论文解读请求再使用整体框架，避免每次追问都重新展开全部章节。
 ```
 
-各平台对项目是否继承账号偏好的处理不同。ChatGPT 项目指令会覆盖全局指令；Gemini 的个人指令不适用于 Gems。需要保留的偏好可以明确写入项目。
-
-[同时附加 Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=zh-CN)
+[同时附加「先说重点」](https://j-i-n-g-l-i.github.io/prompt-folio/zh-CN/project/paper-mentor/?with=direct-first)
 
 **开始一次研读**
 
+以下信息可选，删除不需要的字段。保存项目指令并上传论文后，粘贴此提问。
+
 ```text
 请深入解读我提供的论文，涵盖研究问题、方法、关键公式与图表、证据、局限性和可行的后续方向。进入专业细节前，请先解释必要的背景知识。
+
+我的基础: [初学者 / 有相关基础 / 研究者]
+我的目标: [理解方法 / 复现研究 / 准备组会 / 寻找研究方向]
+重点关注: [公式 / 图表 / 实验设计 / 论证 / 与我研究的联系]
+回复语言: [语言]
+
+未填写的部分，请根据论文和当前对话合理安排。
 ```
 
-### 添加到哪里
+### 如何使用
 
-围绕特定主题、项目或重复工作流程设置专用指令。
+各平台对项目是否继承账号偏好的处理不同。ChatGPT 项目指令会覆盖全局指令；Gemini 的个人指令不适用于 Gems。需要保留的偏好可以明确写入项目。
 
 **ChatGPT · Projects**
 
 打开项目 → 右上角三点菜单 → 项目设置，在项目指令中粘贴。
 
-[官方设置参考](https://help.openai.com/en/articles/10169521)
+[官方设置参考](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 打开项目 → 设置项目指令 → 粘贴提示词 → 保存指令。
 
-[官方设置参考](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[官方设置参考](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 在网页版打开 Gems → 新建 Gem → 填写名称和指令 → 保存。
 
-[官方设置参考](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[官方设置参考](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 打开项目 → 设置 → 上下文，在指令中粘贴并保存。
 
-[官方设置参考](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[官方设置参考](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **直接在对话中使用**
 
 在任意聊天应用中，先粘贴提示词，再提出问题。每次开启新对话时重新粘贴，已保存为长期指令的情况除外。
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**版本与质量**
+
+原文语言: 简体中文 · 内容版本: 1.1.0 · 更新日期: 2026-09-08
+
+原文
+
+提示词效果尚未进行系统评测；网站测试仅验证功能。
 
 </details>
-
-### 使用说明
 
 菜单与可用性可能因设备、帐号、地区及功能发布进度而变化。下方英文菜单名供对照，实际界面可能不同。找不到设置时，可直接在对话中使用。建议在新对话中测试。
 
 请检查目标平台的长度限制，尤其是在组合提示词时。本手册始终复制完整文本，不自动截断；需要精简时请保留核心约束。
 
 以简体中文原文为准。译文由 AI 辅助生成，尚未经过独立母语者校审。效果尚未进行跨服务、跨语言的系统评测，欢迎提交修订与使用反馈。
-
-官方文档核查日期：2026-09-08。未逐一登录所有应用实测。
 
 [手册目录 ↑](#languages)
 
@@ -401,22 +427,20 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 ## 常用的提示詞，隨手可用。
 
-一份依使用範圍整理的 Prompt 手冊。選好層級，找到適合你的工作方式。
+[手冊目錄](https://j-i-n-g-l-i.github.io/prompt-folio/zh-TW/)
 
-[手冊目錄 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=zh-TW)
+同時切換介面與提示詞文字；AI 的回覆語言由你的對話要求決定。
 
 將長期偏好放入帳號指令，專用工作流程放入專案或自訂助手。沒有對應功能時，可在新對話開頭貼上。本網站不會修改你的 AI 設定。
 
-此處分類表示預期使用範圍，不代表 API 訊息角色或更高的系統權限。實際生效方式取決於所用服務。
-
 <details>
-<summary><strong>使用者級 · Direct First</strong></summary>
+<summary><strong>使用者級 · 先說重點</strong></summary>
 
-### Direct First
+### 先說重點
 
 一份多語言寫作偏好，協助減少 AI 回覆中反覆出現的對照句式。
 
-[閱讀提示詞 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=zh-TW) · `v1.1.0`
+[閱讀提示詞](https://j-i-n-g-l-i.github.io/prompt-folio/zh-TW/user/direct-first/) · `v1.1.0`
 
 **提示詞**
 
@@ -430,47 +454,51 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 這一偏好只針對表達方式，請保留回答應有的完整性、分析深度和必要細節。直接體現這種風格，無需在回覆中說明你正在遵守這些要求。
 ```
 
+### 如何使用
+
 複製一個版本即可。偏好適用於各種回覆語言；你原有的語言要求仍然適用。
-
-### 新增至何處
-
-將提示詞貼到下方對應欄位，保留既有的有用偏好，再儲存或提交，並在提供開關時啟用。
 
 **ChatGPT**
 
 設定 → 個人化 → 自訂指令，啟用自訂功能。手機版在設定中尋找「自訂 ChatGPT」。
 
-[官方設定參考](https://help.openai.com/en/articles/8096356)
+[官方設定參考](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 設定 → Claude 指令，新增至帳號層級的指令。
 
-[官方設定參考](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[官方設定參考](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 設定與說明 → 個人智慧 → Gemini 指令 → 新增 → 提交。適用於個人帳號；Gems 需單獨設定。選單名稱可能不同。
 
-[官方設定參考](https://support.google.com/gemini/answer/16598625)
+[官方設定參考](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 設定及其他（…）→ 聊天設定 → 個人化 → 自訂指令 → 編輯指令 → 儲存指令。此路徑適用於 Microsoft 365 中的 Copilot。
 
-[官方設定參考](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[官方設定參考](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 個人頭像 → 個人化 → 自我介紹，新增為回覆偏好。
 
-[官方設定參考](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[官方設定參考](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **直接在對話中使用**
 
 在任意聊天應用程式中，先貼上提示詞，再提出問題。每次開啟新對話時重新貼上，已儲存為長期指令的情況除外。
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**版本與品質**
+
+原文語言: 简体中文 · 內容版本: 1.1.0 · 更新日期: 2026-09-08
+
+AI 輔助翻譯 · 未獨立校審
+
+提示詞效果尚未進行系統評測；網站測試僅驗證功能。
 
 </details>
 
@@ -481,7 +509,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 跨學科研讀論文，串聯研究問題、方法、公式、圖表與證據邊界。
 
-[閱讀提示詞 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=zh-TW) · `v1.0.0`
+[閱讀提示詞](https://j-i-n-g-l-i.github.io/prompt-folio/zh-TW/project/paper-mentor/) · `v1.1.0`
 
 **提示詞**
 
@@ -511,63 +539,75 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 8. 組織與總結
 依論文內容的重要性分配篇幅，以清晰的小標題與適量範例串聯各部分。保持專業、清楚、沉穩，避免重複與空泛評價；不設定人為字數上限，同時尊重實際輸出限制。最後總結「研究問題—方法—證據—適用邊界」，並提出幾個有助於檢驗理解的關鍵問題。需要分次講解時，清楚標明已涵蓋及待繼續部分，不將未涵蓋內容稱為已完成。
+
+9. 局部追問
+當使用者只詢問某個公式、圖表、術語或局部問題時，圍繞該問題深入回答，僅補充必要的上下文。完整論文解讀請求再使用整體框架，避免每次追問都重新展開全部章節。
 ```
 
-各平台對專案是否繼承帳號偏好的處理不同。ChatGPT 專案指令會覆蓋全域指令；Gemini 個人指令不適用於 Gems。需要保留的偏好可明確寫入專案。
-
-[同時附加 Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=zh-TW)
+[同時附加「先說重點」](https://j-i-n-g-l-i.github.io/prompt-folio/zh-TW/project/paper-mentor/?with=direct-first)
 
 **開始一次研讀**
 
+以下資訊可選，刪除不需要的欄位。儲存專案指令並上傳論文後，貼上此提問。
+
 ```text
 請深入解讀我提供的論文，涵蓋研究問題、方法、關鍵公式與圖表、證據、限制及可行的後續方向。進入專業細節前，請先解釋必要背景。
+
+我的基礎: [初學者 / 有相關基礎 / 研究者]
+我的目標: [理解方法 / 重現研究 / 準備組會 / 尋找研究方向]
+重點關注: [公式 / 圖表 / 實驗設計 / 論證 / 與我研究的關聯]
+回覆語言: [語言]
+
+未填寫的部分，請根據論文與目前對話合理安排。
 ```
 
-### 新增至何處
+### 如何使用
 
-圍繞特定主題、專案或重複工作流程設定專用指令。
+各平台對專案是否繼承帳號偏好的處理不同。ChatGPT 專案指令會覆蓋全域指令；Gemini 個人指令不適用於 Gems。需要保留的偏好可明確寫入專案。
 
 **ChatGPT · Projects**
 
 開啟專案 → 右上角三點選單 → 專案設定，在專案指令中貼上。
 
-[官方設定參考](https://help.openai.com/en/articles/10169521)
+[官方設定參考](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 開啟專案 → 設定專案指令 → 貼上提示詞 → 儲存指令。
 
-[官方設定參考](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[官方設定參考](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 在網頁版開啟 Gems → 新增 Gem → 填寫名稱與指令 → 儲存。
 
-[官方設定參考](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[官方設定參考](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 開啟專案 → 設定 → 上下文，在指令中貼上並儲存。
 
-[官方設定參考](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[官方設定參考](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **直接在對話中使用**
 
 在任意聊天應用程式中，先貼上提示詞，再提出問題。每次開啟新對話時重新貼上，已儲存為長期指令的情況除外。
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**版本與品質**
+
+原文語言: 简体中文 · 內容版本: 1.1.0 · 更新日期: 2026-09-08
+
+AI 輔助翻譯 · 未獨立校審
+
+提示詞效果尚未進行系統評測；網站測試僅驗證功能。
 
 </details>
-
-### 使用說明
 
 選單與可用性可能因裝置、帳號、地區及功能發布進度而異。下方英文選單名稱供對照，實際介面可能不同。找不到設定時，可直接在對話中使用。建議在新對話中測試。
 
 請檢查目標平台的長度限制，尤其在組合提示詞時。本手冊始終複製完整文字，不自動截斷；需要精簡時請保留核心約束。
 
 以簡體中文原文為準。譯文由 AI 輔助產生，尚未經過獨立母語者校審。效果尚未進行跨服務、跨語言的系統評測，歡迎提交修訂與使用回饋。
-
-官方文件核查日期：2026-09-08。未逐一登入所有應用程式實測。
 
 [手冊目錄 ↑](#languages)
 
@@ -582,22 +622,20 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 ## Prompts útiles, a mano.
 
-Un pequeño manual para tu forma de trabajar. Elige un ámbito y encuentra tu prompt.
+[Manual](https://j-i-n-g-l-i.github.io/prompt-folio/es/)
 
-[Manual ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=es)
+Cambia la interfaz y el texto del prompt. La conversación determina el idioma de respuesta de la IA.
 
 Guarda preferencias generales en la cuenta y flujos específicos en un proyecto o asistente personalizado. Sin esa función, pega el prompt al inicio de un chat nuevo. Este sitio no modifica tus ajustes de IA.
 
-Estas categorías describen el ámbito previsto, no roles de mensajes de API ni permisos de sistema superiores. El efecto depende del servicio.
-
 <details>
-<summary><strong>Nivel de usuario · Direct First</strong></summary>
+<summary><strong>Nivel de usuario · Primero lo esencial</strong></summary>
 
-### Direct First
+### Primero lo esencial
 
 Una preferencia de redacción multilingüe para reducir los contrastes repetitivos en las respuestas de IA.
 
-[Leer prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=es) · `v1.1.0`
+[Leer prompt](https://j-i-n-g-l-i.github.io/prompt-folio/es/user/direct-first/) · `v1.1.0`
 
 **La instrucción**
 
@@ -611,47 +649,51 @@ Expón directamente la idea principal y después explica las razones, las prueba
 Estas preferencias se refieren únicamente a la forma de expresarte. Conserva la integridad de la respuesta, la profundidad del análisis y los detalles necesarios. Refleja estas preferencias en la redacción sin anunciar que las estás siguiendo.
 ```
 
+### Cómo usarlo
+
 Copia una sola versión. La preferencia se aplica a todos los idiomas de respuesta; tus indicaciones habituales de idioma siguen vigentes.
-
-### Dónde usarla
-
-Pega la instrucción en el campo indicado. Conserva tus preferencias útiles, guarda o envía los cambios y activa la opción cuando exista.
 
 **ChatGPT**
 
 Configuración → Personalización → Instrucciones personalizadas. Activa la personalización. En el móvil, busca Personalizar ChatGPT en Configuración.
 
-[Referencias oficiales de configuración](https://help.openai.com/en/articles/8096356)
+[Referencias oficiales de configuración](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Configuración → Instrucciones para Claude. Añádela a las instrucciones de tu cuenta.
 
-[Referencias oficiales de configuración](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Referencias oficiales de configuración](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Ajustes y ayuda → inteligencia personal → instrucciones para Gemini → añadir → enviar. Cuentas personales; Gems requiere instrucciones propias. Los nombres pueden variar.
 
-[Referencias oficiales de configuración](https://support.google.com/gemini/answer/16598625)
+[Referencias oficiales de configuración](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Configuración y más (…) → Configuración del chat → Personalización → Instrucciones personalizadas → Editar instrucciones → Guardar instrucciones. Ruta para la experiencia de Microsoft 365.
 
-[Referencias oficiales de configuración](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Referencias oficiales de configuración](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Icono de perfil → Personalizar → Preséntate. Añade el texto como preferencia de respuesta.
 
-[Referencias oficiales de configuración](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Referencias oficiales de configuración](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **Usarla en una conversación**
 
 En cualquier aplicación de chat, pega la instrucción antes de tu consulta. Repítela en cada conversación nueva, salvo que la hayas guardado como instrucción permanente.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versión y calidad**
+
+Idioma original: 简体中文 · Versión del contenido: 1.1.0 · Actualizado: 2026-09-08
+
+Traducción asistida por IA · sin revisar
+
+La eficacia de los prompts no se ha evaluado sistemáticamente. Las pruebas del sitio solo verifican su funcionamiento.
 
 </details>
 
@@ -662,7 +704,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Lectura interdisciplinar que conecta preguntas, métodos, ecuaciones, figuras y límites de la evidencia.
 
-[Leer prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=es) · `v1.0.0`
+[Leer prompt](https://j-i-n-g-l-i.github.io/prompt-folio/es/project/paper-mentor/) · `v1.1.0`
 
 **La instrucción**
 
@@ -692,63 +734,75 @@ Explica el valor académico y práctico. Propón unas pocas investigaciones conc
 
 8. Organización y síntesis
 Distribuye el espacio según la importancia, con encabezados claros y ejemplos útiles. Mantén un tono profesional, claro y sereno; evita repeticiones y juicios vacíos. No impongas un límite arbitrario de palabras y respeta las restricciones reales de salida. Termina sintetizando pregunta, método, evidencia y alcance, con algunas preguntas para comprobar la comprensión. Si divides la explicación, distingue lo cubierto de lo pendiente sin presentar como completo lo que falta.
+
+9. Preguntas de seguimiento específicas
+Si el usuario pregunta por una ecuación, figura, término o aspecto concreto, analízalo a fondo y añade solo el contexto necesario. Usa el marco completo para solicitudes sobre todo el artículo; evita repetir todas las secciones en cada seguimiento.
 ```
 
-Los proyectos no siempre heredan las preferencias de la cuenta. En ChatGPT, las instrucciones del proyecto prevalecen sobre las globales; las instrucciones personales de Gemini no se aplican a Gems. Incluye explícitamente las preferencias necesarias.
-
-[Incluir Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=es)
+[Incluir Primero lo esencial](https://j-i-n-g-l-i.github.io/prompt-folio/es/project/paper-mentor/?with=direct-first)
 
 **Iniciar una lectura**
 
+Contexto opcional; elimina los campos que no uses. Pégalo después de guardar las instrucciones del proyecto y adjuntar el artículo.
+
 ```text
 Explica a fondo el artículo que he proporcionado: pregunta, método, ecuaciones y figuras clave, evidencias, limitaciones y siguientes pasos viables. Introduce los fundamentos necesarios antes de los detalles técnicos.
+
+Mi nivel: [principiante / conocimientos previos / investigador]
+Mi objetivo: [comprender / reproducir / presentar / planificar investigación]
+Prioridades: [ecuaciones / figuras / diseño / argumentos]
+Idioma de respuesta: [idioma]
+
+Para los campos vacíos, decide según el artículo y la conversación.
 ```
 
-### Dónde usarla
+### Cómo usarlo
 
-Instrucciones para un tema, proyecto o flujo de trabajo recurrente.
+Los proyectos no siempre heredan las preferencias de la cuenta. En ChatGPT, las instrucciones del proyecto prevalecen sobre las globales; las instrucciones personales de Gemini no se aplican a Gems. Incluye explícitamente las preferencias necesarias.
 
 **ChatGPT · Projects**
 
 Abre el proyecto → menú de tres puntos → ajustes del proyecto y pega las instrucciones.
 
-[Referencias oficiales de configuración](https://help.openai.com/en/articles/10169521)
+[Referencias oficiales de configuración](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Abre el proyecto → establecer instrucciones → pega el prompt → guarda.
 
-[Referencias oficiales de configuración](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Referencias oficiales de configuración](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 En la web: Gems → nuevo Gem → nombre e instrucciones → guardar.
 
-[Referencias oficiales de configuración](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Referencias oficiales de configuración](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Abre el proyecto → ajustes → contexto y edita las instrucciones.
 
-[Referencias oficiales de configuración](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Referencias oficiales de configuración](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **Usarla en una conversación**
 
 En cualquier aplicación de chat, pega la instrucción antes de tu consulta. Repítela en cada conversación nueva, salvo que la hayas guardado como instrucción permanente.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versión y calidad**
+
+Idioma original: 简体中文 · Versión del contenido: 1.1.0 · Actualizado: 2026-09-08
+
+Traducción asistida por IA · sin revisar
+
+La eficacia de los prompts no se ha evaluado sistemáticamente. Las pruebas del sitio solo verifican su funcionamiento.
 
 </details>
-
-### Algunas notas
 
 Los menús y la disponibilidad varían según el dispositivo, la cuenta, la región y el despliegue. Las etiquetas inglesas son orientativas. Si falta la opción, usa el método de conversación. Prueba en un chat nuevo.
 
 Comprueba el límite de longitud del destino, sobre todo al combinar prompts. Se copia el texto completo, sin recortes automáticos. Acórtalo conservando las restricciones esenciales cuando sea necesario.
 
 El original chino es el texto de referencia. Las traducciones se han realizado con ayuda de IA y no tienen revisión independiente de hablantes nativos. La eficacia no se ha evaluado sistemáticamente entre servicios e idiomas; se agradecen correcciones y comentarios.
-
-Documentación oficial consultada: 2026-09-08. No se probaron los ajustes en todas las aplicaciones.
 
 [Manual ↑](#languages)
 
@@ -763,22 +817,20 @@ Documentación oficial consultada: 2026-09-08. No se probaron los ajustes en tod
 
 ## Les bons prompts, à portée de main.
 
-Un petit manuel pour votre façon de travailler. Choisissez un périmètre et trouvez votre prompt.
+[Manuel](https://j-i-n-g-l-i.github.io/prompt-folio/fr/)
 
-[Manuel ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=fr)
+Modifie l’interface et le texte du prompt. La conversation détermine la langue de réponse de l’IA.
 
 Placez les préférences générales dans le compte et les workflows dédiés dans un projet ou assistant personnalisé. À défaut, collez le prompt au début d’une nouvelle conversation. Ce site ne modifie pas vos réglages d’IA.
 
-Ces catégories décrivent un périmètre d’usage, sans correspondre aux rôles de messages d’API ni à des privilèges système. L’effet dépend du service.
-
 <details>
-<summary><strong>Niveau utilisateur · Direct First</strong></summary>
+<summary><strong>Niveau utilisateur · L’essentiel d’abord</strong></summary>
 
-### Direct First
+### L’essentiel d’abord
 
 Une préférence de rédaction multilingue pour réduire les contrastes répétitifs dans les réponses des IA.
 
-[Lire le prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=fr) · `v1.1.0`
+[Lire le prompt](https://j-i-n-g-l-i.github.io/prompt-folio/fr/user/direct-first/) · `v1.1.0`
 
 **La consigne**
 
@@ -792,47 +844,51 @@ Limite les formulations qui commencent par nier une idée avant d’en proposer 
 Ces préférences concernent uniquement la manière de s’exprimer. Préserve l’exhaustivité de la réponse, la profondeur de l’analyse et les détails nécessaires. Fais apparaître ce style dans la rédaction sans annoncer que tu respectes ces consignes.
 ```
 
+### Mode d’emploi
+
 Copiez une seule version. La préférence s’applique à toutes les langues de réponse ; vos demandes habituelles de langue restent valables.
-
-### Où l’utiliser
-
-Collez la consigne dans le champ indiqué. Conservez vos préférences utiles, puis enregistrez ou envoyez et activez l’option lorsqu’elle est proposée.
 
 **ChatGPT**
 
 Paramètres → Personnalisation → Instructions personnalisées. Activez la personnalisation. Sur mobile, cherchez Personnaliser ChatGPT dans les paramètres.
 
-[Références officielles de configuration](https://help.openai.com/en/articles/8096356)
+[Références officielles de configuration](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Paramètres → Instructions pour Claude. Ajoutez la consigne aux instructions de votre compte.
 
-[Références officielles de configuration](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Références officielles de configuration](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Paramètres et aide → intelligence personnelle → consignes pour Gemini → ajouter → envoyer. Comptes personnels ; les Gems ont leurs propres consignes. Les noms peuvent varier.
 
-[Références officielles de configuration](https://support.google.com/gemini/answer/16598625)
+[Références officielles de configuration](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Paramètres et plus (…) → Paramètres du chat → Personnalisation → Instructions personnalisées → Modifier les instructions → Enregistrer les instructions. Parcours pour Microsoft 365.
 
-[Références officielles de configuration](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Références officielles de configuration](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Icône de profil → Personnaliser → Présentez-vous. Ajoutez le texte comme préférence de réponse.
 
-[Références officielles de configuration](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Références officielles de configuration](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **L’utiliser dans une conversation**
 
 Dans toute application de chat, collez la consigne avant votre demande. Répétez-la dans chaque nouvelle conversation, sauf si vous l’avez enregistrée comme instruction permanente.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Version et qualité**
+
+Langue source: 简体中文 · Version du contenu: 1.1.0 · Mis à jour: 2026-09-08
+
+Traduction assistée par IA · non relue
+
+L’efficacité des prompts n’a pas été évaluée systématiquement. Les tests du site vérifient uniquement ses fonctionnalités.
 
 </details>
 
@@ -843,7 +899,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Une lecture interdisciplinaire reliant question, méthode, équations, figures et portée des preuves.
 
-[Lire le prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=fr) · `v1.0.0`
+[Lire le prompt](https://j-i-n-g-l-i.github.io/prompt-folio/fr/project/paper-mentor/) · `v1.1.0`
 
 **La consigne**
 
@@ -873,63 +929,75 @@ Explique l’intérêt scientifique et pratique. Propose quelques études préci
 
 8. Organisation et synthèse
 Répartis l’espace selon l’importance, avec des titres clairs et des exemples utiles. Adopte un ton professionnel, clair et posé ; évite répétitions et jugements creux. N’impose pas de longueur arbitraire tout en respectant les limites réelles de sortie. Termine par une synthèse question–méthode–preuves–portée et quelques questions de compréhension. Si l’explication est fractionnée, identifie ce qui est couvert et ce qui reste, sans déclarer achevée une analyse incomplète.
+
+9. Questions de suivi ciblées
+Quand l’utilisateur interroge une équation, une figure, un terme ou un point précis, approfondissez ce point avec le seul contexte nécessaire. Réservez le cadre complet aux demandes portant sur tout l’article ; évitez de reprendre chaque section à chaque question.
 ```
 
-Les projets n’héritent pas toujours des préférences du compte. Les consignes de projet ChatGPT prévalent sur les consignes globales ; les consignes personnelles Gemini ne s’appliquent pas aux Gems. Ajoutez explicitement les préférences souhaitées.
-
-[Inclure Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=fr)
+[Inclure L’essentiel d’abord](https://j-i-n-g-l-i.github.io/prompt-folio/fr/project/paper-mentor/?with=direct-first)
 
 **Commencer une lecture**
 
+Contexte facultatif ; supprimez les champs inutilisés. Collez ce texte après avoir enregistré les instructions du projet et joint l’article.
+
 ```text
 Explique en profondeur l’article fourni : question, méthode, équations et figures clés, preuves, limites et prolongements réalisables. Présente les prérequis avant les détails techniques.
+
+Mon niveau: [débutant / quelques connaissances / chercheur]
+Mon objectif: [comprendre / reproduire / présenter / préparer une recherche]
+Priorités: [équations / figures / protocole / arguments]
+Langue de réponse: [langue]
+
+Pour les champs vides, adaptez-vous à l’article et à notre conversation.
 ```
 
-### Où l’utiliser
+### Mode d’emploi
 
-Consignes dédiées à un sujet, un projet ou un travail récurrent.
+Les projets n’héritent pas toujours des préférences du compte. Les consignes de projet ChatGPT prévalent sur les consignes globales ; les consignes personnelles Gemini ne s’appliquent pas aux Gems. Ajoutez explicitement les préférences souhaitées.
 
 **ChatGPT · Projects**
 
 Ouvrez le projet → menu à trois points → paramètres du projet et ajoutez les consignes.
 
-[Références officielles de configuration](https://help.openai.com/en/articles/10169521)
+[Références officielles de configuration](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Ouvrez le projet → définir les consignes → collez le prompt → enregistrez.
 
-[Références officielles de configuration](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Références officielles de configuration](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 Sur le Web : Gems → nouveau Gem → nom et consignes → enregistrer.
 
-[Références officielles de configuration](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Références officielles de configuration](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Ouvrez le projet → paramètres → contexte et modifiez les consignes.
 
-[Références officielles de configuration](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Références officielles de configuration](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **L’utiliser dans une conversation**
 
 Dans toute application de chat, collez la consigne avant votre demande. Répétez-la dans chaque nouvelle conversation, sauf si vous l’avez enregistrée comme instruction permanente.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Version et qualité**
+
+Langue source: 简体中文 · Version du contenu: 1.1.0 · Mis à jour: 2026-09-08
+
+Traduction assistée par IA · non relue
+
+L’efficacité des prompts n’a pas été évaluée systématiquement. Les tests du site vérifient uniquement ses fonctionnalités.
 
 </details>
-
-### Quelques précisions
 
 Les menus et la disponibilité varient selon l’appareil, le compte, la région et le déploiement. Les intitulés anglais servent de repères. Si le réglage est absent, utilisez la méthode de conversation. Testez dans un nouveau chat.
 
 Vérifiez la limite de longueur du champ, notamment en combinant des prompts. Le texte est copié intégralement, sans troncature. Raccourcissez-le au besoin en conservant les contraintes essentielles.
 
 Le texte chinois original fait référence. Les traductions sont assistées par IA et n’ont pas été relues indépendamment par des locuteurs natifs. L’efficacité n’a pas été évaluée systématiquement entre services et langues ; corrections et retours sont bienvenus.
-
-Documentation officielle consultée le 2026-09-08. Les réglages n’ont pas été testés dans chaque application.
 
 [Manuel ↑](#languages)
 
@@ -944,22 +1012,20 @@ Documentation officielle consultée le 2026-09-08. Les réglages n’ont pas ét
 
 ## Gute Prompts, griffbereit.
 
-Ein kleines Handbuch für Ihre Arbeitsweise. Geltungsbereich wählen und passenden Prompt finden.
+[Handbuch](https://j-i-n-g-l-i.github.io/prompt-folio/de/)
 
-[Handbuch ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=de)
+Ändert Oberfläche und Prompt-Text. Die Unterhaltung bestimmt die Antwortsprache der KI.
 
 Allgemeine Präferenzen ins Konto, spezialisierte Abläufe in ein Projekt oder einen eigenen Assistenten eintragen. Fehlt diese Funktion, den Prompt zu Beginn eines neuen Chats einfügen. Diese Website ändert keine KI-Einstellungen.
 
-Diese Kategorien beschreiben den vorgesehenen Geltungsbereich, keine API-Nachrichtenrollen oder höheren Systemrechte. Die Wirkung hängt vom Dienst ab.
-
 <details>
-<summary><strong>Nutzerebene · Direct First</strong></summary>
+<summary><strong>Nutzerebene · Das Wesentliche zuerst</strong></summary>
 
-### Direct First
+### Das Wesentliche zuerst
 
 Eine mehrsprachige Schreibpräferenz für weniger schematische Gegenüberstellungen in KI-Antworten.
 
-[Prompt lesen ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=de) · `v1.1.0`
+[Prompt lesen](https://j-i-n-g-l-i.github.io/prompt-folio/de/user/direct-first/) · `v1.1.0`
 
 **Die Anweisung**
 
@@ -973,47 +1039,51 @@ Nenne die Kernaussage direkt und erläutere danach die Gründe, Belege oder Kons
 Diese Präferenzen betreffen ausschließlich die Ausdrucksweise. Bewahre die Vollständigkeit der Antwort, die analytische Tiefe und die erforderlichen Details. Setze den Stil unmittelbar um, ohne anzukündigen, dass du diese Vorgaben befolgst.
 ```
 
+### So verwenden
+
 Kopiere eine Version. Die Präferenz gilt sprachübergreifend; deine bisherigen Vorgaben zur Antwortsprache bleiben bestehen.
-
-### Hier einsetzen
-
-Füge die Anweisung im angegebenen Feld ein. Behalte nützliche bestehende Präferenzen bei, speichere oder bestätige und aktiviere die Einstellung, falls ein Schalter vorhanden ist.
 
 **ChatGPT**
 
 Einstellungen → Personalisierung → Benutzerdefinierte Anweisungen. Aktiviere die Anpassung. Suche mobil in den Einstellungen nach ChatGPT anpassen.
 
-[Offizielle Einrichtungshinweise](https://help.openai.com/en/articles/8096356)
+[Offizielle Einrichtungshinweise](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Einstellungen → Anweisungen für Claude. Ergänze die kontoweiten Anweisungen.
 
-[Offizielle Einrichtungshinweise](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Offizielle Einrichtungshinweise](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Einstellungen und Hilfe → persönliche Intelligenz → Anweisungen für Gemini → hinzufügen → senden. Persönliche Konten; Gems benötigen eigene Anweisungen. Bezeichnungen können abweichen.
 
-[Offizielle Einrichtungshinweise](https://support.google.com/gemini/answer/16598625)
+[Offizielle Einrichtungshinweise](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Einstellungen und mehr (…) → Chateinstellungen → Personalisierung → Benutzerdefinierte Anweisungen → Anweisungen bearbeiten → Anweisungen speichern. Dieser Pfad gilt für Microsoft 365.
 
-[Offizielle Einrichtungshinweise](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Offizielle Einrichtungshinweise](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Profilsymbol → Personalisieren → Stell dich vor. Ergänze den Text als Antwortpräferenz.
 
-[Offizielle Einrichtungshinweise](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Offizielle Einrichtungshinweise](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **In einem Gespräch verwenden**
 
 Füge die Anweisung in jeder Chat-App vor deiner Aufgabe ein. Wiederhole sie in jedem neuen Chat, sofern du sie nicht als dauerhafte Anweisung gespeichert hast.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Version und Qualität**
+
+Ausgangssprache: 简体中文 · Inhaltsversion: 1.1.0 · Aktualisiert: 2026-09-08
+
+KI-gestützt · ungeprüft
+
+Die Wirksamkeit der Prompts wurde nicht systematisch bewertet. Website-Tests prüfen nur die Funktionalität.
 
 </details>
 
@@ -1024,7 +1094,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Fachübergreifende Lektüre von Fragestellung, Methode, Formeln, Abbildungen und Evidenzgrenzen.
 
-[Prompt lesen ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=de) · `v1.0.0`
+[Prompt lesen](https://j-i-n-g-l-i.github.io/prompt-folio/de/project/paper-mentor/) · `v1.1.0`
 
 **Die Anweisung**
 
@@ -1054,63 +1124,75 @@ Erläutere wissenschaftlichen und praktischen Wert. Schlage wenige konkrete, mac
 
 8. Aufbau und Synthese
 Gewichte den Umfang nach Bedeutung, mit klaren Überschriften und hilfreichen Beispielen. Schreibe professionell, verständlich und ruhig; vermeide Wiederholungen und leere Wertungen. Setze keine willkürliche Wortgrenze und beachte reale Ausgabelimits. Schließe mit einer Synthese aus Frage, Methode, Evidenz und Geltungsbereich sowie wenigen Verständnisfragen. Benenne bei einer Aufteilung bereits behandelte und noch offene Inhalte, ohne Unvollständiges als abgeschlossen darzustellen.
+
+9. Gezielte Rückfragen
+Bei Fragen zu einer bestimmten Gleichung, Abbildung, einem Begriff oder Einzelaspekt diesen eingehend behandeln und nur den nötigen Kontext ergänzen. Den vollständigen Rahmen für die Analyse ganzer Arbeiten verwenden; bei Rückfragen nicht jedes Mal sämtliche Abschnitte wiederholen.
 ```
 
-Projekte übernehmen Kontopräferenzen nicht überall automatisch. ChatGPT-Projektanweisungen haben Vorrang vor globalen Anweisungen; persönliche Gemini-Anweisungen gelten nicht für Gems. Gewünschte Präferenzen ausdrücklich ergänzen.
-
-[Direct First hinzufügen ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=de)
+[Das Wesentliche zuerst hinzufügen](https://j-i-n-g-l-i.github.io/prompt-folio/de/project/paper-mentor/?with=direct-first)
 
 **Eine Lektüre beginnen**
 
+Optionaler Kontext; ungenutzte Felder entfernen. Nach dem Speichern der Projektanweisungen und Anhängen der Arbeit einfügen.
+
 ```text
 Erkläre die bereitgestellte Arbeit ausführlich: Frage, Methode, zentrale Gleichungen und Abbildungen, Evidenz, Grenzen und machbare nächste Schritte. Erläutere notwendige Grundlagen vor technischen Details.
+
+Mein Vorwissen: [Anfänger / Vorkenntnisse / Forschende]
+Mein Ziel: [verstehen / reproduzieren / präsentieren / Forschung planen]
+Schwerpunkte: [Gleichungen / Abbildungen / Studiendesign / Argumente]
+Antwortsprache: [Sprache]
+
+Leere Felder anhand der Arbeit und unserer Unterhaltung sinnvoll ergänzen.
 ```
 
-### Hier einsetzen
+### So verwenden
 
-Gezielte Anweisungen für ein Thema, Projekt oder einen wiederkehrenden Ablauf.
+Projekte übernehmen Kontopräferenzen nicht überall automatisch. ChatGPT-Projektanweisungen haben Vorrang vor globalen Anweisungen; persönliche Gemini-Anweisungen gelten nicht für Gems. Gewünschte Präferenzen ausdrücklich ergänzen.
 
 **ChatGPT · Projects**
 
 Projekt öffnen → Dreipunktmenü → Projekteinstellungen; dort die Anweisungen einfügen.
 
-[Offizielle Einrichtungshinweise](https://help.openai.com/en/articles/10169521)
+[Offizielle Einrichtungshinweise](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Projekt öffnen → Projektanweisungen festlegen → Prompt einfügen → speichern.
 
-[Offizielle Einrichtungshinweise](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Offizielle Einrichtungshinweise](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 Im Web: Gems → neuer Gem → Name und Anweisungen → speichern.
 
-[Offizielle Einrichtungshinweise](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Offizielle Einrichtungshinweise](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Projekt öffnen → Einstellungen → Kontext; dort die Anweisungen bearbeiten.
 
-[Offizielle Einrichtungshinweise](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Offizielle Einrichtungshinweise](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **In einem Gespräch verwenden**
 
 Füge die Anweisung in jeder Chat-App vor deiner Aufgabe ein. Wiederhole sie in jedem neuen Chat, sofern du sie nicht als dauerhafte Anweisung gespeichert hast.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Version und Qualität**
+
+Ausgangssprache: 简体中文 · Inhaltsversion: 1.1.0 · Aktualisiert: 2026-09-08
+
+KI-gestützt · ungeprüft
+
+Die Wirksamkeit der Prompts wurde nicht systematisch bewertet. Website-Tests prüfen nur die Funktionalität.
 
 </details>
-
-### Hinweise
 
 Menüs und Verfügbarkeit können je nach Gerät, Konto, Region und Einführung variieren. Die englischen Bezeichnungen dienen zur Orientierung. Fehlt eine Einstellung, nutze die Gesprächsmethode. Teste in einem neuen Chat.
 
 Prüfen Sie die Längenbegrenzung des Zielfelds, besonders beim Kombinieren. Der Text wird vollständig und ohne Kürzung kopiert. Kürzen Sie bei Bedarf bewusst und bewahren Sie wesentliche Vorgaben.
 
 Der chinesische Originaltext ist die Referenz. Die Übersetzungen sind KI-gestützt und wurden nicht unabhängig von Muttersprachlern geprüft. Die Wirkung wurde nicht systematisch über Dienste und Sprachen hinweg getestet; Korrekturen und Rückmeldungen sind willkommen.
-
-Offizielle Dokumentation geprüft: 2026-09-08. Einstellungen wurden nicht in jeder App getestet.
 
 [Handbuch ↑](#languages)
 
@@ -1125,22 +1207,20 @@ Offizielle Dokumentation geprüft: 2026-09-08. Einstellungen wurden nicht in jed
 
 ## Prompts úteis, sempre à mão.
 
-Um pequeno manual para seu jeito de trabalhar. Escolha o escopo e encontre seu prompt.
+[Manual](https://j-i-n-g-l-i.github.io/prompt-folio/pt-BR/)
 
-[Manual ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=pt-BR)
+Altera a interface e o texto do prompt. A conversa determina o idioma da resposta da IA.
 
 Salve preferências gerais na conta e fluxos específicos em um projeto ou assistente personalizado. Sem esse recurso, cole o prompt no início de uma conversa nova. Este site não modifica suas configurações de IA.
 
-Estas categorias indicam o escopo de uso, sem representar papéis de mensagens de API ou permissões superiores de sistema. O efeito depende do serviço.
-
 <details>
-<summary><strong>Nível de usuário · Direct First</strong></summary>
+<summary><strong>Nível de usuário · O essencial primeiro</strong></summary>
 
-### Direct First
+### O essencial primeiro
 
 Uma preferência de escrita multilíngue para reduzir contrastes repetitivos nas respostas de IA.
 
-[Ler prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=pt-BR) · `v1.1.0`
+[Ler prompt](https://j-i-n-g-l-i.github.io/prompt-folio/pt-BR/user/direct-first/) · `v1.1.0`
 
 **A instrução**
 
@@ -1154,47 +1234,51 @@ Apresente diretamente a ideia principal e, em seguida, explique os motivos, as e
 Essas preferências dizem respeito apenas à forma de expressão. Preserve a completude da resposta, a profundidade da análise e os detalhes necessários. Reflita esse estilo na escrita sem anunciar que está seguindo estas instruções.
 ```
 
+### Como usar
+
 Copie apenas uma versão. A preferência vale para todos os idiomas de resposta; suas instruções habituais de idioma continuam valendo.
-
-### Onde usar
-
-Cole a instrução no campo indicado. Mantenha as preferências úteis existentes, salve ou envie e ative a opção quando disponível.
 
 **ChatGPT**
 
 Configurações → Personalização → Instruções personalizadas. Ative a personalização. No celular, procure Personalizar ChatGPT nas configurações.
 
-[Referências oficiais de configuração](https://help.openai.com/en/articles/8096356)
+[Referências oficiais de configuração](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Configurações → Instruções para Claude. Adicione às instruções da sua conta.
 
-[Referências oficiais de configuração](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Referências oficiais de configuração](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Configurações e ajuda → inteligência pessoal → instruções para o Gemini → adicionar → enviar. Contas pessoais; Gems precisa de instruções próprias. Os nomes podem variar.
 
-[Referências oficiais de configuração](https://support.google.com/gemini/answer/16598625)
+[Referências oficiais de configuração](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Configurações e mais (…) → Configurações do chat → Personalização → Instruções personalizadas → Editar instruções → Salvar instruções. Caminho para a experiência do Microsoft 365.
 
-[Referências oficiais de configuração](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Referências oficiais de configuração](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Ícone do perfil → Personalizar → Apresente-se. Adicione o texto como preferência de resposta.
 
-[Referências oficiais de configuração](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Referências oficiais de configuração](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **Usar em uma conversa**
 
 Em qualquer aplicativo de chat, cole a instrução antes do seu pedido. Repita em cada conversa nova, exceto quando ela estiver salva como instrução permanente.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versão e qualidade**
+
+Idioma de origem: 简体中文 · Versão do conteúdo: 1.1.0 · Atualizado: 2026-09-08
+
+Tradução assistida por IA · não revisada
+
+A eficácia dos prompts não foi avaliada sistematicamente. Os testes do site verificam apenas o funcionamento.
 
 </details>
 
@@ -1205,7 +1289,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Leitura interdisciplinar que conecta perguntas, métodos, equações, figuras e limites das evidências.
 
-[Ler prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=pt-BR) · `v1.0.0`
+[Ler prompt](https://j-i-n-g-l-i.github.io/prompt-folio/pt-BR/project/paper-mentor/) · `v1.1.0`
 
 **A instrução**
 
@@ -1235,63 +1319,75 @@ Explique o valor acadêmico e prático. Proponha poucas pesquisas específicas e
 
 8. Organização e síntese
 Distribua o espaço conforme a importância, com títulos claros e exemplos úteis. Mantenha tom profissional, claro e sereno; evite repetições e avaliações vazias. Não imponha limite arbitrário de palavras, respeitando os limites reais de saída. Termine com uma síntese de pergunta, método, evidências e alcance, seguida de algumas questões de compreensão. Ao dividir a explicação, identifique o que foi coberto e o que falta, sem apresentar como concluída uma cobertura incompleta.
+
+9. Perguntas de acompanhamento específicas
+Quando o usuário perguntar sobre uma equação, figura, termo ou questão pontual, aprofunde esse ponto e acrescente apenas o contexto necessário. Use a estrutura completa para pedidos sobre o artigo inteiro; evite repetir todas as seções a cada pergunta.
 ```
 
-Projetos nem sempre herdam as preferências da conta. As instruções de projeto do ChatGPT prevalecem sobre as globais; as instruções pessoais do Gemini não se aplicam a Gems. Inclua explicitamente as preferências desejadas.
-
-[Incluir Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=pt-BR)
+[Incluir O essencial primeiro](https://j-i-n-g-l-i.github.io/prompt-folio/pt-BR/project/paper-mentor/?with=direct-first)
 
 **Começar uma leitura**
 
+Contexto opcional; remova os campos não utilizados. Cole depois de salvar as instruções do projeto e anexar o artigo.
+
 ```text
 Explique a fundo o artigo fornecido: pergunta, método, equações e figuras centrais, evidências, limitações e próximos passos viáveis. Apresente os fundamentos necessários antes dos detalhes técnicos.
+
+Minha base: [iniciante / algum conhecimento / pesquisador]
+Meu objetivo: [entender / reproduzir / apresentar / planejar pesquisa]
+Prioridades: [equações / figuras / desenho do estudo / argumentos]
+Idioma da resposta: [idioma]
+
+Para campos vazios, decida com base no artigo e na conversa.
 ```
 
-### Onde usar
+### Como usar
 
-Instruções focadas em um tema, projeto ou fluxo de trabalho recorrente.
+Projetos nem sempre herdam as preferências da conta. As instruções de projeto do ChatGPT prevalecem sobre as globais; as instruções pessoais do Gemini não se aplicam a Gems. Inclua explicitamente as preferências desejadas.
 
 **ChatGPT · Projects**
 
 Abra o projeto → menu de três pontos → configurações do projeto e cole as instruções.
 
-[Referências oficiais de configuração](https://help.openai.com/en/articles/10169521)
+[Referências oficiais de configuração](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Abra o projeto → definir instruções → cole o prompt → salve.
 
-[Referências oficiais de configuração](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Referências oficiais de configuração](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 Na web: Gems → novo Gem → nome e instruções → salvar.
 
-[Referências oficiais de configuração](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Referências oficiais de configuração](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Abra o projeto → configurações → contexto e edite as instruções.
 
-[Referências oficiais de configuração](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Referências oficiais de configuração](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **Usar em uma conversa**
 
 Em qualquer aplicativo de chat, cole a instrução antes do seu pedido. Repita em cada conversa nova, exceto quando ela estiver salva como instrução permanente.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versão e qualidade**
+
+Idioma de origem: 简体中文 · Versão do conteúdo: 1.1.0 · Atualizado: 2026-09-08
+
+Tradução assistida por IA · não revisada
+
+A eficácia dos prompts não foi avaliada sistematicamente. Os testes do site verificam apenas o funcionamento.
 
 </details>
-
-### Algumas observações
 
 Os menus e a disponibilidade variam conforme dispositivo, conta, região e lançamento. Os nomes em inglês servem de referência. Se a opção não aparecer, use o método de conversa. Teste em um chat novo.
 
 Confira o limite de tamanho do destino, principalmente ao combinar prompts. O texto é copiado completo, sem cortes automáticos. Reduza-o se necessário, preservando as restrições essenciais.
 
 O original em chinês é o texto de referência. As traduções foram feitas com auxílio de IA e não passaram por revisão independente de falantes nativos. A eficácia não foi avaliada sistematicamente entre serviços e idiomas; correções e comentários são bem-vindos.
-
-Documentação oficial consultada: 2026-09-08. As configurações não foram testadas em todos os aplicativos.
 
 [Manual ↑](#languages)
 
@@ -1306,22 +1402,20 @@ Documentação oficial consultada: 2026-09-08. As configurações não foram tes
 
 ## Prompt utili, a portata di mano.
 
-Un piccolo manuale per il tuo modo di lavorare. Scegli l’ambito e trova il tuo prompt.
+[Manuale](https://j-i-n-g-l-i.github.io/prompt-folio/it/)
 
-[Manuale ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=it)
+Cambia l’interfaccia e il testo del prompt. La conversazione determina la lingua delle risposte dell’IA.
 
 Salva preferenze generali nell’account e flussi specifici in un progetto o assistente personalizzato. In assenza della funzione, incolla il prompt all’inizio di una nuova chat. Questo sito non modifica le impostazioni della tua IA.
 
-Queste categorie descrivono l’ambito previsto, senza indicare ruoli dei messaggi API o privilegi di sistema superiori. L’effetto dipende dal servizio.
-
 <details>
-<summary><strong>Livello utente · Direct First</strong></summary>
+<summary><strong>Livello utente · Prima il punto centrale</strong></summary>
 
-### Direct First
+### Prima il punto centrale
 
 Una preferenza di scrittura multilingue per ridurre i contrasti ripetitivi nelle risposte dell’IA.
 
-[Leggi il prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=it) · `v1.1.0`
+[Leggi il prompt](https://j-i-n-g-l-i.github.io/prompt-folio/it/user/direct-first/) · `v1.1.0`
 
 **L’istruzione**
 
@@ -1335,47 +1429,51 @@ Esponi direttamente il punto principale, poi spiega le ragioni, le prove o le im
 Queste preferenze riguardano esclusivamente la forma espressiva. Conserva la completezza della risposta, la profondità dell’analisi e i dettagli necessari. Rispecchia questo stile nella scrittura senza dichiarare che stai seguendo queste indicazioni.
 ```
 
+### Come usarlo
+
 Copia una sola versione. La preferenza vale per tutte le lingue di risposta; le tue consuete richieste sulla lingua restano valide.
-
-### Dove usarla
-
-Incolla l’istruzione nel campo indicato. Mantieni le preferenze utili già presenti, salva o invia e attiva l’opzione quando disponibile.
 
 **ChatGPT**
 
 Impostazioni → Personalizzazione → Istruzioni personalizzate. Attiva la personalizzazione. Sul cellulare, cerca Personalizza ChatGPT nelle impostazioni.
 
-[Riferimenti ufficiali per la configurazione](https://help.openai.com/en/articles/8096356)
+[Riferimenti ufficiali per la configurazione](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Impostazioni → Istruzioni per Claude. Aggiungila alle istruzioni dell’account.
 
-[Riferimenti ufficiali per la configurazione](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Riferimenti ufficiali per la configurazione](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Impostazioni e assistenza → intelligenza personale → istruzioni per Gemini → aggiungi → invia. Account personali; i Gems richiedono istruzioni proprie. I nomi possono variare.
 
-[Riferimenti ufficiali per la configurazione](https://support.google.com/gemini/answer/16598625)
+[Riferimenti ufficiali per la configurazione](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Impostazioni e altro (…) → Impostazioni chat → Personalizzazione → Istruzioni personalizzate → Modifica istruzioni → Salva istruzioni. Percorso per l’esperienza Microsoft 365.
 
-[Riferimenti ufficiali per la configurazione](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Riferimenti ufficiali per la configurazione](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Icona del profilo → Personalizza → Presentati. Aggiungi il testo come preferenza di risposta.
 
-[Riferimenti ufficiali per la configurazione](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Riferimenti ufficiali per la configurazione](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **Usarla in una conversazione**
 
 In qualsiasi app di chat, incolla l’istruzione prima della richiesta. Ripetila in ogni nuova conversazione, salvo che tu l’abbia salvata come istruzione permanente.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versione e qualità**
+
+Lingua originale: 简体中文 · Versione del contenuto: 1.1.0 · Aggiornato: 2026-09-08
+
+Traduzione assistita da IA · non revisionata
+
+L’efficacia dei prompt non è stata valutata sistematicamente. I test del sito verificano solo le funzionalità.
 
 </details>
 
@@ -1386,7 +1484,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Una lettura interdisciplinare che collega domande, metodi, equazioni, figure e limiti delle evidenze.
 
-[Leggi il prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=it) · `v1.0.0`
+[Leggi il prompt](https://j-i-n-g-l-i.github.io/prompt-folio/it/project/paper-mentor/) · `v1.1.0`
 
 **L’istruzione**
 
@@ -1416,63 +1514,75 @@ Spiega il valore scientifico e pratico. Proponi poche ricerche specifiche e fatt
 
 8. Organizzazione e sintesi
 Distribuisci lo spazio secondo l’importanza, usando titoli chiari ed esempi utili. Mantieni un tono professionale, comprensibile e pacato; evita ripetizioni e giudizi vuoti. Non imporre un limite arbitrario di parole, rispettando i limiti effettivi di output. Concludi con domanda–metodo–evidenze–ambito e alcune domande di comprensione. Se suddividi la spiegazione, indica parti trattate e rimanenti senza presentare come completo ciò che manca.
+
+9. Domande di approfondimento mirate
+Quando l’utente chiede di un’equazione, figura, termine o punto specifico, approfondiscilo aggiungendo solo il contesto necessario. Usa il quadro completo per le richieste sull’intero articolo; evita di ripetere tutte le sezioni a ogni domanda.
 ```
 
-I progetti non ereditano sempre le preferenze dell’account. Le istruzioni di progetto ChatGPT prevalgono su quelle globali; le istruzioni personali Gemini non valgono per i Gems. Inserisci esplicitamente le preferenze desiderate.
-
-[Includi Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=it)
+[Includi Prima il punto centrale](https://j-i-n-g-l-i.github.io/prompt-folio/it/project/paper-mentor/?with=direct-first)
 
 **Inizia una lettura**
 
+Contesto facoltativo; elimina i campi inutilizzati. Incolla dopo aver salvato le istruzioni del progetto e allegato l’articolo.
+
 ```text
 Spiega a fondo l’articolo fornito: domanda, metodo, equazioni e figure chiave, evidenze, limiti e sviluppi fattibili. Introduci i prerequisiti prima dei dettagli tecnici.
+
+Le mie conoscenze: [principiante / conoscenze di base / ricercatore]
+Il mio obiettivo: [capire / riprodurre / presentare / pianificare una ricerca]
+Priorità: [equazioni / figure / disegno dello studio / argomenti]
+Lingua della risposta: [lingua]
+
+Per i campi vuoti, adatta la risposta all’articolo e alla conversazione.
 ```
 
-### Dove usarla
+### Come usarlo
 
-Istruzioni dedicate a un tema, un progetto o un flusso ricorrente.
+I progetti non ereditano sempre le preferenze dell’account. Le istruzioni di progetto ChatGPT prevalgono su quelle globali; le istruzioni personali Gemini non valgono per i Gems. Inserisci esplicitamente le preferenze desiderate.
 
 **ChatGPT · Projects**
 
 Apri il progetto → menu a tre punti → impostazioni del progetto e incolla le istruzioni.
 
-[Riferimenti ufficiali per la configurazione](https://help.openai.com/en/articles/10169521)
+[Riferimenti ufficiali per la configurazione](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Apri il progetto → imposta istruzioni → incolla il prompt → salva.
 
-[Riferimenti ufficiali per la configurazione](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Riferimenti ufficiali per la configurazione](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 Sul Web: Gems → nuovo Gem → nome e istruzioni → salva.
 
-[Riferimenti ufficiali per la configurazione](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Riferimenti ufficiali per la configurazione](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Apri il progetto → impostazioni → contesto e modifica le istruzioni.
 
-[Riferimenti ufficiali per la configurazione](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Riferimenti ufficiali per la configurazione](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **Usarla in una conversazione**
 
 In qualsiasi app di chat, incolla l’istruzione prima della richiesta. Ripetila in ogni nuova conversazione, salvo che tu l’abbia salvata come istruzione permanente.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versione e qualità**
+
+Lingua originale: 简体中文 · Versione del contenuto: 1.1.0 · Aggiornato: 2026-09-08
+
+Traduzione assistita da IA · non revisionata
+
+L’efficacia dei prompt non è stata valutata sistematicamente. I test del sito verificano solo le funzionalità.
 
 </details>
-
-### Alcune note
 
 Menu e disponibilità variano in base a dispositivo, account, regione e distribuzione delle funzioni. Le etichette inglesi sono riferimenti orientativi. Se manca un’impostazione, usa il metodo di conversazione. Prova in una nuova chat.
 
 Controlla il limite di lunghezza del campo, soprattutto combinando prompt. Il testo viene copiato integralmente, senza tagli automatici. Abbrevialo se necessario mantenendo i vincoli essenziali.
 
 Il testo originale cinese è il riferimento. Le traduzioni sono assistite dall’IA e non sono state revisionate in modo indipendente da madrelingua. L’efficacia non è stata valutata sistematicamente tra servizi e lingue; correzioni e commenti sono benvenuti.
-
-Documentazione ufficiale consultata: 2026-09-08. Le impostazioni non sono state provate in ogni applicazione.
 
 [Manuale ↑](#languages)
 
@@ -1487,22 +1597,20 @@ Documentazione ufficiale consultata: 2026-09-08. Le impostazioni non sono state 
 
 ## 使えるプロンプトを、手元に。
 
-使う範囲から選べる小さなハンドブック。自分の仕事に合う指示を見つけましょう。
+[ハンドブック](https://j-i-n-g-l-i.github.io/prompt-folio/ja/)
 
-[ハンドブック ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=ja)
+画面とプロンプト本文の言語を切り替えます。AI の回答言語は会話での指定に従います。
 
 長期的な好みはアカウント設定、専用の作業手順はプロジェクトやカスタムアシスタントに保存します。機能がない場合は新しい会話の冒頭に貼り付けてください。このサイトが AI の設定を変更することはありません。
 
-分類は想定する適用範囲を示し、API のメッセージロールや上位のシステム権限を意味しません。実際の動作はサービスによって異なります。
-
 <details>
-<summary><strong>ユーザーレベル · Direct First</strong></summary>
+<summary><strong>ユーザーレベル · 要点から伝える</strong></summary>
 
-### Direct First
+### 要点から伝える
 
 AIの回答で繰り返される定型的な対比表現を減らすための、多言語の文章表現設定です。
 
-[プロンプトを読む ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=ja) · `v1.1.0`
+[プロンプトを読む](https://j-i-n-g-l-i.github.io/prompt-folio/ja/user/direct-first/) · `v1.1.0`
 
 **プロンプト**
 
@@ -1516,47 +1624,51 @@ AIの回答で繰り返される定型的な対比表現を減らすための、
 この好みは表現方法だけに関するものです。回答の網羅性、分析の深さ、必要な詳細は維持してください。これらの指示に従っていると説明せず、文章そのものに反映してください。
 ```
 
+### 使い方
+
 コピーするのは1つの版だけで十分です。この好みは回答言語を問わず適用され、通常の言語指定も引き続き有効です。
-
-### 設定する場所
-
-下記の欄にプロンプトを貼り付けてください。既存の有用な設定は残し、保存または送信し、切り替えがある場合は有効にします。
 
 **ChatGPT**
 
 設定 → パーソナライズ → カスタム指示。カスタマイズを有効にします。モバイル版では設定内の「ChatGPTをカスタマイズ」を探してください。
 
-[公式の設定資料](https://help.openai.com/en/articles/8096356)
+[公式の設定資料](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 設定 → Claudeへの指示。アカウント全体の指示に追加します。
 
-[公式の設定資料](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[公式の設定資料](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 設定とヘルプ → パーソナル インテリジェンス → Gemini への指示 → 追加 → 送信。個人アカウント向けで、Gems には別途設定が必要です。名称は異なる場合があります。
 
-[公式の設定資料](https://support.google.com/gemini/answer/16598625)
+[公式の設定資料](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 設定など（…）→ チャット設定 → 個人用設定 → カスタム指示 → 指示を編集 → 指示を保存。Microsoft 365での操作手順です。
 
-[公式の設定資料](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[公式の設定資料](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 プロフィールアイコン → パーソナライズ → 自己紹介。回答の好みとして追加します。
 
-[公式の設定資料](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[公式の設定資料](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **会話内で使う**
 
 どのチャットアプリでも、依頼の前にプロンプトを貼り付けて使えます。継続的な指示として保存していない場合は、新しい会話ごとに貼り付けてください。
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**バージョンと品質**
+
+原文の言語: 简体中文 · 本文のバージョン: 1.1.0 · 更新日: 2026-09-08
+
+AI 支援翻訳・未校閲
+
+プロンプトの効果は体系的に検証されていません。サイトのテストは機能のみを確認しています。
 
 </details>
 
@@ -1567,7 +1679,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 分野を横断し、研究課題・方法・数式・図表と証拠の適用範囲を読み解きます。
 
-[プロンプトを読む ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=ja) · `v1.0.0`
+[プロンプトを読む](https://j-i-n-g-l-i.github.io/prompt-folio/ja/project/paper-mentor/) · `v1.1.0`
 
 **プロンプト**
 
@@ -1597,63 +1709,75 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 8. 構成とまとめ
 重要度に応じて説明量を配分し、明確な見出しと適切な例で各部分をつないでください。専門的で明快かつ落ち着いた文体を保ち、反復や抽象的な評価を避けてください。恣意的な字数上限は設けず、実際の出力制約を守ってください。最後に「問い―方法―証拠―適用範囲」をまとめ、理解を確認する問いを少数示してください。分割する場合は説明済みと未説明の範囲を明記し、未完了の内容を完了と扱わないでください。
+
+9. 個別の追加質問
+特定の数式、図表、用語、局所的な問題について質問された場合は、その点を深く説明し、必要な背景だけを補ってください。全体の枠組みは論文全体の解説依頼に用い、追加質問のたびに全項目を繰り返さないでください。
 ```
 
-プロジェクトが個人設定を継承するとは限りません。ChatGPT のプロジェクト指示は全体設定を上書きし、Gemini の個人指示は Gems に適用されません。必要な好みは明示的に追加してください。
-
-[Direct First を含める ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=ja)
+[「要点から伝える」を追加](https://j-i-n-g-l-i.github.io/prompt-folio/ja/project/paper-mentor/?with=direct-first)
 
 **論文読解を始める**
 
+背景情報は任意です。不要な項目を削除し、プロジェクト指示の保存と論文の添付後に貼り付けてください。
+
 ```text
 提示した論文を、研究課題、方法、主要な数式と図表、証拠、限界、実行可能な次の研究まで詳しく解説してください。技術的詳細の前に必要な背景を説明してください。
+
+私の知識: [初学者 / 基礎知識あり / 研究者]
+目的: [理解 / 再現 / 発表 / 研究計画]
+重点: [数式 / 図表 / 研究設計 / 論証]
+回答言語: [言語]
+
+空欄の項目は論文と現在の会話に基づいて判断してください。
 ```
 
-### 設定する場所
+### 使い方
 
-特定のテーマ、プロジェクト、繰り返す作業に向けた専用の指示。
+プロジェクトが個人設定を継承するとは限りません。ChatGPT のプロジェクト指示は全体設定を上書きし、Gemini の個人指示は Gems に適用されません。必要な好みは明示的に追加してください。
 
 **ChatGPT · Projects**
 
 プロジェクトを開く → 三点メニュー → プロジェクト設定で指示を貼り付けます。
 
-[公式の設定資料](https://help.openai.com/en/articles/10169521)
+[公式の設定資料](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 プロジェクトを開く → プロジェクト指示を設定 → 貼り付け → 保存。
 
-[公式の設定資料](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[公式の設定資料](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 ウェブ版で Gems → 新しい Gem → 名前と指示を入力 → 保存。
 
-[公式の設定資料](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[公式の設定資料](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 プロジェクトを開く → 設定 → コンテキストで指示を編集します。
 
-[公式の設定資料](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[公式の設定資料](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **会話内で使う**
 
 どのチャットアプリでも、依頼の前にプロンプトを貼り付けて使えます。継続的な指示として保存していない場合は、新しい会話ごとに貼り付けてください。
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**バージョンと品質**
+
+原文の言語: 简体中文 · 本文のバージョン: 1.1.0 · 更新日: 2026-09-08
+
+AI 支援翻訳・未校閲
+
+プロンプトの効果は体系的に検証されていません。サイトのテストは機能のみを確認しています。
 
 </details>
-
-### 補足
 
 メニューや利用可否は、端末、アカウント、地域、機能の提供状況により異なります。下記の英語表記は照合用です。設定が見つからない場合は会話内で使い、新しいチャットで試してください。
 
 組み合わせる場合は特に、入力先の文字数上限を確認してください。自動で切り詰めず全文をコピーします。必要なら重要な条件を残して短くしてください。
 
 中国語の原文を基準としています。翻訳にはAIを使用しており、独立した母語話者による校閲は受けていません。サービスと言語を横断した効果の体系的な評価は未実施です。修正や使用感の共有を歓迎します。
-
-公式ドキュメント確認日：2026-09-08。すべてのアプリで設定を実測したわけではありません。
 
 [ハンドブック ↑](#languages)
 
@@ -1668,22 +1792,20 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 ## 유용한 프롬프트를, 가까이에.
 
-작업 방식에 맞춘 작은 안내서. 적용 범위를 고르고 필요한 프롬프트를 찾으세요.
+[안내서](https://j-i-n-g-l-i.github.io/prompt-folio/ko/)
 
-[안내서 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=ko)
+화면과 프롬프트 본문의 언어를 바꿉니다. AI의 응답 언어는 대화에서 지정합니다.
 
 일반 선호는 계정 지침에, 전용 작업은 프로젝트나 맞춤형 도우미에 저장하세요. 기능이 없으면 새 대화 첫 부분에 붙여 넣으세요. 이 사이트는 AI 설정을 변경하지 않습니다.
 
-이 분류는 의도한 적용 범위를 나타내며 API 메시지 역할이나 높은 시스템 권한을 뜻하지 않습니다. 실제 동작은 서비스에 따라 다릅니다.
-
 <details>
-<summary><strong>사용자 수준 · Direct First</strong></summary>
+<summary><strong>사용자 수준 · 핵심부터 말하기</strong></summary>
 
-### Direct First
+### 핵심부터 말하기
 
 AI 답변에서 반복되는 상투적인 대조 표현을 줄이기 위한 다국어 글쓰기 선호입니다.
 
-[프롬프트 읽기 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=ko) · `v1.1.0`
+[프롬프트 읽기](https://j-i-n-g-l-i.github.io/prompt-folio/ko/user/direct-first/) · `v1.1.0`
 
 **프롬프트**
 
@@ -1697,47 +1819,51 @@ AI 답변에서 반복되는 상투적인 대조 표현을 줄이기 위한 다�
 이 선호는 표현 방식에만 해당합니다. 답변의 완전성, 분석의 깊이, 필요한 세부 사항은 유지해 주세요. 이 지침을 따르고 있다고 설명하지 말고 글 자체에 반영해 주세요.
 ```
 
+### 사용 방법
+
 한 가지 버전만 복사하면 됩니다. 이 선호는 모든 답변 언어에 적용되며, 기존의 언어 요청도 그대로 유효합니다.
-
-### 설정 위치
-
-아래 입력란에 프롬프트를 붙여 넣으세요. 유용한 기존 선호를 유지한 뒤 저장하거나 제출하고, 스위치가 있으면 활성화하세요.
 
 **ChatGPT**
 
 설정 → 개인 맞춤 설정 → 맞춤형 지침. 맞춤 설정을 활성화하세요. 모바일에서는 설정의 ChatGPT 맞춤 설정을 찾아보세요.
 
-[공식 설정 참고 자료](https://help.openai.com/en/articles/8096356)
+[공식 설정 참고 자료](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 설정 → Claude 지침. 계정 전체에 적용되는 지침에 추가하세요.
 
-[공식 설정 참고 자료](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[공식 설정 참고 자료](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 설정 및 도움말 → 개인화 인텔리전스 → Gemini 지침 → 추가 → 제출. 개인 계정용이며 Gems는 별도 지침이 필요합니다. 메뉴 이름은 다를 수 있습니다.
 
-[공식 설정 참고 자료](https://support.google.com/gemini/answer/16598625)
+[공식 설정 참고 자료](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 설정 및 기타(…) → 채팅 설정 → 개인 설정 → 사용자 지정 지침 → 지침 편집 → 지침 저장. Microsoft 365 환경에 해당하는 경로입니다.
 
-[공식 설정 참고 자료](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[공식 설정 참고 자료](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 프로필 아이콘 → 개인화 → 자기소개. 답변 선호로 추가하세요.
 
-[공식 설정 참고 자료](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[공식 설정 참고 자료](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **대화에서 사용하기**
 
 어떤 채팅 앱에서든 질문 전에 프롬프트를 붙여 넣으세요. 지속적인 지침으로 저장하지 않았다면 새 대화를 시작할 때마다 다시 붙여 넣으세요.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**버전 및 품질**
+
+원문 언어: 简体中文 · 본문 버전: 1.1.0 · 업데이트: 2026-09-08
+
+AI 보조 번역 · 미검수
+
+프롬프트 효과는 체계적으로 평가하지 않았습니다. 사이트 테스트는 기능만 확인합니다.
 
 </details>
 
@@ -1748,7 +1874,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 여러 학문의 연구 질문, 방법, 수식, 도표와 근거의 적용 범위를 연결합니다.
 
-[프롬프트 읽기 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=ko) · `v1.0.0`
+[프롬프트 읽기](https://j-i-n-g-l-i.github.io/prompt-folio/ko/project/paper-mentor/) · `v1.1.0`
 
 **프롬프트**
 
@@ -1778,63 +1904,75 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 8. 구성과 종합
 중요도에 따라 분량을 배분하고 명확한 소제목과 유용한 예시를 사용하세요. 전문적이고 명료하며 차분한 문체를 유지하고 반복과 공허한 평가를 피하세요. 임의의 분량 제한을 두지 않되 실제 출력 제약을 존중하세요. 끝으로 질문–방법–근거–적용 범위를 종합하고 이해를 점검할 질문을 몇 가지 제시하세요. 설명을 나누면 다룬 부분과 남은 부분을 명시하고 미완료 내용을 완료했다고 하지 마세요.
+
+9. 특정 부분에 대한 후속 질문
+사용자가 특정 수식, 도표, 용어나 부분적인 문제를 물으면 해당 내용을 깊이 설명하고 필요한 맥락만 보충하세요. 전체 프레임워크는 논문 전체 해설 요청에 적용하고, 후속 질문마다 모든 절을 반복하지 마세요.
 ```
 
-프로젝트가 계정 선호를 항상 상속하지는 않습니다. ChatGPT 프로젝트 지침은 전역 지침을 덮어쓰며 Gemini 개인 지침은 Gems에 적용되지 않습니다. 필요한 선호를 명시적으로 추가하세요.
-
-[Direct First 함께 포함 ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=ko)
+[「핵심부터 말하기」 추가](https://j-i-n-g-l-i.github.io/prompt-folio/ko/project/paper-mentor/?with=direct-first)
 
 **논문 읽기 시작**
 
+배경 정보는 선택 사항입니다. 불필요한 항목을 지우고 프로젝트 지침 저장 및 논문 첨부 후 붙여 넣으세요.
+
 ```text
 제공한 논문의 연구 질문, 방법, 핵심 수식과 도표, 근거, 한계, 실행 가능한 후속 연구를 깊이 설명해 주세요. 전문 세부 사항 전에 필요한 배경지식을 소개해 주세요.
+
+배경지식: [초보자 / 기초 지식 있음 / 연구자]
+목표: [이해 / 재현 / 발표 / 연구 계획]
+중점: [수식 / 도표 / 연구 설계 / 논증]
+응답 언어: [언어]
+
+빈 항목은 논문과 현재 대화를 바탕으로 적절히 판단하세요.
 ```
 
-### 설정 위치
+### 사용 방법
 
-특정 주제, 프로젝트 또는 반복 작업을 위한 전용 지침.
+프로젝트가 계정 선호를 항상 상속하지는 않습니다. ChatGPT 프로젝트 지침은 전역 지침을 덮어쓰며 Gemini 개인 지침은 Gems에 적용되지 않습니다. 필요한 선호를 명시적으로 추가하세요.
 
 **ChatGPT · Projects**
 
 프로젝트 열기 → 점 세 개 메뉴 → 프로젝트 설정에서 지침을 붙여 넣으세요.
 
-[공식 설정 참고 자료](https://help.openai.com/en/articles/10169521)
+[공식 설정 참고 자료](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 프로젝트 열기 → 프로젝트 지침 설정 → 붙여 넣기 → 저장.
 
-[공식 설정 참고 자료](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[공식 설정 참고 자료](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 웹에서 Gems → 새 Gem → 이름과 지침 입력 → 저장.
 
-[공식 설정 참고 자료](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[공식 설정 참고 자료](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 프로젝트 열기 → 설정 → 컨텍스트에서 지침을 편집하세요.
 
-[공식 설정 참고 자료](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[공식 설정 참고 자료](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **대화에서 사용하기**
 
 어떤 채팅 앱에서든 질문 전에 프롬프트를 붙여 넣으세요. 지속적인 지침으로 저장하지 않았다면 새 대화를 시작할 때마다 다시 붙여 넣으세요.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**버전 및 품질**
+
+원문 언어: 简体中文 · 본문 버전: 1.1.0 · 업데이트: 2026-09-08
+
+AI 보조 번역 · 미검수
+
+프롬프트 효과는 체계적으로 평가하지 않았습니다. 사이트 테스트는 기능만 확인합니다.
 
 </details>
-
-### 참고 사항
 
 메뉴와 사용 가능 여부는 기기, 계정, 지역 및 기능 출시 상황에 따라 달라집니다. 아래 영어 메뉴 이름은 참고용입니다. 설정을 찾을 수 없으면 대화 방식을 사용하고 새 채팅에서 시험해 보세요.
 
 특히 프롬프트를 합칠 때 대상 입력란의 길이 제한을 확인하세요. 자동으로 자르지 않고 전체 내용을 복사합니다. 필요하면 핵심 조건을 유지하며 줄이세요.
 
 중국어 원문을 기준으로 합니다. 번역에는 AI가 사용되었으며 독립적인 원어민 검수를 받지 않았습니다. 서비스 및 언어 간 효과를 체계적으로 평가하지 않았습니다. 수정과 사용 의견을 환영합니다.
-
-공식 문서 확인일: 2026-09-08. 모든 앱의 설정을 직접 시험하지는 않았습니다.
 
 [안내서 ↑](#languages)
 
@@ -1849,22 +1987,20 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 ## تعليمات مفيدة، في متناولك.
 
-دليل صغير لطريقتك في العمل. اختر النطاق واعثر على التعليمات المناسبة.
+[الدليل](https://j-i-n-g-l-i.github.io/prompt-folio/ar/)
 
-[الدليل ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=ar)
+يغيّر لغة الواجهة ونص التعليمات. تحدد المحادثة لغة إجابة الذكاء الاصطناعي.
 
 احفظ التفضيلات العامة في تعليمات الحساب والعمل المتخصص في مشروع أو مساعد مخصص. عند غياب الميزة، الصق التعليمات في بداية محادثة جديدة. هذا الموقع لا يغيّر إعدادات الذكاء الاصطناعي لديك.
 
-تصف هذه الفئات نطاق الاستخدام المقصود، ولا تمثل أدوار رسائل API أو صلاحيات نظام أعلى. يعتمد التطبيق الفعلي على الخدمة.
-
 <details>
-<summary><strong>مستوى المستخدم · Direct First</strong></summary>
+<summary><strong>مستوى المستخدم · الفكرة الأساسية أولًا</strong></summary>
 
-### Direct First
+### الفكرة الأساسية أولًا
 
 تفضيل للكتابة بلغات متعددة لتقليل التراكيب التقابلية المتكررة في ردود الذكاء الاصطناعي.
 
-[قراءة التعليمات ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=ar) · `v1.1.0`
+[قراءة التعليمات](https://j-i-n-g-l-i.github.io/prompt-folio/ar/user/direct-first/) · `v1.1.0`
 
 **نص التعليمات**
 
@@ -1878,47 +2014,51 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 تتعلق هذه التفضيلات بطريقة التعبير فقط. حافظ على اكتمال الإجابة وعمق التحليل والتفاصيل اللازمة. اجعل أسلوب الكتابة يعكسها دون الإعلان عن التزامك بهذه التعليمات.
 ```
 
+### طريقة الاستخدام
+
 انسخ نسخة واحدة فقط. يسري التفضيل على جميع لغات الرد، وتبقى طلباتك المعتادة بشأن اللغة سارية.
-
-### أين تستخدمها
-
-الصق التعليمات في الحقل الموضّح. احتفظ بتفضيلاتك الحالية المفيدة، ثم احفظ أو أرسل وفعّل الإعداد إن وُجد مفتاح لتفعيله.
 
 **ChatGPT**
 
 الإعدادات ← التخصيص ← التعليمات المخصصة. فعّل التخصيص. على الهاتف، ابحث عن تخصيص ChatGPT ضمن الإعدادات.
 
-[مراجع الإعداد الرسمية](https://help.openai.com/en/articles/8096356)
+[مراجع الإعداد الرسمية](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 الإعدادات ← تعليمات Claude. أضفها إلى التعليمات التي تسري على حسابك.
 
-[مراجع الإعداد الرسمية](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[مراجع الإعداد الرسمية](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 الإعدادات والمساعدة ← الذكاء الشخصي ← تعليمات Gemini ← إضافة ← إرسال. للحسابات الشخصية؛ تحتاج Gems إلى تعليمات مستقلة. قد تختلف المسميات.
 
-[مراجع الإعداد الرسمية](https://support.google.com/gemini/answer/16598625)
+[مراجع الإعداد الرسمية](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 الإعدادات والمزيد (…) ← إعدادات المحادثة ← التخصيص ← التعليمات المخصصة ← تحرير التعليمات ← حفظ التعليمات. هذا المسار خاص بتجربة Microsoft 365.
 
-[مراجع الإعداد الرسمية](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[مراجع الإعداد الرسمية](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 أيقونة الملف الشخصي ← تخصيص ← عرّف بنفسك. أضف النص كتفضيل للردود.
 
-[مراجع الإعداد الرسمية](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[مراجع الإعداد الرسمية](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **الاستخدام داخل المحادثة**
 
 في أي تطبيق محادثة، الصق التعليمات قبل طلبك. كرّر ذلك في كل محادثة جديدة ما لم تكن قد حفظتها كتعليمات دائمة.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**الإصدار والجودة**
+
+لغة الأصل: 简体中文 · إصدار المحتوى: 1.1.0 · آخر تحديث: 2026-09-08
+
+ترجمة بمساعدة الذكاء الاصطناعي · غير مراجعة
+
+لم تُقيّم فعالية التعليمات بصورة منهجية. اختبارات الموقع تتحقق من وظائفه فقط.
 
 </details>
 
@@ -1929,7 +2069,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 قراءة عابرة للتخصصات تربط السؤال والمنهج والمعادلات والأشكال بحدود الأدلة.
 
-[قراءة التعليمات ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=ar) · `v1.0.0`
+[قراءة التعليمات](https://j-i-n-g-l-i.github.io/prompt-folio/ar/project/paper-mentor/) · `v1.1.0`
 
 **نص التعليمات**
 
@@ -1959,63 +2099,75 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 8. التنظيم والخلاصة
 وزّع التفصيل بحسب الأهمية، بعناوين واضحة وأمثلة مفيدة. حافظ على أسلوب مهني وواضح وهادئ، وتجنّب التكرار والأحكام الفارغة. لا تفرض حدًا اعتباطيًا للكلمات، مع احترام قيود الإخراج الفعلية. اختم بخلاصة للسؤال والمنهج والأدلة ونطاق الصلاحية، ثم بعض أسئلة التحقق من الفهم. عند تقسيم الشرح، حدّد ما غُطّي وما تبقى دون وصف التغطية الناقصة بأنها مكتملة.
+
+9. أسئلة المتابعة المحددة
+عندما يسأل المستخدم عن معادلة أو شكل أو مصطلح أو نقطة معينة، تناولها بعمق مع السياق الضروري فقط. استخدم الإطار الكامل لطلبات شرح الورقة كاملة، وتجنب تكرار جميع الأقسام مع كل سؤال متابعة.
 ```
 
-لا ترث المشاريع تفضيلات الحساب دائمًا. تتقدم تعليمات مشروع ChatGPT على التعليمات العامة؛ ولا تنطبق تعليمات Gemini الشخصية على Gems. أدرج التفضيلات المطلوبة صراحةً.
-
-[تضمين Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=ar)
+[إضافة «الفكرة الأساسية أولًا»](https://j-i-n-g-l-i.github.io/prompt-folio/ar/project/paper-mentor/?with=direct-first)
 
 **بدء قراءة بحث**
 
+السياق اختياري؛ احذف الحقول غير المستخدمة. الصق النص بعد حفظ تعليمات المشروع وإرفاق الورقة.
+
 ```text
 اشرح البحث الذي قدمته بعمق: السؤال والمنهج والمعادلات والأشكال الرئيسية والأدلة والقيود والخطوات التالية الممكنة. قدّم الخلفية اللازمة قبل التفاصيل المتخصصة.
+
+خلفيتي: [مبتدئ / معرفة سابقة / باحث]
+هدفي: [الفهم / إعادة الإنتاج / العرض / تخطيط البحث]
+التركيز: [المعادلات / الأشكال / تصميم الدراسة / الحجج]
+لغة الإجابة: [اللغة]
+
+للحقول الفارغة، قرر بناءً على الورقة ومحادثتنا.
 ```
 
-### أين تستخدمها
+### طريقة الاستخدام
 
-تعليمات مخصصة لموضوع أو مشروع أو سير عمل متكرر.
+لا ترث المشاريع تفضيلات الحساب دائمًا. تتقدم تعليمات مشروع ChatGPT على التعليمات العامة؛ ولا تنطبق تعليمات Gemini الشخصية على Gems. أدرج التفضيلات المطلوبة صراحةً.
 
 **ChatGPT · Projects**
 
 افتح المشروع ← قائمة النقاط الثلاث ← إعدادات المشروع، ثم أضف التعليمات.
 
-[مراجع الإعداد الرسمية](https://help.openai.com/en/articles/10169521)
+[مراجع الإعداد الرسمية](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 افتح المشروع ← تعيين تعليمات المشروع ← الصق النص ← احفظ.
 
-[مراجع الإعداد الرسمية](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[مراجع الإعداد الرسمية](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 على الويب: Gems ← إنشاء Gem ← الاسم والتعليمات ← حفظ.
 
-[مراجع الإعداد الرسمية](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[مراجع الإعداد الرسمية](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 افتح المشروع ← الإعدادات ← السياق، ثم عدّل التعليمات.
 
-[مراجع الإعداد الرسمية](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[مراجع الإعداد الرسمية](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **الاستخدام داخل المحادثة**
 
 في أي تطبيق محادثة، الصق التعليمات قبل طلبك. كرّر ذلك في كل محادثة جديدة ما لم تكن قد حفظتها كتعليمات دائمة.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**الإصدار والجودة**
+
+لغة الأصل: 简体中文 · إصدار المحتوى: 1.1.0 · آخر تحديث: 2026-09-08
+
+ترجمة بمساعدة الذكاء الاصطناعي · غير مراجعة
+
+لم تُقيّم فعالية التعليمات بصورة منهجية. اختبارات الموقع تتحقق من وظائفه فقط.
 
 </details>
-
-### ملاحظات
 
 قد تختلف القوائم والتوافر بحسب الجهاز والحساب والمنطقة ومرحلة الإطلاق. أسماء القوائم الإنجليزية أدناه مرجع للمطابقة. عند غياب الإعداد، استخدم طريقة المحادثة. اختبر النتيجة في محادثة جديدة.
 
 تحقّق من حد طول الحقل، خصوصًا عند جمع التعليمات. يُنسخ النص كاملًا دون اقتطاع تلقائي. اختصر عند الحاجة مع الحفاظ على القيود الأساسية.
 
 النص الصيني الأصلي هو المرجع. أُعدّت الترجمات بمساعدة الذكاء الاصطناعي ولم تخضع لمراجعة مستقلة من متحدثين أصليين. لم تُقيَّم الفعالية منهجيًا عبر الخدمات واللغات؛ نرحب بالتصحيحات والملاحظات.
-
-تاريخ مراجعة الوثائق الرسمية: 2026-09-08. لم تُختبر الإعدادات في جميع التطبيقات.
 
 [الدليل ↑](#languages)
 
@@ -2030,22 +2182,20 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 ## उपयोगी प्रॉम्प्ट, आपकी पहुँच में।
 
-आपके काम करने के तरीके के लिए एक छोटी पुस्तिका। दायरा चुनें और अपना प्रॉम्प्ट खोजें।
+[पुस्तिका](https://j-i-n-g-l-i.github.io/prompt-folio/hi/)
 
-[पुस्तिका ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=hi)
+इंटरफ़ेस और प्रॉम्प्ट की भाषा बदलती है। AI के उत्तर की भाषा बातचीत में तय होती है।
 
 सामान्य प्राथमिकताएँ खाते में और विशेष कार्यप्रवाह परियोजना या कस्टम सहायक में सहेजें। सुविधा न हो तो नए चैट की शुरुआत में प्रॉम्प्ट चिपकाएँ। यह साइट आपकी AI सेटिंग नहीं बदलती।
 
-ये श्रेणियाँ इच्छित उपयोग का दायरा बताती हैं, API संदेश भूमिकाएँ या उच्चतर सिस्टम अधिकार नहीं। वास्तविक व्यवहार सेवा पर निर्भर करता है।
-
 <details>
-<summary><strong>उपयोगकर्ता स्तर · Direct First</strong></summary>
+<summary><strong>उपयोगकर्ता स्तर · पहले मुख्य बात</strong></summary>
 
-### Direct First
+### पहले मुख्य बात
 
 AI के उत्तरों में बार-बार आने वाले तयशुदा विरोधात्मक वाक्यों को कम करने के लिए बहुभाषी लेखन प्राथमिकता।
 
-[प्रॉम्प्ट पढ़ें ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=hi) · `v1.1.0`
+[प्रॉम्प्ट पढ़ें](https://j-i-n-g-l-i.github.io/prompt-folio/hi/user/direct-first/) · `v1.1.0`
 
 **निर्देश**
 
@@ -2059,47 +2209,51 @@ AI के उत्तरों में बार-बार आने वा�
 ये प्राथमिकताएँ केवल अभिव्यक्ति के तरीके से संबंधित हैं। उत्तर की पूर्णता, विश्लेषण की गहराई और ज़रूरी विवरण बनाए रखें। अपने लेखन में इस शैली को अपनाएँ; उत्तर में यह न बताएँ कि आप इन निर्देशों का पालन कर रहे हैं।
 ```
 
+### उपयोग कैसे करें
+
 केवल एक संस्करण कॉपी करें। यह प्राथमिकता सभी उत्तर भाषाओं पर लागू होती है; भाषा से जुड़े आपके सामान्य अनुरोध भी लागू रहेंगे।
-
-### कहाँ इस्तेमाल करें
-
-नीचे बताए गए फ़ील्ड में निर्देश पेस्ट करें। मौजूदा उपयोगी प्राथमिकताएँ बनाए रखें, फिर सहेजें या सबमिट करें और स्विच उपलब्ध होने पर सेटिंग चालू करें।
 
 **ChatGPT**
 
 सेटिंग → वैयक्तिकरण → कस्टम निर्देश। कस्टमाइज़ेशन चालू करें। मोबाइल पर सेटिंग में ChatGPT को कस्टमाइज़ करें विकल्प खोजें।
 
-[आधिकारिक सेटअप संदर्भ](https://help.openai.com/en/articles/8096356)
+[आधिकारिक सेटअप संदर्भ](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 सेटिंग → Claude के लिए निर्देश। इसे पूरे खाते पर लागू होने वाले निर्देशों में जोड़ें।
 
-[आधिकारिक सेटअप संदर्भ](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[आधिकारिक सेटअप संदर्भ](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 सेटिंग और सहायता → व्यक्तिगत इंटेलिजेंस → Gemini के निर्देश → जोड़ें → भेजें। व्यक्तिगत खातों के लिए; Gems को अलग निर्देश चाहिए। नाम बदल सकते हैं।
 
-[आधिकारिक सेटअप संदर्भ](https://support.google.com/gemini/answer/16598625)
+[आधिकारिक सेटअप संदर्भ](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 सेटिंग और अधिक (…) → चैट सेटिंग → वैयक्तिकरण → कस्टम निर्देश → निर्देश संपादित करें → निर्देश सहेजें। यह रास्ता Microsoft 365 वाले अनुभव के लिए है।
 
-[आधिकारिक सेटअप संदर्भ](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[आधिकारिक सेटअप संदर्भ](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 प्रोफ़ाइल आइकन → वैयक्तिकृत करें → अपना परिचय दें। पाठ को उत्तर देने की प्राथमिकता के रूप में जोड़ें।
 
-[आधिकारिक सेटअप संदर्भ](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[आधिकारिक सेटअप संदर्भ](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **बातचीत में इस्तेमाल करें**
 
 किसी भी चैट ऐप में अपने सवाल से पहले निर्देश पेस्ट करें। जब तक इसे स्थायी निर्देश के रूप में सहेजा न हो, हर नई बातचीत में इसे दोहराएँ।
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**संस्करण और गुणवत्ता**
+
+मूल भाषा: 简体中文 · पाठ का संस्करण: 1.1.0 · अपडेट: 2026-09-08
+
+AI-सहायता प्राप्त · समीक्षा नहीं हुई
+
+प्रॉम्प्ट की प्रभावशीलता का व्यवस्थित मूल्यांकन नहीं हुआ है। वेबसाइट परीक्षण केवल कार्यक्षमता जाँचते हैं।
 
 </details>
 
@@ -2110,7 +2264,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 विभिन्न विषयों के शोध में प्रश्न, विधि, समीकरण, चित्र और साक्ष्य की सीमाएँ समझें।
 
-[प्रॉम्प्ट पढ़ें ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=hi) · `v1.0.0`
+[प्रॉम्प्ट पढ़ें](https://j-i-n-g-l-i.github.io/prompt-folio/hi/project/paper-mentor/) · `v1.1.0`
 
 **निर्देश**
 
@@ -2140,63 +2294,75 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 8. संगठन और सार
 महत्त्व के अनुसार विस्तार दें, स्पष्ट शीर्षक और उपयोगी उदाहरण अपनाएँ। पेशेवर, स्पष्ट और शांत शैली रखें; दोहराव और खोखले मूल्यांकन से बचें। मनमानी शब्द-सीमा न रखें, पर वास्तविक आउटपुट सीमाओं का सम्मान करें। अंत में प्रश्न–विधि–साक्ष्य–लागू होने का दायरा संक्षेप में जोड़ें और समझ जाँचने के कुछ प्रश्न दें। व्याख्या बाँटनी पड़े तो पूरे किए गए और शेष भाग स्पष्ट करें; अधूरे कवरेज को पूरा न बताएँ।
+
+9. विशिष्ट अनुवर्ती प्रश्न
+उपयोगकर्ता किसी खास समीकरण, चित्र, शब्द या सीमित मुद्दे के बारे में पूछे तो उसी पर गहराई से उत्तर दें और केवल आवश्यक संदर्भ जोड़ें। पूरे शोधपत्र की व्याख्या के लिए संपूर्ण ढाँचा अपनाएँ; हर अनुवर्ती प्रश्न पर सभी खंड न दोहराएँ।
 ```
 
-परियोजनाएँ हमेशा खाते की प्राथमिकताएँ नहीं अपनातीं। ChatGPT परियोजना निर्देश वैश्विक निर्देशों को बदल देते हैं; Gemini के व्यक्तिगत निर्देश Gems पर लागू नहीं होते। आवश्यक प्राथमिकताएँ स्पष्ट रूप से जोड़ें।
-
-[Direct First शामिल करें ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=hi)
+[पहले मुख्य बात शामिल करें](https://j-i-n-g-l-i.github.io/prompt-folio/hi/project/paper-mentor/?with=direct-first)
 
 **शोधपत्र पढ़ना शुरू करें**
 
+संदर्भ वैकल्पिक है; अनुपयोगी फ़ील्ड हटा दें। परियोजना निर्देश सहेजने और शोधपत्र संलग्न करने के बाद चिपकाएँ।
+
 ```text
 दिए गए शोधपत्र का प्रश्न, विधि, प्रमुख समीकरण और चित्र, साक्ष्य, सीमाएँ तथा संभव अगले कदम गहराई से समझाएँ। तकनीकी विवरण से पहले आवश्यक पृष्ठभूमि दें।
+
+मेरी पृष्ठभूमि: [शुरुआती / कुछ जानकारी / शोधकर्ता]
+मेरा लक्ष्य: [समझना / पुनरुत्पादन / प्रस्तुति / शोध योजना]
+मुख्य ध्यान: [समीकरण / चित्र / अध्ययन डिज़ाइन / तर्क]
+उत्तर की भाषा: [भाषा]
+
+खाली फ़ील्ड के लिए शोधपत्र और बातचीत के आधार पर निर्णय लें।
 ```
 
-### कहाँ इस्तेमाल करें
+### उपयोग कैसे करें
 
-किसी विषय, परियोजना या दोहराए जाने वाले काम के लिए विशेष निर्देश।
+परियोजनाएँ हमेशा खाते की प्राथमिकताएँ नहीं अपनातीं। ChatGPT परियोजना निर्देश वैश्विक निर्देशों को बदल देते हैं; Gemini के व्यक्तिगत निर्देश Gems पर लागू नहीं होते। आवश्यक प्राथमिकताएँ स्पष्ट रूप से जोड़ें।
 
 **ChatGPT · Projects**
 
 परियोजना खोलें → तीन बिंदु वाला मेन्यू → परियोजना सेटिंग में निर्देश चिपकाएँ।
 
-[आधिकारिक सेटअप संदर्भ](https://help.openai.com/en/articles/10169521)
+[आधिकारिक सेटअप संदर्भ](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 परियोजना खोलें → परियोजना निर्देश सेट करें → चिपकाएँ → सहेजें।
 
-[आधिकारिक सेटअप संदर्भ](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[आधिकारिक सेटअप संदर्भ](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 वेब पर: Gems → नया Gem → नाम और निर्देश → सहेजें।
 
-[आधिकारिक सेटअप संदर्भ](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[आधिकारिक सेटअप संदर्भ](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 परियोजना खोलें → सेटिंग → संदर्भ में निर्देश संपादित करें।
 
-[आधिकारिक सेटअप संदर्भ](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[आधिकारिक सेटअप संदर्भ](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **बातचीत में इस्तेमाल करें**
 
 किसी भी चैट ऐप में अपने सवाल से पहले निर्देश पेस्ट करें। जब तक इसे स्थायी निर्देश के रूप में सहेजा न हो, हर नई बातचीत में इसे दोहराएँ।
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**संस्करण और गुणवत्ता**
+
+मूल भाषा: 简体中文 · पाठ का संस्करण: 1.1.0 · अपडेट: 2026-09-08
+
+AI-सहायता प्राप्त · समीक्षा नहीं हुई
+
+प्रॉम्प्ट की प्रभावशीलता का व्यवस्थित मूल्यांकन नहीं हुआ है। वेबसाइट परीक्षण केवल कार्यक्षमता जाँचते हैं।
 
 </details>
-
-### कुछ बातें
 
 मेन्यू और उपलब्धता डिवाइस, खाते, क्षेत्र और फ़ीचर जारी होने की स्थिति के अनुसार बदल सकते हैं। नीचे अंग्रेज़ी नाम पहचान में मदद के लिए हैं। सेटिंग न मिले तो बातचीत वाला तरीका अपनाएँ। नई चैट में जाँचें।
 
 विशेषकर प्रॉम्प्ट जोड़ते समय गंतव्य की लंबाई सीमा जाँचें। पूरा पाठ बिना काटे कॉपी होता है। ज़रूरत हो तो मुख्य शर्तें रखते हुए छोटा करें।
 
 चीनी मूल पाठ संदर्भ है। अनुवाद AI की सहायता से तैयार किए गए हैं और स्वतंत्र मातृभाषी समीक्षा नहीं हुई है। सेवाओं और भाषाओं के बीच प्रभाव का व्यवस्थित मूल्यांकन नहीं हुआ है; सुधार और सुझाव स्वागत योग्य हैं।
-
-आधिकारिक दस्तावेज़ जाँचे गए: 2026-09-08। हर ऐप में सेटिंग का परीक्षण नहीं किया गया।
 
 [पुस्तिका ↑](#languages)
 
@@ -2211,22 +2377,20 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 ## Полезные промпты, под рукой.
 
-Небольшой справочник для вашей работы. Выберите область применения и подходящий промпт.
+[Справочник](https://j-i-n-g-l-i.github.io/prompt-folio/ru/)
 
-[Справочник ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=ru)
+Меняет язык интерфейса и текста промпта. Язык ответа ИИ определяется в разговоре.
 
 Сохраняйте общие предпочтения в аккаунте, специальные сценарии — в проекте или собственном помощнике. Если функции нет, вставьте промпт в начало нового чата. Сайт не меняет настройки вашего ИИ.
 
-Категории описывают область применения, а не роли сообщений API или повышенные системные права. Работа зависит от сервиса.
-
 <details>
-<summary><strong>Уровень пользователя · Direct First</strong></summary>
+<summary><strong>Уровень пользователя · Сначала главное</strong></summary>
 
-### Direct First
+### Сначала главное
 
 Многоязычная настройка стиля для сокращения шаблонных противопоставлений в ответах ИИ.
 
-[Читать промпт ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=ru) · `v1.1.0`
+[Читать промпт](https://j-i-n-g-l-i.github.io/prompt-folio/ru/user/direct-first/) · `v1.1.0`
 
 **Инструкция**
 
@@ -2240,47 +2404,51 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 Эти предпочтения касаются только способа выражения. Сохраняй полноту ответа, глубину анализа и необходимые подробности. Отражай этот стиль в самом тексте, не сообщая, что следуешь данным указаниям.
 ```
 
+### Как использовать
+
 Скопируйте одну версию. Предпочтение действует для всех языков ответа; ваши обычные указания о языке сохраняются.
-
-### Где использовать
-
-Вставьте инструкцию в указанное поле. Сохраните полезные прежние предпочтения, затем сохраните или отправьте изменения и включите настройку, если есть переключатель.
 
 **ChatGPT**
 
 Настройки → Персонализация → Пользовательские инструкции. Включите персонализацию. На телефоне ищите пункт Настроить ChatGPT в настройках.
 
-[Официальные справки по настройке](https://help.openai.com/en/articles/8096356)
+[Официальные справки по настройке](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Настройки → Инструкции для Claude. Добавьте текст в инструкции для всего аккаунта.
 
-[Официальные справки по настройке](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Официальные справки по настройке](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Настройки и справка → персональный интеллект → инструкции для Gemini → добавить → отправить. Личные аккаунты; Gems требуют отдельных инструкций. Названия могут отличаться.
 
-[Официальные справки по настройке](https://support.google.com/gemini/answer/16598625)
+[Официальные справки по настройке](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Настройки и прочее (…) → Настройки чата → Персонализация → Пользовательские инструкции → Изменить инструкции → Сохранить инструкции. Путь для среды Microsoft 365.
 
-[Официальные справки по настройке](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Официальные справки по настройке](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Значок профиля → Персонализация → Расскажите о себе. Добавьте текст как предпочтение для ответов.
 
-[Официальные справки по настройке](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Официальные справки по настройке](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **Использование в беседе**
 
 В любом чат-приложении вставьте инструкцию перед своим запросом. Повторяйте её в каждой новой беседе, если она не сохранена как постоянная инструкция.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Версия и качество**
+
+Язык оригинала: 简体中文 · Версия текста: 1.1.0 · Обновлено: 2026-09-08
+
+Перевод с помощью ИИ · без проверки
+
+Эффективность промптов не оценивалась систематически. Тесты сайта проверяют только функциональность.
 
 </details>
 
@@ -2291,7 +2459,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Междисциплинарный разбор вопросов, методов, формул, иллюстраций и границ доказательств.
 
-[Читать промпт ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=ru) · `v1.0.0`
+[Читать промпт](https://j-i-n-g-l-i.github.io/prompt-folio/ru/project/paper-mentor/) · `v1.1.0`
 
 **Инструкция**
 
@@ -2321,63 +2489,75 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 8. Организация и итог
 Распределяй объём по значимости, используй ясные заголовки и полезные примеры. Сохраняй профессиональный, понятный и спокойный стиль; избегай повторов и пустых оценок. Не вводи произвольный предел слов, соблюдая реальные ограничения вывода. Заверши синтезом «вопрос — метод — свидетельства — область применимости» и несколькими вопросами для проверки понимания. При разделении объяснения обозначай разобранное и оставшееся, не называя незавершённый охват полным.
+
+9. Уточняющие вопросы по отдельным аспектам
+Если пользователь спрашивает о конкретной формуле, иллюстрации, термине или частном вопросе, разберите его подробно, добавив только необходимый контекст. Полную структуру применяйте к разбору всей статьи; не повторяйте все разделы при каждом уточнении.
 ```
 
-Проекты не всегда наследуют предпочтения аккаунта. Инструкции проекта ChatGPT имеют приоритет над глобальными; личные инструкции Gemini не действуют в Gems. Добавляйте нужные предпочтения явно.
-
-[Добавить Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=ru)
+[Добавить «Сначала главное»](https://j-i-n-g-l-i.github.io/prompt-folio/ru/project/paper-mentor/?with=direct-first)
 
 **Начать чтение статьи**
 
+Контекст необязателен; удалите ненужные поля. Вставьте после сохранения инструкций проекта и прикрепления статьи.
+
 ```text
 Подробно объясни предоставленную статью: вопрос, метод, ключевые формулы и иллюстрации, свидетельства, ограничения и выполнимые дальнейшие шаги. Перед техническими деталями введи необходимые понятия.
+
+Моя подготовка: [новичок / базовые знания / исследователь]
+Моя цель: [понять / воспроизвести / представить / спланировать исследование]
+Особое внимание: [формулы / иллюстрации / дизайн исследования / аргументы]
+Язык ответа: [язык]
+
+Для незаполненных полей ориентируйтесь на статью и наш разговор.
 ```
 
-### Где использовать
+### Как использовать
 
-Специальные инструкции для темы, проекта или повторяющейся задачи.
+Проекты не всегда наследуют предпочтения аккаунта. Инструкции проекта ChatGPT имеют приоритет над глобальными; личные инструкции Gemini не действуют в Gems. Добавляйте нужные предпочтения явно.
 
 **ChatGPT · Projects**
 
 Откройте проект → меню с тремя точками → настройки проекта и вставьте инструкции.
 
-[Официальные справки по настройке](https://help.openai.com/en/articles/10169521)
+[Официальные справки по настройке](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Откройте проект → задать инструкции проекта → вставьте текст → сохраните.
 
-[Официальные справки по настройке](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Официальные справки по настройке](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 В веб-версии: Gems → новый Gem → имя и инструкции → сохранить.
 
-[Официальные справки по настройке](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Официальные справки по настройке](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Откройте проект → настройки → контекст и измените инструкции.
 
-[Официальные справки по настройке](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Официальные справки по настройке](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **Использование в беседе**
 
 В любом чат-приложении вставьте инструкцию перед своим запросом. Повторяйте её в каждой новой беседе, если она не сохранена как постоянная инструкция.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Версия и качество**
+
+Язык оригинала: 简体中文 · Версия текста: 1.1.0 · Обновлено: 2026-09-08
+
+Перевод с помощью ИИ · без проверки
+
+Эффективность промптов не оценивалась систематически. Тесты сайта проверяют только функциональность.
 
 </details>
-
-### Примечания
 
 Меню и доступность зависят от устройства, аккаунта, региона и этапа запуска. Английские названия ниже служат ориентиром. Если настройки нет, используйте способ для беседы. Проверяйте в новом чате.
 
 Проверьте ограничение длины поля, особенно при объединении промптов. Копируется весь текст без обрезки. При необходимости сократите его, сохранив ключевые требования.
 
 Эталоном служит китайский оригинал. Переводы подготовлены с помощью ИИ и не прошли независимую проверку носителями языка. Эффективность не оценивалась систематически по сервисам и языкам; исправления и отзывы приветствуются.
-
-Официальная документация проверена: 2026-09-08. Настройки не тестировались во всех приложениях.
 
 [Справочник ↑](#languages)
 
@@ -2392,22 +2572,20 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 ## Prompt berguna, selalu tersedia.
 
-Buku panduan kecil untuk cara Anda bekerja. Pilih cakupan dan temukan prompt yang tepat.
+[Buku panduan](https://j-i-n-g-l-i.github.io/prompt-folio/id/)
 
-[Buku panduan ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=id)
+Mengubah bahasa antarmuka dan teks prompt. Percakapan menentukan bahasa jawaban AI.
 
 Simpan preferensi umum di akun dan alur khusus di proyek atau asisten kustom. Tanpa fitur tersebut, tempel prompt di awal percakapan baru. Situs ini tidak mengubah pengaturan AI Anda.
 
-Kategori ini menunjukkan cakupan penggunaan, bukan peran pesan API atau hak sistem yang lebih tinggi. Perilaku sebenarnya bergantung pada layanan.
-
 <details>
-<summary><strong>Tingkat pengguna · Direct First</strong></summary>
+<summary><strong>Tingkat pengguna · Inti lebih dahulu</strong></summary>
 
-### Direct First
+### Inti lebih dahulu
 
 Preferensi penulisan multibahasa untuk mengurangi kontras berulang yang terasa berpola dalam jawaban AI.
 
-[Baca prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=id) · `v1.1.0`
+[Baca prompt](https://j-i-n-g-l-i.github.io/prompt-folio/id/user/direct-first/) · `v1.1.0`
 
 **Instruksi**
 
@@ -2421,47 +2599,51 @@ Sampaikan gagasan utama secara langsung, lalu jelaskan alasan, bukti, atau impli
 Preferensi ini hanya menyangkut cara penyampaian. Pertahankan kelengkapan jawaban, kedalaman analisis, dan rincian yang diperlukan. Wujudkan gaya ini dalam tulisan tanpa mengumumkan bahwa Anda sedang mengikuti instruksi ini.
 ```
 
+### Cara menggunakan
+
 Salin satu versi saja. Preferensi berlaku untuk semua bahasa jawaban; permintaan bahasa Anda yang biasa tetap berlaku.
-
-### Tempat menggunakannya
-
-Tempelkan instruksi pada kolom yang ditunjukkan. Pertahankan preferensi lama yang berguna, lalu simpan atau kirim dan aktifkan pengaturan jika tersedia.
 
 **ChatGPT**
 
 Setelan → Personalisasi → Instruksi khusus. Aktifkan penyesuaian. Di ponsel, cari Sesuaikan ChatGPT pada setelan.
 
-[Referensi pengaturan resmi](https://help.openai.com/en/articles/8096356)
+[Referensi pengaturan resmi](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Setelan → Instruksi untuk Claude. Tambahkan ke instruksi tingkat akun.
 
-[Referensi pengaturan resmi](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Referensi pengaturan resmi](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Setelan dan bantuan → kecerdasan pribadi → instruksi untuk Gemini → tambah → kirim. Akun pribadi; Gems memerlukan instruksi terpisah. Nama menu dapat berbeda.
 
-[Referensi pengaturan resmi](https://support.google.com/gemini/answer/16598625)
+[Referensi pengaturan resmi](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Setelan dan lainnya (…) → Setelan chat → Personalisasi → Instruksi khusus → Edit instruksi → Simpan instruksi. Jalur ini untuk pengalaman Microsoft 365.
 
-[Referensi pengaturan resmi](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Referensi pengaturan resmi](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Ikon profil → Personalisasi → Perkenalkan diri. Tambahkan teks sebagai preferensi jawaban.
 
-[Referensi pengaturan resmi](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Referensi pengaturan resmi](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **Gunakan dalam percakapan**
 
 Di aplikasi chat apa pun, tempelkan instruksi sebelum permintaan Anda. Ulangi pada setiap percakapan baru kecuali sudah disimpan sebagai instruksi permanen.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versi dan kualitas**
+
+Bahasa sumber: 简体中文 · Versi konten: 1.1.0 · Diperbarui: 2026-09-08
+
+Dibantu AI · belum ditinjau
+
+Efektivitas prompt belum dievaluasi secara sistematis. Pengujian situs hanya memeriksa fungsionalitas.
 
 </details>
 
@@ -2472,7 +2654,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Pembacaan lintas disiplin yang menghubungkan pertanyaan, metode, persamaan, gambar, dan batas bukti.
 
-[Baca prompt ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=id) · `v1.0.0`
+[Baca prompt](https://j-i-n-g-l-i.github.io/prompt-folio/id/project/paper-mentor/) · `v1.1.0`
 
 **Instruksi**
 
@@ -2502,63 +2684,75 @@ Jelaskan nilai ilmiah dan praktis. Usulkan beberapa studi spesifik yang layak di
 
 8. Penyusunan dan sintesis
 Alokasikan ruang berdasarkan pentingnya isi, dengan judul jelas dan contoh berguna. Gunakan gaya profesional, jelas, dan tenang; hindari pengulangan serta penilaian kosong. Jangan menetapkan batas kata sewenang-wenang, sambil menghormati batas keluaran yang nyata. Akhiri dengan sintesis pertanyaan–metode–bukti–cakupan dan beberapa pertanyaan pemahaman. Jika penjelasan dibagi, tandai bagian yang selesai dan yang tersisa tanpa menyatakan cakupan yang belum selesai sebagai lengkap.
+
+9. Pertanyaan lanjutan terfokus
+Saat pengguna menanyakan persamaan, gambar, istilah, atau persoalan tertentu, jelaskan secara mendalam dengan konteks seperlunya. Gunakan kerangka lengkap untuk permintaan pembahasan seluruh makalah; hindari mengulang semua bagian pada setiap pertanyaan lanjutan.
 ```
 
-Proyek tidak selalu mewarisi preferensi akun. Instruksi proyek ChatGPT mengesampingkan instruksi global; instruksi pribadi Gemini tidak berlaku untuk Gems. Tambahkan preferensi yang diperlukan secara eksplisit.
-
-[Sertakan Direct First ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=id)
+[Sertakan Inti lebih dahulu](https://j-i-n-g-l-i.github.io/prompt-folio/id/project/paper-mentor/?with=direct-first)
 
 **Mulai membaca makalah**
 
+Konteks opsional; hapus bidang yang tidak digunakan. Tempel setelah menyimpan instruksi proyek dan melampirkan makalah.
+
 ```text
 Jelaskan makalah yang saya berikan secara mendalam: pertanyaan, metode, persamaan dan gambar utama, bukti, keterbatasan, serta langkah lanjutan yang layak. Perkenalkan latar belakang sebelum detail teknis.
+
+Latar belakang saya: [pemula / memiliki dasar / peneliti]
+Tujuan saya: [memahami / mereproduksi / mempresentasikan / merencanakan penelitian]
+Fokus: [persamaan / gambar / desain studi / argumen]
+Bahasa jawaban: [bahasa]
+
+Untuk bidang kosong, sesuaikan dengan makalah dan percakapan kita.
 ```
 
-### Tempat menggunakannya
+### Cara menggunakan
 
-Instruksi khusus untuk topik, proyek, atau alur kerja berulang.
+Proyek tidak selalu mewarisi preferensi akun. Instruksi proyek ChatGPT mengesampingkan instruksi global; instruksi pribadi Gemini tidak berlaku untuk Gems. Tambahkan preferensi yang diperlukan secara eksplisit.
 
 **ChatGPT · Projects**
 
 Buka proyek → menu tiga titik → pengaturan proyek, lalu tempel instruksi.
 
-[Referensi pengaturan resmi](https://help.openai.com/en/articles/10169521)
+[Referensi pengaturan resmi](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Buka proyek → tetapkan instruksi proyek → tempel prompt → simpan.
 
-[Referensi pengaturan resmi](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Referensi pengaturan resmi](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 Di web: Gems → Gem baru → nama dan instruksi → simpan.
 
-[Referensi pengaturan resmi](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Referensi pengaturan resmi](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Buka proyek → pengaturan → konteks, lalu edit instruksi.
 
-[Referensi pengaturan resmi](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Referensi pengaturan resmi](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **Gunakan dalam percakapan**
 
 Di aplikasi chat apa pun, tempelkan instruksi sebelum permintaan Anda. Ulangi pada setiap percakapan baru kecuali sudah disimpan sebagai instruksi permanen.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versi dan kualitas**
+
+Bahasa sumber: 简体中文 · Versi konten: 1.1.0 · Diperbarui: 2026-09-08
+
+Dibantu AI · belum ditinjau
+
+Efektivitas prompt belum dievaluasi secara sistematis. Pengujian situs hanya memeriksa fungsionalitas.
 
 </details>
-
-### Beberapa catatan
 
 Menu dan ketersediaan berbeda menurut perangkat, akun, wilayah, dan peluncuran fitur. Nama menu bahasa Inggris di bawah adalah acuan. Jika pengaturan tidak ada, gunakan metode percakapan. Uji dalam chat baru.
 
 Periksa batas panjang kolom tujuan, terutama saat menggabungkan prompt. Teks disalin utuh tanpa pemotongan otomatis. Ringkas bila perlu sambil mempertahankan batasan penting.
 
 Teks asli bahasa Mandarin menjadi acuan. Terjemahan dibantu AI dan belum ditinjau secara independen oleh penutur asli. Efektivitas belum dievaluasi secara sistematis lintas layanan dan bahasa; koreksi dan masukan sangat dihargai.
-
-Dokumentasi resmi diperiksa: 2026-09-08. Pengaturan belum diuji pada semua aplikasi.
 
 [Buku panduan ↑](#languages)
 
@@ -2573,22 +2767,20 @@ Dokumentasi resmi diperiksa: 2026-09-08. Pengaturan belum diuji pada semua aplik
 
 ## Yararlı promptlar, elinizin altında.
 
-Çalışma biçiminiz için küçük bir el kitabı. Bir kapsam seçin, uygun promptu bulun.
+[El kitabı](https://j-i-n-g-l-i.github.io/prompt-folio/tr/)
 
-[El kitabı ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=tr)
+Arayüz ve istem metninin dilini değiştirir. Yapay zekânın yanıt dili konuşmada belirlenir.
 
 Genel tercihleri hesapta, özel iş akışlarını proje veya özel asistanda saklayın. Özellik yoksa promptu yeni sohbetin başına yapıştırın. Bu site AI ayarlarınızı değiştirmez.
 
-Bu kategoriler amaçlanan kullanım kapsamını belirtir; API mesaj rollerini veya yüksek sistem yetkilerini temsil etmez. Gerçek davranış hizmete bağlıdır.
-
 <details>
-<summary><strong>Kullanıcı düzeyi · Direct First</strong></summary>
+<summary><strong>Kullanıcı düzeyi · Önce ana fikir</strong></summary>
 
-### Direct First
+### Önce ana fikir
 
 Yapay zekâ yanıtlarındaki tekrarlayan karşıtlık kalıplarını azaltmak için çok dilli bir yazım tercihi.
 
-[Promptu oku ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=tr) · `v1.1.0`
+[Promptu oku](https://j-i-n-g-l-i.github.io/prompt-folio/tr/user/direct-first/) · `v1.1.0`
 
 **Talimat**
 
@@ -2602,47 +2794,51 @@ Aşağıdaki yazım tercihlerini tüm dillerdeki yanıtlarına uygula.
 Bu tercihler yalnızca anlatım biçimiyle ilgilidir. Yanıtın bütünlüğünü, analizin derinliğini ve gerekli ayrıntıları koru. Bu üslubu doğrudan yazına yansıt; yanıtta bu talimatlara uyduğunu açıklama.
 ```
 
+### Nasıl kullanılır
+
 Tek bir sürümü kopyalayın. Tercih tüm yanıt dillerinde geçerlidir; yanıt diliyle ilgili mevcut istekleriniz de geçerliliğini korur.
-
-### Nerede kullanılır
-
-Talimatı belirtilen alana yapıştırın. Yararlı mevcut tercihleri koruyun, ardından kaydedin veya gönderin; varsa ayarı etkinleştirin.
 
 **ChatGPT**
 
 Ayarlar → Kişiselleştirme → Özel talimatlar. Özelleştirmeyi açın. Mobilde ayarlardan ChatGPT’yi özelleştir seçeneğini bulun.
 
-[Resmî kurulum kaynakları](https://help.openai.com/en/articles/8096356)
+[Resmî kurulum kaynakları](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Ayarlar → Claude için talimatlar. Hesap genelindeki talimatlara ekleyin.
 
-[Resmî kurulum kaynakları](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Resmî kurulum kaynakları](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Ayarlar ve yardım → kişisel zekâ → Gemini talimatları → ekle → gönder. Kişisel hesaplar içindir; Gems ayrı talimat ister. Menü adları değişebilir.
 
-[Resmî kurulum kaynakları](https://support.google.com/gemini/answer/16598625)
+[Resmî kurulum kaynakları](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Ayarlar ve diğerleri (…) → Sohbet ayarları → Kişiselleştirme → Özel talimatlar → Talimatları düzenle → Talimatları kaydet. Bu yol Microsoft 365 deneyimi içindir.
 
-[Resmî kurulum kaynakları](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Resmî kurulum kaynakları](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Profil simgesi → Kişiselleştir → Kendinizi tanıtın. Metni yanıt tercihi olarak ekleyin.
 
-[Resmî kurulum kaynakları](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Resmî kurulum kaynakları](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **Sohbette kullanın**
 
 Herhangi bir sohbet uygulamasında talimatı isteğinizden önce yapıştırın. Kalıcı talimat olarak kaydetmediyseniz her yeni sohbette tekrarlayın.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Sürüm ve kalite**
+
+Kaynak dil: 简体中文 · İçerik sürümü: 1.1.0 · Güncellendi: 2026-09-08
+
+Yapay zekâ destekli · incelenmemiş
+
+İstemlerin etkinliği sistematik olarak değerlendirilmemiştir. Site testleri yalnızca işlevselliği doğrular.
 
 </details>
 
@@ -2653,7 +2849,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Disiplinler arası okumada soruları, yöntemleri, denklemleri, görselleri ve kanıt sınırlarını birleştirin.
 
-[Promptu oku ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=tr) · `v1.0.0`
+[Promptu oku](https://j-i-n-g-l-i.github.io/prompt-folio/tr/project/paper-mentor/) · `v1.1.0`
 
 **Talimat**
 
@@ -2683,63 +2879,75 @@ Akademik ve pratik değeri açıklayın. Az sayıda somut ve uygulanabilir çal�
 
 8. Düzen ve sentez
 Ayrıntıyı önemine göre dağıtın; açık başlıklar ve yararlı örnekler kullanın. Profesyonel, açık ve sakin olun; tekrar ve içi boş yargılardan kaçının. Keyfî sözcük sınırı koymayın, gerçek çıktı sınırlarına uyun. Soru–yöntem–kanıt–geçerlilik alanı senteziyle ve birkaç anlama sorusuyla bitirin. Açıklamayı bölüyorsanız tamamlanan ve kalan kısımları belirtin; eksik kapsamı tamamlanmış gibi sunmayın.
+
+9. Odaklı takip soruları
+Kullanıcı belirli bir denklem, şekil, terim veya ayrıntıyı sorarsa onu derinlemesine açıklayın ve yalnızca gerekli bağlamı ekleyin. Tam çerçeveyi makalenin bütünüyle ilgili taleplerde kullanın; her takip sorusunda tüm bölümleri tekrarlamayın.
 ```
 
-Projeler hesap tercihlerini her zaman devralmaz. ChatGPT proje talimatları genel talimatları geçersiz kılar; Gemini kişisel talimatları Gems için geçerli değildir. Gerekli tercihleri açıkça ekleyin.
-
-[Direct First ekle ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=tr)
+[Önce ana fikir ekle](https://j-i-n-g-l-i.github.io/prompt-folio/tr/project/paper-mentor/?with=direct-first)
 
 **Makale okumaya başla**
 
+Bağlam isteğe bağlıdır; kullanılmayan alanları silin. Proje talimatlarını kaydedip makaleyi ekledikten sonra yapıştırın.
+
 ```text
 Verdiğim makaleyi derinlemesine açıklayın: soru, yöntem, temel denklemler ve şekiller, kanıtlar, sınırlamalar ve uygulanabilir sonraki adımlar. Teknik ayrıntılardan önce gerekli arka planı sunun.
+
+Bilgi düzeyim: [başlangıç / temel bilgi / araştırmacı]
+Amacım: [anlamak / yeniden üretmek / sunmak / araştırma planlamak]
+Odak: [denklemler / şekiller / çalışma tasarımı / argümanlar]
+Yanıt dili: [dil]
+
+Boş alanlarda makale ve konuşmamıza göre karar verin.
 ```
 
-### Nerede kullanılır
+### Nasıl kullanılır
 
-Bir konuya, projeye veya tekrarlanan iş akışına yönelik özel talimatlar.
+Projeler hesap tercihlerini her zaman devralmaz. ChatGPT proje talimatları genel talimatları geçersiz kılar; Gemini kişisel talimatları Gems için geçerli değildir. Gerekli tercihleri açıkça ekleyin.
 
 **ChatGPT · Projects**
 
 Projeyi açın → üç nokta menüsü → proje ayarları; talimatları yapıştırın.
 
-[Resmî kurulum kaynakları](https://help.openai.com/en/articles/10169521)
+[Resmî kurulum kaynakları](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Projeyi açın → proje talimatlarını ayarla → promptu yapıştır → kaydet.
 
-[Resmî kurulum kaynakları](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Resmî kurulum kaynakları](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 Web üzerinde: Gems → yeni Gem → ad ve talimatlar → kaydet.
 
-[Resmî kurulum kaynakları](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Resmî kurulum kaynakları](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Projeyi açın → ayarlar → bağlam; talimatları düzenleyin.
 
-[Resmî kurulum kaynakları](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Resmî kurulum kaynakları](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **Sohbette kullanın**
 
 Herhangi bir sohbet uygulamasında talimatı isteğinizden önce yapıştırın. Kalıcı talimat olarak kaydetmediyseniz her yeni sohbette tekrarlayın.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Sürüm ve kalite**
+
+Kaynak dil: 简体中文 · İçerik sürümü: 1.1.0 · Güncellendi: 2026-09-08
+
+Yapay zekâ destekli · incelenmemiş
+
+İstemlerin etkinliği sistematik olarak değerlendirilmemiştir. Site testleri yalnızca işlevselliği doğrular.
 
 </details>
-
-### Birkaç not
 
 Menüler ve kullanılabilirlik cihaz, hesap, bölge ve kullanıma sunulma durumuna göre değişebilir. Aşağıdaki İngilizce adlar başvuru içindir. Ayar bulunmuyorsa sohbet yöntemini kullanın. Yeni bir sohbette deneyin.
 
 Özellikle promptları birleştirirken hedef alanın uzunluk sınırını kontrol edin. Metin kesilmeden bütünüyle kopyalanır. Gerekirse temel koşulları koruyarak kısaltın.
 
 Çince özgün metin esas alınır. Çeviriler yapay zekâ yardımıyla hazırlanmış, bağımsız ana dili konuşurları tarafından incelenmemiştir. Etkililik hizmetler ve diller arasında sistematik olarak değerlendirilmemiştir; düzeltme ve görüşler memnuniyetle karşılanır.
-
-Resmî belgelerin kontrol tarihi: 2026-09-08. Ayarlar her uygulamada denenmemiştir.
 
 [El kitabı ↑](#languages)
 
@@ -2754,22 +2962,20 @@ Resmî belgelerin kontrol tarihi: 2026-09-08. Ayarlar her uygulamada denenmemiş
 
 ## Faydalı promptlar, əlinizin altında.
 
-İş üsulunuz üçün kiçik bir bələdçi. Əhatə dairəsini seçin və uyğun promptu tapın.
+[Bələdçi](https://j-i-n-g-l-i.github.io/prompt-folio/az/)
 
-[Bələdçi ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#view=library&lang=az)
+İnterfeysin və prompt mətninin dilini dəyişir. Süni intellektin cavab dili söhbətdə müəyyən edilir.
 
 Ümumi seçimləri hesabda, xüsusi iş proseslərini layihə və ya fərdi köməkçidə saxlayın. Funksiya yoxdursa, promptu yeni söhbətin əvvəlinə yapışdırın. Bu sayt AI parametrlərinizi dəyişmir.
 
-Bu kateqoriyalar nəzərdə tutulan istifadə dairəsini göstərir, API mesaj rolları və ya yüksək sistem səlahiyyətləri deyil. Faktiki davranış xidmətdən asılıdır.
-
 <details>
-<summary><strong>İstifadəçi səviyyəsi · Direct First</strong></summary>
+<summary><strong>İstifadəçi səviyyəsi · Əvvəl əsas fikir</strong></summary>
 
-### Direct First
+### Əvvəl əsas fikir
 
 Süni intellekt cavablarında təkrarlanan qarşılaşdırma qəliblərini azaltmaq üçün çoxdilli yazı üslubu seçimi.
 
-[Promptu oxu ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=direct-first&lang=az) · `v1.1.0`
+[Promptu oxu](https://j-i-n-g-l-i.github.io/prompt-folio/az/user/direct-first/) · `v1.1.0`
 
 **Təlimat**
 
@@ -2783,47 +2989,51 @@ Aşağıdakı yazı üslubu üstünlüklərini bütün dillərdəki cavablarına
 Bu üstünlüklər yalnız ifadə tərzinə aiddir. Cavabın dolğunluğunu, təhlilin dərinliyini və zəruri detalları qoru. Bu üslubu birbaşa yazıda əks etdir; cavabda bu tələblərə əməl etdiyini bildirmə.
 ```
 
+### İstifadə qaydası
+
 Bir versiyanı köçürmək kifayətdir. Üstünlük bütün cavab dillərinə tətbiq olunur; dillə bağlı adi istəkləriniz də qüvvədə qalır.
-
-### Harada istifadə etməli
-
-Təlimatı göstərilən sahəyə yapışdırın. Mövcud faydalı üstünlükləri saxlayın, sonra yadda saxlayın və ya göndərin; keçid varsa, ayarı aktivləşdirin.
 
 **ChatGPT**
 
 Ayarlar → Fərdiləşdirmə → Fərdi təlimatlar. Fərdiləşdirməni aktiv edin. Mobil cihazda ayarlarda ChatGPT-ni fərdiləşdir seçimini axtarın.
 
-[Rəsmi quraşdırma mənbələri](https://help.openai.com/en/articles/8096356)
+[Rəsmi quraşdırma mənbələri](https://help.openai.com/en/articles/8096356) · 2026-09-08
 
 **Claude**
 
 Ayarlar → Claude üçün təlimatlar. Hesab üzrə ümumi təlimatlara əlavə edin.
 
-[Rəsmi quraşdırma mənbələri](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features)
+[Rəsmi quraşdırma mənbələri](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) · 2026-09-08
 
 **Gemini**
 
 Parametrlər və yardım → şəxsi intellekt → Gemini təlimatları → əlavə et → göndər. Şəxsi hesablar üçündür; Gems ayrıca təlimat tələb edir. Menyu adları fərqlənə bilər.
 
-[Rəsmi quraşdırma mənbələri](https://support.google.com/gemini/answer/16598625)
+[Rəsmi quraşdırma mənbələri](https://support.google.com/gemini/answer/16598625) · 2026-09-08
 
 **Microsoft 365 Copilot**
 
 Ayarlar və digərləri (…) → Çat ayarları → Fərdiləşdirmə → Fərdi təlimatlar → Təlimatları redaktə et → Təlimatları saxla. Bu yol Microsoft 365 mühiti üçündür.
 
-[Rəsmi quraşdırma mənbələri](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you)
+[Rəsmi quraşdırma mənbələri](https://support.microsoft.com/en-us/microsoft-365-copilot/customize-how-microsoft-365-copilot-responds-to-you) · 2026-09-08
 
 **Perplexity**
 
 Profil işarəsi → Fərdiləşdir → Özünüzü təqdim edin. Mətni cavab üslubu üstünlüyü kimi əlavə edin.
 
-[Rəsmi quraşdırma mənbələri](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)
+[Rəsmi quraşdırma mənbələri](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings) · 2026-09-08
 
 **Söhbətdə istifadə**
 
 İstənilən çat tətbiqində sorğunuzdan əvvəl təlimatı yapışdırın. Onu daimi təlimat kimi saxlamamısınızsa, hər yeni söhbətdə təkrarlayın.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versiya və keyfiyyət**
+
+Mənbə dili: 简体中文 · Məzmun versiyası: 1.1.0 · Yenilənib: 2026-09-08
+
+Süni intellekt dəstəyi ilə · yoxlanılmayıb
+
+Promptların effektivliyi sistemli şəkildə qiymətləndirilməyib. Sayt testləri yalnız funksionallığı yoxlayır.
 
 </details>
 
@@ -2834,7 +3044,7 @@ Grok · DeepSeek · Qwen · Kimi · Doubao
 
 Müxtəlif sahələrdə sualı, metodu, düsturları, şəkilləri və sübutların sərhədlərini əlaqələndirin.
 
-[Promptu oxu ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&lang=az) · `v1.0.0`
+[Promptu oxu](https://j-i-n-g-l-i.github.io/prompt-folio/az/project/paper-mentor/) · `v1.1.0`
 
 **Təlimat**
 
@@ -2864,55 +3074,69 @@ Elmi və praktik dəyəri izah edin. Az sayda konkret və həyata keçirilə bil
 
 8. Quruluş və yekun
 Təfərrüatı əhəmiyyətə uyğun bölüşdürün, aydın başlıqlar və faydalı nümunələr işlədin. Peşəkar, anlaşıqlı və təmkinli üslub saxlayın; təkrar və boş qiymətləndirmələrdən çəkinin. Süni söz həddi qoymayın, faktiki çıxış məhdudiyyətlərinə əməl edin. Sual–metod–sübut–tətbiq sərhədlərini birləşdirən yekun və anlamanı yoxlayan bir neçə sualla bitirin. İzah hissələrə bölünürsə, tamamlanan və qalan hissələri göstərin; əhatə edilməmiş məzmunu tamamlanmış saymayın.
+
+9. Konkret davam sualları
+İstifadəçi müəyyən düstur, şəkil, termin və ya ayrı bir məsələ haqqında soruşduqda həmin məqamı dərindən izah edin və yalnız zəruri konteksti əlavə edin. Tam çərçivəni bütöv məqalənin izahı üçün tətbiq edin; hər davam sualında bütün bölmələri təkrarlamayın.
 ```
 
-Layihələr hesab seçimlərini həmişə miras almır. ChatGPT layihə təlimatları ümumi təlimatları əvəz edir; Gemini şəxsi təlimatları Gems üçün keçərli deyil. Lazım olan seçimləri açıq şəkildə əlavə edin.
-
-[Direct First əlavə et ↗](https://j-i-n-g-l-i.github.io/AI-direct-first/#prompt=paper-mentor&with=direct-first&lang=az)
+[Əvvəl əsas fikir əlavə et](https://j-i-n-g-l-i.github.io/prompt-folio/az/project/paper-mentor/?with=direct-first)
 
 **Məqalə oxumağa başla**
 
+Kontekst istəyə bağlıdır; istifadə etmədiyiniz sahələri silin. Layihə təlimatlarını saxlayıb məqaləni əlavə etdikdən sonra yapışdırın.
+
 ```text
 Təqdim etdiyim məqaləni dərindən izah edin: sual, metod, əsas düsturlar və şəkillər, sübutlar, məhdudiyyətlər və mümkün növbəti addımlar. Texniki təfərrüatlardan əvvəl lazımi ilkin bilikləri təqdim edin.
+
+Bilik səviyyəm: [başlanğıc / əsas biliklər / tədqiqatçı]
+Məqsədim: [anlamaq / təkrarlamaq / təqdim etmək / tədqiqat planlamaq]
+Əsas diqqət: [düsturlar / şəkillər / tədqiqat dizaynı / arqumentlər]
+Cavab dili: [dil]
+
+Boş sahələr üçün məqaləyə və söhbətimizə əsasən qərar verin.
 ```
 
-### Harada istifadə etməli
+### İstifadə qaydası
 
-Müəyyən mövzu, layihə və ya təkrarlanan iş prosesi üçün xüsusi təlimatlar.
+Layihələr hesab seçimlərini həmişə miras almır. ChatGPT layihə təlimatları ümumi təlimatları əvəz edir; Gemini şəxsi təlimatları Gems üçün keçərli deyil. Lazım olan seçimləri açıq şəkildə əlavə edin.
 
 **ChatGPT · Projects**
 
 Layihəni açın → üç nöqtəli menyu → layihə parametrləri; təlimatları yapışdırın.
 
-[Rəsmi quraşdırma mənbələri](https://help.openai.com/en/articles/10169521)
+[Rəsmi quraşdırma mənbələri](https://help.openai.com/en/articles/10169521) · 2026-09-08
 
 **Claude · Projects**
 
 Layihəni açın → layihə təlimatlarını təyin et → promptu yapışdır → saxla.
 
-[Rəsmi quraşdırma mənbələri](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)
+[Rəsmi quraşdırma mənbələri](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects) · 2026-09-08
 
 **Gemini · Gems**
 
 Vebdə: Gems → yeni Gem → ad və təlimatlar → saxla.
 
-[Rəsmi quraşdırma mənbələri](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en)
+[Rəsmi quraşdırma mənbələri](https://support.google.com/gemini/answer/15146780?co=GENIE.Platform%3DDesktop&hl=en) · 2026-09-08
 
 **Perplexity · Projects**
 
 Layihəni açın → parametrlər → kontekst; təlimatları redaktə edin.
 
-[Rəsmi quraşdırma mənbələri](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces)
+[Rəsmi quraşdırma mənbələri](https://www.perplexity.ai/help-center/en/articles/10352961-what-are-spaces) · 2026-09-08
 
 **Söhbətdə istifadə**
 
 İstənilən çat tətbiqində sorğunuzdan əvvəl təlimatı yapışdırın. Onu daimi təlimat kimi saxlamamısınızsa, hər yeni söhbətdə təkrarlayın.
 
-Grok · DeepSeek · Qwen · Kimi · Doubao
+**Versiya və keyfiyyət**
+
+Mənbə dili: 简体中文 · Məzmun versiyası: 1.1.0 · Yenilənib: 2026-09-08
+
+Süni intellekt dəstəyi ilə · yoxlanılmayıb
+
+Promptların effektivliyi sistemli şəkildə qiymətləndirilməyib. Sayt testləri yalnız funksionallığı yoxlayır.
 
 </details>
-
-### Qeydlər
 
 Menyular və əlçatanlıq cihaz, hesab, region və funksiyaların təqdim edilmə mərhələsinə görə dəyişə bilər. Aşağıdakı ingiliscə adlar müqayisə üçündür. Ayar yoxdursa, söhbət üsulundan istifadə edin. Yeni çatda sınayın.
 
@@ -2920,29 +3144,28 @@ Xüsusən promptları birləşdirərkən hədəf sahənin uzunluq həddini yoxla
 
 Çin dilindəki orijinal mətn əsas götürülür. Tərcümələr süni intellektin köməyi ilə hazırlanıb və müstəqil ana dili daşıyıcıları tərəfindən yoxlanılmayıb. Effektivlik xidmətlər və dillər üzrə sistemli qiymətləndirilməyib; düzəliş və rəylərinizə açığıq.
 
-Rəsmi sənədlərin yoxlanılma tarixi: 2026-09-08. Ayarlar hər tətbiqdə sınaqdan keçirilməyib.
-
 [Bələdçi ↑](#languages)
 
 </details>
 
 ---
 
-## Maintainers / 维护者
+## Contribute / 参与维护
 
-The website and this README are generated from **one content source**: `content/library.json`. The deployable `index.html` is self-contained; it does not fetch JSON or load third-party scripts at runtime. All translations are AI-assisted and have not been independently reviewed by native speakers. Browser checks validate the site, not prompt effectiveness.
+[Contributing](CONTRIBUTING.md) · [中文维护指南](docs/MAINTAIN.zh-CN.md) · [Deployment / 部署](docs/PUBLISH.zh-CN.md) · [Testing](docs/TESTING.md) · [Evaluation protocol](docs/EVALUATION.md)
 
-网站与 README 从同一个内容源生成，避免不同入口的提示词版本不一致。直接上传已经生成的文件即可部署。编辑内容后运行：
+Content lives in `content/library.json` (site, UI, service guides) and `content/prompts/*.json` (one file per prompt). Names are localized; IDs remain stable. The generator creates this complete README, the offline-capable root page, Markdown exports, and indexable static routes.
 
 ```bash
 python tools/build.py
 python tools/build.py --check
+python tools/test_unit.py
 ```
 
-See [deployment and migration](docs/PUBLISH.zh-CN.md), [content maintenance](docs/MAINTAIN.zh-CN.md), [design system](docs/DESIGN.md), and [verification scope](docs/TESTING.md).
+The supplied workflow validates and builds, runs browser regression checks, synchronizes generated repository files, then deploys `_site/`. Set GitHub Pages to **GitHub Actions**. Changes made through the GitHub editor can therefore update both the website and README after a successful run. See the deployment guide for permissions and protected-branch alternatives.
 
-Legacy `#lang=zh-CN` links open Direct First. New library links explicitly use `#view=library&lang=zh-CN`. The existing repository name and GitHub Pages URL can remain unchanged.
+All translations are AI-assisted unless explicitly marked reviewed. No systematic model-effectiveness evaluation is claimed. The browser tests do not constitute native-language review or real-device certification.
 
 ## License / 许可
 
-MIT — see [LICENSE](LICENSE). The original copyright notice has been preserved.
+MIT — see [LICENSE](LICENSE). The original copyright notice is preserved.

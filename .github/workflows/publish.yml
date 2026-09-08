@@ -1,0 +1,128 @@
+name: Validate, sync and publish
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: folio-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install browser test dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m playwright install --with-deps chromium
+      - name: Build and validate source identity
+        env:
+          EXPECTED_REPOSITORY: ${{ github.repository }}
+        run: |
+          python tools/build.py --repository "$EXPECTED_REPOSITORY"
+          python tools/build.py --check --repository "$EXPECTED_REPOSITORY"
+          node --check templates/app.js
+          python tools/test_unit.py
+          node tools/test_routes.cjs
+      - name: Real local HTTP browser tests
+        run: python tools/test_browser.py --report .test-output/browser.json
+      - name: Keep browser report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-report
+          path: .test-output/browser.json
+          if-no-files-found: ignore
+      - name: Save generated repository files
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-repository-files
+          path: |
+            index.html
+            README.md
+            docs/PAPER-MENTOR.zh-CN.md
+          if-no-files-found: error
+      - name: Package static site
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  sync:
+    name: Sync generated files
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - uses: actions/download-artifact@v4
+        with:
+          name: generated-repository-files
+          path: .generated-sync
+      - name: Synchronize README, root HTML and prompt export
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          actual="$(git rev-parse FETCH_HEAD)"
+          if [ "$actual" != "$EXPECTED_SHA" ]; then
+            echo "A newer main commit exists. Stop this run and let the newest run publish."
+            exit 1
+          fi
+          for file in index.html README.md docs/PAPER-MENTOR.zh-CN.md; do
+            test -f ".generated-sync/$file"
+            cp ".generated-sync/$file" "$file"
+          done
+          git add -- index.html README.md docs/PAPER-MENTOR.zh-CN.md
+          if git diff --cached --quiet; then
+            echo "Generated repository files are already current."
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'chore: synchronize generated handbook files'
+            git push origin HEAD:main
+          fi
+
+  deploy:
+    name: Deploy Pages
+    needs: [build, sync]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy validated static pages
+        id: deployment
+        uses: actions/deploy-pages@v4

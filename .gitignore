@@ -1,7 +1,8 @@
+_site/
 __pycache__/
-*.py[cod]
+*.pyc
 .DS_Store
+Thumbs.db
 .venv/
-venv/
-test-report.json
-!docs/test-report.json
+.test-output/
+.generated-sync/

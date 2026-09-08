@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+ <rect width="1280" height="640" fill="#f6f5f0"/>
+ <g font-family="DejaVu Sans,Arial,sans-serif" fill="#243b30">
+ <g fill="none" transform="translate(72 62) scale(0.9375)"><rect x="1" y="1" width="62" height="62" rx="17" fill="#e9efe6"/><g stroke="#2c5745" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 17c8-3 15-2 21 2 6-4 13-5 21-2v33c-8-3-15-2-21 2-6-4-13-5-21-2Z"/><path d="M32 19v33M18 25c3-.5 6 0 8 1.5M18 33c3-.5 6 0 8 1.5M39 25h7M39 33h7"/><path d="M41 13h7v9l-3.5-2-3.5 2Z" fill="#aac1ac"/></g></g><text x="150" y="104" font-size="34" font-weight="700">Prompt Folio</text>
+ <path d="M72 158H1208" stroke="#dce2d9"/>
+ <text x="72" y="256" font-size="51" font-weight="600">Useful prompts,</text><text x="72" y="324" font-size="51" font-weight="600">within reach.</text>
+ <text x="74" y="383" font-size="22" fill="#647169">Personal preferences. Focused project workflows.</text>
+ <rect x="72" y="437" width="334" height="90" rx="17" fill="#fffefb" stroke="#dce2d9"/>
+ <g fill="none" transform="translate(92 452) scale(0.921875)"><rect x="1" y="1" width="62" height="62" rx="17" fill="#e9efe6"/><g stroke="#2c5745" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="12" width="42" height="40" rx="8"/><path d="M19 24h26M19 40h26"/><rect x="25" y="19" width="7" height="10" rx="3.5" fill="#aac1ac"/><rect x="36" y="35" width="7" height="10" rx="3.5" fill="#aac1ac"/></g></g><text x="172" y="492" font-size="23">User-level</text>
+ <rect x="428" y="437" width="334" height="90" rx="17" fill="#fffefb" stroke="#dce2d9"/>
+ <g fill="none" transform="translate(448 452) scale(0.921875)"><rect x="1" y="1" width="62" height="62" rx="17" fill="#e9efe6"/><g stroke="#2c5745" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 23v-5a5 5 0 0 1 5-5h12l5 6h16a5 5 0 0 1 5 5v23a5 5 0 0 1-5 5H15a5 5 0 0 1-5-5V23Z"/><path d="M10 25h43"/><rect x="21" y="31" width="23" height="15" rx="3" fill="#aac1ac"/><path d="M27 36h11M27 41h7"/></g></g><text x="527" y="492" font-size="23">Project-level</text>
+ <text x="74" y="589" font-size="17" fill="#647169">j-i-n-g-l-i.github.io/prompt-folio/</text>
+ <text x="1208" y="589" text-anchor="end" font-size="18" fill="#647169">15 languages · Ready to copy</text>
+ </g></svg>
