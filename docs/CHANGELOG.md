@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.2 — 2026-09-08
+
+- Corrected both D&D length guidelines in all 14 non-Chinese locales. Word-based languages now use local word counts; Japanese uses 字 and Korean uses 자. The 400–900 narrative range and approximate 300-unit first-response limit remain, without Chinese-character equivalence language.
+- Preserved both Chinese versions and all other prompt content. Rebuilt the offline page, localized readers and complete Markdown downloads.
+
 ## 3.1.1 — 2026-09-08
 
 - Completed all 15 D&D translations alongside the unchanged Simplified Chinese source, covering all 16 interface locales without Chinese fallback. Narration defaults and commands are localized; rules, numerical examples and save fields are preserved.

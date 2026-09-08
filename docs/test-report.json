@@ -1,7 +1,7 @@
 {
-  "release": "3.1.1",
+  "release": "3.1.2",
   "checked_at": "2026-09-08",
-  "baseline_commit": "1d31678f1dc571fb3d4d52f51af48c1b87f4c6be",
+  "baseline_commit": "d5ef4e046a9c2da63e4df69b6d8181ddf8efcb8b",
   "source_build": "passed",
   "generated_html_documents": 130,
   "markdown_exports": 48,
@@ -77,10 +77,10 @@
         "sha256": "b1a42f89dd0c81fb0b1b4aae5dbe52320c8d28bf30fa27462fb1fa297e0fd76f"
       },
       "en": {
-        "characters": 31875,
+        "characters": 31815,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "fce968a5c20367aec630da81d743d056f453a862e3ce79e23ad2d16ab25240be"
+        "sha256": "7aff44c1c1d66185a10e401160382775047a2c75635dcff675a70b5d5ba2d1dc"
       },
       "zh-TW": {
         "characters": 10523,
@@ -89,82 +89,82 @@
         "sha256": "f9fd14f3e679feba7d0dc083e95f9b51f9e8971f102261720285ff29a43461d7"
       },
       "fr": {
-        "characters": 33084,
+        "characters": 33049,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "bb9fce6d35ed3c63e43021e0382cbe2a3256be3e666f81ffc9719c1e1285044f"
+        "sha256": "902fa9671ec1e7b6f9c8dc0ba8294d42a54af6a9ba548ccc8c6525e7bbb69ec3"
       },
       "es": {
-        "characters": 33955,
+        "characters": 33914,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "a6e8e01e8f52bad3b4427504435c5432675e02bee81bdd0b612e917f443e6e9d"
+        "sha256": "2b3273f54901749b8cae688cad5cebaf0540b282a3f1bfe6fff2bea3b1bdc095"
       },
       "de": {
-        "characters": 33354,
+        "characters": 33282,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "97161c7bda5bdd280cddffdaebd87a7ab47b4ccfe0cd5f4c3bdfba3ff01727fa"
+        "sha256": "94410901a3a47928e22b12882d460a5d73ee49affff0d2a51aa78a1c80fa5b26"
       },
       "pt-BR": {
-        "characters": 32229,
+        "characters": 32206,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "e44ed276f0ae4e786b4e3edfb03a0cbb7452259d0a0ef76cdaff6fdcb12bc826"
+        "sha256": "515cabc8e8700a392fad669ea9c0022f7d198f35f3ecf1ae25d0624cd6bf9781"
       },
       "it": {
-        "characters": 37190,
+        "characters": 37095,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "3bbac0a8812cf2aa6d0cb23d4ac566413614df6a33fd15ba50008c5be44dbfa7"
+        "sha256": "23ac0508e89836c03bc9cbcd43fc86e3d36ec2bf97a8550b508ec4803d487ed9"
       },
       "ja": {
-        "characters": 14445,
+        "characters": 14417,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "807f47068e2b0e493cdf83728e2fad6d52c6bf75a3aba8c84b70b1601f3dff2e"
+        "sha256": "5938f75805d29e252a715a81c621424bf5ce3f6bed36fd4a1da1d9955718c716"
       },
       "ko": {
-        "characters": 17037,
+        "characters": 17009,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "d0d20aba6050b973a007dc91f52e07adc64579c7b3e390b86f05a1e72e05ac11"
+        "sha256": "3eecd0f8673df54371f4dd68d6a2a604a19ee4c7d0a709407784910c4ca27925"
       },
       "ar": {
-        "characters": 26875,
+        "characters": 26832,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "206e88a34177f92dfa4a57cce87b669bf9ac5bf41844fe23785b8ecd35db12d3"
+        "sha256": "227b13f2b0162575c69b0736bb15ef6a2477823ffe1b662eea5d82d914c45ffc"
       },
       "hi": {
-        "characters": 29132,
+        "characters": 29086,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "727fb4082b84a882802c60a84098c16ce6c43e0b6daa2e2ee53a0342434fec75"
+        "sha256": "4c592a67006775eaad92fb237172b0d7a6bf7f504a37054b19856b2b83b737ea"
       },
       "ru": {
-        "characters": 34262,
+        "characters": 34204,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "f738eb6ff592a27300e206e5205b2e8fa83c359fba42181a6a326bc3d7982c0c"
+        "sha256": "0d69afa56fa44b96a10a555248567bb7ee308ba41d10ef9ff84148fedca7c61f"
       },
       "id": {
-        "characters": 37804,
+        "characters": 37694,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "064db76ec823045821b78e63e0d90392d917858f1263ad2fe10aac7476c56eb4"
+        "sha256": "9aaa6db48cc4491851adce7ac51cd04ad6eb6c34a83081cec0ccdd1b3de6f503"
       },
       "tr": {
-        "characters": 34187,
+        "characters": 34119,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "7a54fa4cd0f75b21aa3ca3738f892d244e173b8e63c08de9a3f48a9801f37874"
+        "sha256": "c634868ee15ec30e417c506412019179b328d8bf280fe17b1b80496ff745bbc8"
       },
       "az": {
-        "characters": 34442,
+        "characters": 34348,
         "chapters": 11,
         "subsections": 18,
-        "sha256": "7854dfdaa21abded98c54dcdbfa8993840a5c6221b4bbba5baadf56553c0de4f"
+        "sha256": "b26d6c10f330505de012a2dd68345e3ede4858f92d3d5a3e1f4a150a098dfdef"
       }
     },
     "checks": [
@@ -175,7 +175,8 @@
       "No replacement characters or unexpected Chinese-language residue",
       "Source Simplified Chinese SHA-256 unchanged",
       "Target narration language and command consistency reviewed",
-      "Critical rules and private-state recovery clauses reviewed; identified terminology ambiguities corrected"
+      "Critical rules and private-state recovery clauses reviewed; identified terminology ambiguities corrected",
+      "Locale-native length guidance: 14 non-Chinese versions, 28 paragraphs; all other prompt content unchanged"
     ]
   },
   "readme": {
@@ -183,5 +184,49 @@
     "github_limit_bytes": 512000,
     "long_prompt_inline_limit_characters": 8000,
     "full_text_location": "Localized website reader and complete static Markdown exports"
-  }
+  },
+  "length_guidance_audit": {
+    "changed_locales": [
+      "fr",
+      "es",
+      "de",
+      "pt-BR",
+      "it",
+      "ja",
+      "ko",
+      "ar",
+      "hi",
+      "ru",
+      "id",
+      "tr",
+      "az",
+      "en"
+    ],
+    "changed_paragraphs": 28,
+    "units": {
+      "en": "words",
+      "fr": "mots",
+      "es": "palabras",
+      "de": "Wörter",
+      "pt-BR": "palavras",
+      "it": "parole",
+      "ja": "字",
+      "ko": "자",
+      "ar": "كلمة",
+      "hi": "शब्द",
+      "ru": "слов",
+      "id": "kata",
+      "tr": "kelime",
+      "az": "söz"
+    },
+    "simplified_and_traditional_chinese_unchanged": true,
+    "all_other_content_unchanged": true,
+    "narrative_range": [
+      400,
+      900
+    ],
+    "first_response_approximate_maximum": 300,
+    "interpretation": "Counts use each locale’s native unit directly; no Chinese-character equivalence conversion."
+  },
+  "visual_review_release": "3.1.1"
 }
